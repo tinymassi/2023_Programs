@@ -1,0 +1,113 @@
+[33mcommit a3edcf15999907fd65e08494bab3ff956b5b6ead[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Fri Feb 24 13:50:22 2023 -0800
+
+    first working version
+
+[33mcommit 286ca261fd0ef4738cad405c3effde54c40608a2[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Fri Feb 17 13:55:49 2023 -0800
+
+    this save was made on windows computer using vscode
+
+[33mcommit a0a95e30c61b86a63aa54e9082176506981d969c[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Fri Feb 17 13:23:34 2023 -0800
+
+    changed even more things for cleanliness
+
+[33mcommit ecc842d1cdc4514b7c97e2b3618c71a9ec776caa[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Fri Feb 17 13:17:46 2023 -0800
+
+    addedmore  stuff
+
+[33mcommit e1d7e0d34927ac78d01f43b6e616891386ad2a12[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Fri Feb 17 13:14:54 2023 -0800
+
+    added stuff
+
+[33mcommit 4f5beab8954b3d7b88da2e5aff13ede0e1716439[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Fri Feb 17 12:53:11 2023 -0800
+
+    moved file to as02 folder
+
+[33mcommit 893f6f0fffabf96bb1d6d4209f912bb60238e861[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Fri Feb 17 12:47:57 2023 -0800
+
+    Final working version
+
+[33mcommit e4088addeafae49272994efbcf5a29d0fc4e09cc[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Tue Feb 14 16:40:56 2023 -0800
+
+    current working version of as02
+
+[33mcommit cd4a01b42f13c4a394d0bf6f3e37e85878c90819[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 20:27:30 2023 -0800
+
+    Changed program little bit
+
+[33mcommit 77b507146373b8dc13c03b956508101ac7762747[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 20:17:32 2023 -0800
+
+    Changed program to output 0.000000 given no input
+
+[33mcommit a79bca0aed3e73580b37b8852cf868d4b8ecaada[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 19:45:38 2023 -0800
+
+    Bot still mad
+
+[33mcommit a6a950165584ff5be248f02a23cb9975f0bc8a2f[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 19:37:16 2023 -0800
+
+    Changed program to take in entire input
+
+[33mcommit b46ee7adfc5d38f01ba037983a9f99633b7b5831[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 17:05:35 2023 -0800
+
+    Put in setprecision
+
+[33mcommit 553bd1955eb6d9d3825d8342de83cfdd492e13c8[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 16:47:22 2023 -0800
+
+    Changed the fact that I was using the whole std lib
+
+[33mcommit 28aa730ef5b77f6653b946c01f5d6c33d12065d6[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 16:09:08 2023 -0800
+
+    Initialized a variable because the bot didnt like it
+
+[33mcommit 1bf530eb4e33b845937b453023adaa44115bafbe[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 15:54:48 2023 -0800
+
+    simplified the program because the bot didnt like it
+
+[33mcommit 547f097e6b446e0cdfd79677ad176e3d9179efd7[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 15:33:25 2023 -0800
+
+    Added more details to as01
+
+[33mcommit dec4ca98141ca0884e5dfcb6a5f15f2c6f59a68a[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Sat Feb 4 15:21:34 2023 -0800
+
+    First working version of as01
+
+[33mcommit f27aec81e063265bf0a32eb6f6b54d6ce451cd54[m
+Author: mginella (Massimo Ginella) <mginella@jeff.cis.cabrillo.edu>
+Date:   Wed Feb 1 16:20:08 2023 -0800
+
+    new file for Rosalind DNA

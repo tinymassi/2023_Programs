@@ -1,0 +1,45 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cctype>
+#include <iomanip>
+int main(){
+  std::string line;
+  std::string word;
+  double num_words = 0.0;
+  int num_sentences = 0;
+  double num_chars = 0.0;
+  int wrd_chk = 0;
+  //std::cout << argv[0] << std::endl;
+  //std::cout << argv[1] << std::endl;
+  //std::cout << argv[2] << std::endl;
+  while (getline(std::cin, line)){
+    std::istringstream new_file(line);
+    while(getline(new_file, word, ' ')){
+  //for (int i = 1; i < argc; ++i){
+   //std::ifstream file_input(argv[i]);
+    //std::cout << argv[2] << std::endl;
+   //while (file_input >> word){
+      wrd_chk = 0;
+      bool sen_check = false;
+      for (int i = 0; i < word.size(); i++){
+        if (((word[i] == '.' || word[i] == '!' || word[i] == '?') && !sen_check) && (isalpha(word[i - 1]))){
+         sen_check = true;
+         num_sentences++;
+        }
+        if (isalpha(word[i])){
+          num_chars++;
+          wrd_chk++;
+        }
+      }
+
+        if (wrd_chk > 0){num_words++;}
+      //std::cout << word << " " <<  num_chars << "c " << num_words << "w " << num_sentences << "s" << std::endl;
+      }
+    }
+  }
+  //std::cout << argc <<std::endl;
+  std::cout << " " <<  num_chars << "c " << num_words << "w " << num_sentences << "s" << std::endl;
+  std::cout << std::fixed << std::setprecision(4) << (4.71 * (num_chars / num_words)) + ((0.5 * (num_words / num_sentences)) - 21.43) << std::endl;
+  return 0;
+}

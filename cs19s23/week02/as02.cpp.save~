@@ -1,0 +1,25 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int word_counter(string input_string){
+  int word_count = 0;
+
+
+
+
+}
+
+
+int main(int argc,char **argv){
+
+  for (int i = 1; i < argc; i++){
+    std::ifstream file_input(argv[i]);
+    for (std::string line; std::getline(file_input, line){
+      word_counter(line);
+    }
+
+  }
+
+  return 0;
+}

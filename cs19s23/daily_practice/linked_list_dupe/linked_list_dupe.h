@@ -24,14 +24,20 @@ template <typename T> class LinkedList {
         tail = new_tail;  // mark the tail Node* as new_tail
     }
 
-    void remove(Node* position) {
+    Node* remove(Node* position) {
     }
 
     void find_dupe() {
-        Node* start = new Node();
-        start = head;
-        T current_val;
-
+        Node* current = new Node();  // start current node in list
+        current = head;  // set current at start of list
+        T current_val = current->data;  // set the data we look for
+        bool no_dupes = false;  // set to true when successfully removed dupes
+        while (no_dupes) {  // think about this
+            if (current->next->data = current_val) {
+                remove(current->next);
+            }
+            current = current->next;
+        }
     }
 
     private:

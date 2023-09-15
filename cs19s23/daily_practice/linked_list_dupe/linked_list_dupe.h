@@ -30,9 +30,8 @@ template <typename T> class LinkedList {
     void find_dupe() {
         Node* start = new Node();
         start = head;
-        while (start->next != nullptr) {
-            
-        }
+        T current_val;
+
     }
 
     private:

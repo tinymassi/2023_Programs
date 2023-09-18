@@ -1,5 +1,6 @@
 #ifndef LINKED_LIST_DUPE_H
 #define LINKED_LIST_DUPE_H
+#include <vector>
 
 namespace LinkedList {
 
@@ -24,23 +25,7 @@ template <typename T> class LinkedList {
         tail = new_tail;  // mark the tail Node* as new_tail
     }
 
-    Node* remove(Node* position) {
-    }
-
-    void find_dupe() {
-        Node* current = new Node();  // start current node in list
-        current = head;  // set current at start of list
-        T current_val = current->data;  // set the data we look for
-        bool no_dupes = false;  // set to true when successfully removed dupes
-        while (no_dupes) {  // think about this
-            if (current->next->data = current_val) {
-                remove(current->next);
-            }
-            current = current->next;
-        }
-    }
-
-    std::vector<T> return_list(std::vector<T> list) {
+    std::vector<T> return_list(std::vector<T>& list) {
         Node* current = head;
         while (current->next != nullptr) {
             list.push_back(current->data);
@@ -49,6 +34,22 @@ template <typename T> class LinkedList {
 
         return list;
     }
+
+    // Node* remove(Node* position) {
+    // }
+
+    // void find_dupe() {
+    //     Node* current = new Node();  // start current node in list
+    //     current = head;  // set current at start of list
+    //     T current_val = current->data;  // set the data we look for
+    //     bool no_dupes = false;  // set to true when successfully removed dupes
+    //     while (no_dupes) {  // think about this
+    //         if (current->next->data = current_val) {
+    //             remove(current->next);
+    //         }
+    //         current = current->next;
+    //     }
+    // }
 
     private:
         struct Node {
@@ -61,7 +62,6 @@ template <typename T> class LinkedList {
 };
 
 
-
-}
+}  // namespace LinkedList
 
 #endif // LINKED_LIST_DUPE_H

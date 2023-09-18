@@ -21,12 +21,23 @@
         }
     }
 
+
     std::vector<int> list;
     std::string entry;
     std::cout << "Would you like to see your list? (y/n)" << std::endl;
     std::cin >> entry;
     if (entry == "y") {
-      mylist.return_list(list);
+      list = mylist.return_list(list);
+      for (int i = 0; i < list.size(); i++) {
+        if (i == 0) {
+          std::cout << "Your linked list is: " << std::endl;
+          std::cout << "[ " << list[i] << ", ";
+        } else if (i == list.size() - 1) {
+          std::cout << " ]";
+        } else {
+          std::cout << list[i] << ", ";
+        }
+      }
     }
 
 

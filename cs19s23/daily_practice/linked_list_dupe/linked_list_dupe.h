@@ -40,6 +40,17 @@ template <typename T> class LinkedList {
         }
     }
 
+    std::vector<T> return_list () {
+        std::vector<T> list;
+        Node* current = head;
+        while (current->next != nullptr) {
+            list.push_back(current->data);
+            current = current->next;
+        }
+
+        return list;
+    }
+
     private:
         struct Node {
             T data;

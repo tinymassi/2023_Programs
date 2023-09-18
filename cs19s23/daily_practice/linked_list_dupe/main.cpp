@@ -5,6 +5,7 @@
   #include <iostream>
   #include <string>
   #include "linked_list_dupe.h"
+  #include <vector>
   
   int main() {
     std::cout << "Enter integer values to your linked list" << std::endl;
@@ -18,6 +19,14 @@
         if (values == 00000) {
             break;
         }
+    }
+
+    std::vector<int> list;
+    std::string entry;
+    std::cout << "Would you like to see your list? (y/n)" << std::endl;
+    std::cin >> entry;
+    if (entry == "y") {
+      mylist.return_list(list);
     }
 
 

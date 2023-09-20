@@ -21,6 +21,11 @@
         }
     }
 
+    std::cout << "What dupes do you want to remove?" << std::endl;
+    std::string target_val;
+    std::cin >> target_val;
+    mylist.find_dupe(target_val);
+
 
     std::vector<std::string> list;
     std::string entry;
@@ -41,7 +46,6 @@
         k++;
       }
     }
-
 
     return 0;
   }

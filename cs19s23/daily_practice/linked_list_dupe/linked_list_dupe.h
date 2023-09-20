@@ -43,7 +43,18 @@ template <typename T> class LinkedList {
             position->next->prev = current;
         }
         current = current->next;
+        delete position;
         return current;
+    }
+
+    void find_dupe(T target_val) {
+        Node* current = new Node();
+        while (current->next != nullptr) {
+            if (current->data == target_val) {
+                remove(current);
+            }
+            current = current->next;
+        }
     }
 
 

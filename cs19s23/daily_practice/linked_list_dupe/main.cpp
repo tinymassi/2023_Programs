@@ -11,7 +11,7 @@
     std::cout << "Enter integer values to your linked list" << std::endl;
     std::cout << "Enter 'Stop' to finish entering." << std::endl; 
 
-    LinkedList::LinkedList<int> mylist;
+    LinkedList::LinkedList<std::string> mylist;
 
     std::string values;
     while (std::cin >> values) {
@@ -22,7 +22,7 @@
     }
 
 
-    std::vector<int> list;
+    std::vector<std::string> list;
     std::string entry;
     int k = 1;
     std::cout << "Would you like to see your list? (y/n)" << std::endl;

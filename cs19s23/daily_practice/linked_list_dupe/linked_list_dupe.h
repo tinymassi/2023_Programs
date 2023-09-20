@@ -35,21 +35,17 @@ template <typename T> class LinkedList {
         return list;
     }
 
-    // Node* remove(Node* position) {
-    // }
+    Node* remove(Node* position) {
+        Node* current = new Node();
+        current = position->prev;
+        if (position->next != nullptr && position->prev != nullptr) {
+            current->next = position->next;
+            position->next->prev = current;
+        }
+        current = current->next;
+        return current;
+    }
 
-    // void find_dupe() {
-    //     Node* current = new Node();  // start current node in list
-    //     current = head;  // set current at start of list
-    //     T current_val = current->data;  // set the data we look for
-    //     bool no_dupes = false;  // set to true when successfully removed dupes
-    //     while (no_dupes) {  // think about this
-    //         if (current->next->data = current_val) {
-    //             remove(current->next);
-    //         }
-    //         current = current->next;
-    //     }
-    // }
 
     private:
         struct Node {

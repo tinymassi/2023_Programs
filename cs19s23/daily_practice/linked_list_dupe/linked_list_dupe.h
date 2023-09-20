@@ -37,8 +37,8 @@ template <typename T> class LinkedList {
 
     Node* remove(Node* position) {
         Node* current = new Node();
-        current = position->prev;
         if (position->next != nullptr && position->prev != nullptr) {
+            current = position->prev;
             current->next = position->next;
             position->next->prev = current;
         }

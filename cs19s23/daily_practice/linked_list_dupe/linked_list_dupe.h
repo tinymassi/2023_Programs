@@ -35,7 +35,7 @@ template <typename T> class LinkedList {
         return list;
     }
 
-    Node* remove(Node* position) {
+    Node* remove(Node* position) {  // this doesnt work maybe make pop_back, pop_front, pop_mid functions?
         Node* current = new Node();
         if (position->next != nullptr && position->prev != nullptr) {
             current = position->prev;
@@ -47,7 +47,7 @@ template <typename T> class LinkedList {
         return current;
     }
 
-    void find_dupe(T target_val) {
+    void find_dupe(T target_val) {  // this doesnt work
         Node* current = new Node();
         while (current->next != nullptr) {
             if (current->data == target_val) {

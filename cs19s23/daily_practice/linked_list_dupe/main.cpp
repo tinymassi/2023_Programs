@@ -9,14 +9,14 @@
   
   int main() {
     std::cout << "Enter integer values to your linked list" << std::endl;
-    std::cout << "Enter '00000' to finish entering." << std::endl; 
+    std::cout << "Enter 'Stop' to finish entering." << std::endl; 
 
     LinkedList::LinkedList<int> mylist;
 
-    int values = 0;
+    std::string values;
     while (std::cin >> values) {
         mylist.push_back(values);
-        if (values == 00000) {
+        if (values == "Stop") {
             break;
         }
     }
@@ -24,19 +24,21 @@
 
     std::vector<int> list;
     std::string entry;
+    int k = 1;
     std::cout << "Would you like to see your list? (y/n)" << std::endl;
     std::cin >> entry;
     if (entry == "y") {
       list = mylist.return_list(list);
-      for (int i = 0; i < list.size(); i++) {
-        if (i == 0) {
-          std::cout << "Your linked list is: " << std::endl;
-          std::cout << "[ " << list[i] << ", ";
-        } else if (i == list.size() - 1) {
-          std::cout << " ]";
+      for (auto i : list) {
+        if (k == 1) {
+          std::cout << "Your linked list is:" << std::endl;
+          std::cout << "[ " << i << ", ";
+        } else if (k < list.size()) {
+          std::cout << i << ", ";
         } else {
-          std::cout << list[i] << ", ";
+          std::cout << i << " ]" << std::endl;
         }
+        k++;
       }
     }
 

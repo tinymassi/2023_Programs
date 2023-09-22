@@ -24,6 +24,10 @@
     mylist.pop_back();
     mylist.pop_front();
 
+    std::cout << "Enter data value you want to delete: " << std::endl;
+    std::string data;
+    std::cin >> data;
+    mylist.find_dupe(data);
 
     std::vector<std::string> list;
     std::string entry;

@@ -51,20 +51,17 @@ template <typename T> class LinkedList {
     }
 
     Node* pop_mid(Node* deleteable) {
-        Node* curr = New Node();
-        curr = deleteable;
+        Node* curr = new Node();
         if (deleteable == head) {
             pop_front();
         } else if (deleteable == tail) {
             pop_back();
         } else {
-            curr = deleteable;
             curr = deleteable->prev;
             curr->next = deleteable->next;
             deleteable->next->prev = curr;
             delete deleteable;
         }
-
         return curr;
     }
 
@@ -83,15 +80,20 @@ template <typename T> class LinkedList {
         }
     }
 
-    // void find_dupe(T target_val) {  // this doesnt work
-    //     Node* current = new Node();
-    //     while (current->next != nullptr) {
-    //         if (current->data == target_val) {
-    //             remove(current);
-    //         }
-    //         current = current->next;
-    //     }
-    // }
+    void find_dupe(T target_val) {  // this doesnt work
+        Node* current = new Node();
+        if (head != nullptr) {
+            current = head;
+            while (current->next != nullptr) {
+                if (current->data == target_val) {
+                    pop_mid(current);
+                }
+                current = current->next;
+            }
+        } else {
+            throw std::domain_error("List is empty.");
+        }
+    }
 
 
     private:

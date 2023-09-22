@@ -21,10 +21,7 @@
         }
     }
 
-    std::cout << "What dupes do you want to remove?" << std::endl;
-    std::string target_val;
-    std::cin >> target_val;
-    mylist.find_dupe(target_val);
+    mylist.pop_back();
 
 
     std::vector<std::string> list;

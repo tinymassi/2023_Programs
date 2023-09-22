@@ -37,12 +37,12 @@ template <typename T> class LinkedList {
 
     void pop_back() {  // this doesnt work maybe make pop_back, pop_front, pop_mid functions?
         if (tail != nullptr) {
-            if (new_tail->prev == nullptr) {
+            if (tail == head) {
                 delete tail;
                 tail = head = nullptr;
             } else {
                 tail = tail->prev;
-                delete tail;
+                delete tail->next;
                 tail->next = nullptr;
             }
         } else {
@@ -50,18 +50,32 @@ template <typename T> class LinkedList {
         }
     }
 
-    // Node* pop_mid(Node* position) {
+    Node* pop_mid(Node* deleteable) {
+        Node* curr = New Node();
+        curr = deleteable;
+        if (deleteable == head) {
+            pop_front();
+        } else if (deleteable == tail) {
+            pop_back();
+        } else {
+            curr = deleteable;
+            curr = deleteable->prev;
+            curr->next = deleteable->next;
+            deleteable->next->prev = curr;
+            delete deleteable;
+        }
 
-    // }
+        return curr;
+    }
 
     void pop_front() {
         if (head != nullptr) {
-            if (head->next == nullptr) {
+            if (head == tail) {
                 delete head;
                 head = tail = nullptr;
             } else {
                 head = head->next;
-                delete head;
+                delete head->prev;
                 head->prev = nullptr;
             }
         } else {
@@ -69,15 +83,15 @@ template <typename T> class LinkedList {
         }
     }
 
-    void find_dupe(T target_val) {  // this doesnt work
-        Node* current = new Node();
-        while (current->next != nullptr) {
-            if (current->data == target_val) {
-                remove(current);
-            }
-            current = current->next;
-        }
-    }
+    // void find_dupe(T target_val) {  // this doesnt work
+    //     Node* current = new Node();
+    //     while (current->next != nullptr) {
+    //         if (current->data == target_val) {
+    //             remove(current);
+    //         }
+    //         current = current->next;
+    //     }
+    // }
 
 
     private:

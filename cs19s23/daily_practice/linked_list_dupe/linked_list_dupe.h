@@ -36,16 +36,18 @@ template <typename T> class LinkedList {
     }
 
     void pop_back() {  // this doesnt work maybe make pop_back, pop_front, pop_mid functions?
-        Node* new_tail = new Node();
-        new_tail = tail;
-        if (new_tail->prev == nullptr) {
-            delete tail;
+        if (tail != nullptr) {
+            if (new_tail->prev == nullptr) {
+                delete tail;
+                tail = head = nullptr;
+            } else {
+                tail = tail->prev;
+                delete tail;
+                tail->next = nullptr;
+            }
         } else {
-            new_tail = tail->prev;
-            new_tail->next = nullptr;
-            delete tail;
+            throw std::domain_error("Cannot pop back on list as the list is empty.");
         }
-        tail = new_tail;
     }
 
     // Node* pop_mid(Node* position) {
@@ -53,16 +55,18 @@ template <typename T> class LinkedList {
     // }
 
     void pop_front() {
-        Node* new_head = new Node();
-        new_head = head;
-        if (head->next == nullptr) {
-            delete head;
+        if (head != nullptr) {
+            if (head->next == nullptr) {
+                delete head;
+                head = tail = nullptr;
+            } else {
+                head = head->next;
+                delete head;
+                head->prev = nullptr;
+            }
         } else {
-            new_head = head->next;
-            new_head->prev = nullptr;
-            delete head;
+            throw std::domain_error ("Cannot pop_front on list as the list is empty.");
         }
-        head = new_head;
     }
 
     void find_dupe(T target_val) {  // this doesnt work

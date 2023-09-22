@@ -22,6 +22,7 @@
     }
 
     mylist.pop_back();
+    mylist.pop_front();
 
 
     std::vector<std::string> list;

@@ -21,9 +21,6 @@
         }
     }
 
-    mylist.pop_back();
-    mylist.pop_front();
-
     std::cout << "Enter data value you want to delete: " << std::endl;
     std::string data;
     std::cin >> data;

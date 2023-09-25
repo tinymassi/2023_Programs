@@ -11,9 +11,8 @@ int main() {
     key_word = hang::pick_word(words);
     std::cout << key_word << std::endl;
 
-    while (game_is_valid) {
+    while (hang::game_status()) {
         std::cin >> input_char;
-
     }
 
 }

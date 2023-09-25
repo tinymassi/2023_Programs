@@ -9,16 +9,16 @@
 
 namespace hang {
 
-void man_printer() {
+void man_printer(int wrong_count) {
     std::vector<std::string> hang;
-    std::vector<std::string> man = {"O","/|\\","/ \\"};
+    std::vector<std::string> man = {"O","/|\\","/ \\"};  // change so that the man is drawn piece by piece not in 3
     std::string line;
     std::ifstream file("man_file.txt");
     while (std::getline(file, line)) {
         hang.push_back(line);
     }
     for (int i = 0; i < hang.size(); i++) {
-        if (i == 2) {
+        if (i == 2 && wrong_count == 1) {
             hang[i] += man[0];
         } else if (i == 3) {
             hang[i] += man[1];
@@ -26,11 +26,6 @@ void man_printer() {
             hang[i] += man[2];
         }
     }
-
-    for (auto i : hang) {
-        std::cout << i << std::endl;
-    }
-    
 }
 
 // bool is_char_valid(std::string input_char, std::string word) {

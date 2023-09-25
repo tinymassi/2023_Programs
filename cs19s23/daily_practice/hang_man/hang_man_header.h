@@ -11,14 +11,26 @@ namespace hang {
 
 void man_printer() {
     std::vector<std::string> hang;
+    std::vector<std::string> man = {"O","/|\\","/ \\"};
     std::string line;
     std::ifstream file("man_file.txt");
     while (std::getline(file, line)) {
         hang.push_back(line);
     }
+    for (int i = 0; i < hang.size(); i++) {
+        if (i == 2) {
+            hang[i] += man[0];
+        } else if (i == 3) {
+            hang[i] += man[1];
+        } else if (i == 4) {
+            hang[i] += man[2];
+        }
+    }
+
     for (auto i : hang) {
         std::cout << i << std::endl;
     }
+    
 }
 
 // bool is_char_valid(std::string input_char, std::string word) {

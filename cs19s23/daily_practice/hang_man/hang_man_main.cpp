@@ -10,9 +10,10 @@ int main() {
     bool game_is_valid = true;
     key_word = hang::pick_word(words);
     std::cout << key_word << std::endl;
+    hang::man_printer();
 
-    while (hang::game_status()) {
-        std::cin >> input_char;
-    }
+    // while (hang::game_status()) {
+    //     std::cin >> input_char;
+    // }
 
 }

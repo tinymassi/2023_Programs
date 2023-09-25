@@ -10,19 +10,24 @@
 namespace hang {
 
 void man_printer() {
-    std::vector<std::string> man;
+    std::vector<std::string> hang;
     std::string line;
-    std::ifstream("man_file.txt");
-    
+    std::ifstream file("man_file.txt");
+    while (std::getline(file, line)) {
+        hang.push_back(line);
+    }
+    for (auto i : hang) {
+        std::cout << i << std::endl;
+    }
 }
 
 // bool is_char_valid(std::string input_char, std::string word) {
 
 // }
 
-bool game_status() {
+// bool game_status() {
 
-}
+// }
 
 std::string pick_word(std::ifstream& file) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));

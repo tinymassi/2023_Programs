@@ -53,10 +53,23 @@ void man_printer(int wrong_count) {
     }
 }
 
-// bool is_char_valid(std::string input_char, std::string word) {
+void print_word_status (char input, std::string key_word) {
+    
+}
 
-// }
-
+bool is_char_valid(char input_char, std::string key_word) {
+    int count = 0;
+    for (int i = 0; i < key_word.size(); i++) {
+        if (key_word[i] == input_char) {
+            count++;
+        }
+    }
+    if (count > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 std::string pick_word(std::ifstream& file) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));

@@ -12,9 +12,13 @@ namespace hang {
 class hang_man {
 
 public:
+std::vector<std::string> hang;
+
+hang_man(){
+}
 
 void man_printer(int wrong_count) {
-    std::vector<std::string> hang;
+
     std::vector<std::string> man = {"O", "/", "|", "\\", "/ \\"};  // change so that the man is drawn piece by piece not in 3
     std::string line;
     std::ifstream file("man_file.txt");

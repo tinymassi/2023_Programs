@@ -11,8 +11,8 @@ int main() {
     int wrong_count = 0;
     bool game_is_valid = true;
     key_word = game1.pick_word(words);
-    
-    while (wrong_count != 5) {
+
+    while (wrong_count <= 6) {
         wrong_count++;
         game1.man_printer(wrong_count);
     }

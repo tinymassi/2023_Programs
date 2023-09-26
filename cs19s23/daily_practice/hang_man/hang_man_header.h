@@ -15,55 +15,48 @@ public:
 std::vector<std::string> hang;
 
 hang_man(){
-}
-
-void man_printer(int wrong_count) {
-
-    std::vector<std::string> man = {"O", "/", "|", "\\", "/ \\"};  // change so that the man is drawn piece by piece not in 3
     std::string line;
     std::ifstream file("man_file.txt");
     while (std::getline(file, line)) {
         hang.push_back(line);
     }
+}
+
+void print() {
+    for (auto i : hang) {
+        std::cout << i << std::endl;
+    }
+}
+
+void man_printer(int wrong_count) {
     if (wrong_count == 1) {
-        hang[2] += man[0];
-        std::cout << hang[2] << std::endl;
+        hang[2] += "O";
+        print();
     } else if (wrong_count == 2) {
-        hang[3] += " " + man[2];
-        std::cout << hang[3] << std::endl;
+        hang[3] += " ";
+        hang[3] += "|";
+        print();
     } else if (wrong_count == 3) {
         hang[3].pop_back();
         hang[3].pop_back();
         hang[3] += "/|";
-        std::cout << hang[3] << std::endl;
+        print();
     } else if (wrong_count == 4) {
         hang[3] += "\\";
-        std::cout << hang[3] << std::endl;
+        print();
     } else if (wrong_count == 5) {
-        hang[4] += "/ \\";
-        std::cout << hang[4] << std::endl;
+        hang[4] += "/";
+        print();
+    } else if (wrong_count == 6) {
+        hang[4] += " \\";
+        print();
     }
-    // for (int i = 0; i < hang.size(); i++) {
-    //     if (i == 2) {
-    //         hang[i] += man[0];
-    //     } else if (i == 3) {
-    //         hang[i] += man[1] + man[2] + man[3];
-    //     } else if (i == 4) {
-    //         hang[i] += man[4];
-    //     }
-    // }
-    // for (auto i : hang) {
-    //     std::cout << i << std::endl;
-    // }
 }
 
 // bool is_char_valid(std::string input_char, std::string word) {
 
 // }
 
-// bool game_status() {
-
-// }
 
 std::string pick_word(std::ifstream& file) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));

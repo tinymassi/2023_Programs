@@ -17,10 +17,9 @@ int main() {
         std::cin >> input_char;
         if (game1.is_char_valid(input_char, key_word) == false) {
             wrong_count++;
-        } else {
-            
         }
         game1.man_printer(wrong_count);
+        game1.print_word_status(input_char, key_word);
     }
     
 

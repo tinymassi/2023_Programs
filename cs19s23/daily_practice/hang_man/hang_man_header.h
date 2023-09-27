@@ -56,18 +56,28 @@ void man_printer(int wrong_count) {
 }
 
 void print_word_status (char input, std::string key_word) {
+    int count = 0;
     if (num == 0) {
         for (auto i : key_word) {
             word_stat.push_back("_");
         }
     }
+
     num++;
 
     for (int i = 0; i < word_stat.size(); i++) {
         if (key_word[i] == input) {
+            word_stat[i].pop_back();
             word_stat[i] = input;
+            count++;
         }
     }
+
+    for (auto i : word_stat) {
+        std::cout << i;
+    }
+
+    std::cout << std::endl;
 }
 
 bool is_char_valid(char input_char, std::string key_word) {

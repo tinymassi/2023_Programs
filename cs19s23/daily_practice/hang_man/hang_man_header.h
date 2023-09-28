@@ -1,5 +1,6 @@
 #ifndef HANG_MAN_HEADER_H
 #define HANG_MAN_HEADER_H
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <unordered_map>
@@ -55,15 +56,34 @@ void man_printer(int wrong_count) {
     }
 }
 
-void print_word_status (char input, std::string key_word) {
-    int count = 0;
-    if (num == 0) {
-        for (auto i : key_word) {
-            word_stat.push_back("_");
+void print_blank (std::string key_word) {
+    for (auto i : key_word) {
+        word_stat.push_back("_");
+    }
+    for (auto i : word_stat) {
+        std::cout << i;
+    }
+}
+
+bool is_game_over() {
+    for (int i = 0; i < word_stat.size(); i++) {
+        if (word_stat[i] == "_") {
+            return false;
         }
     }
 
-    num++;
+    std::cout << std::endl;
+    std::cout << " ===== YOU WIN! ===== " << std::endl;
+
+    return true;
+}
+
+bool is_char_valid(char input_char) {
+
+}
+
+void print_word_status (char input, std::string key_word) {
+    int count = 0;
 
     for (int i = 0; i < word_stat.size(); i++) {
         if (key_word[i] == input) {

@@ -15,6 +15,7 @@ class hang_man {
 public:
 std::vector<std::string> hang;
 std::vector<std::string> word_stat;
+std::vector<std::string> used_chars;
 int num = 0;
 
 hang_man(){
@@ -78,15 +79,25 @@ bool is_game_over() {
     return true;
 }
 
-bool is_char_valid(char input_char) {
+bool is_char_valid(std::string input_char) {
+    if (input_char.size() > 1) {
+        return false;
+    }
+    
+    for (int i = 0; i < used_chars.size(); i++) {
+        if (used_chars[i] == input_char[0]) {
+            return false;
+        }
+    }
 
+    return true;
 }
 
-void print_word_status (char input, std::string key_word) {
+void print_word_status (std::string input, std::string key_word) {
     int count = 0;
 
     for (int i = 0; i < word_stat.size(); i++) {
-        if (key_word[i] == input) {
+        if (key_word[i] == input[1]) {
             word_stat[i].pop_back();
             word_stat[i] = input;
             count++;
@@ -97,13 +108,15 @@ void print_word_status (char input, std::string key_word) {
         std::cout << i;
     }
 
+    used_chars.push_back(input);
+
     std::cout << std::endl;
 }
 
-bool is_char_valid(char input_char, std::string key_word) {
+bool is_char_in_key(std::string input_char, std::string key_word) {
     int count = 0;
     for (int i = 0; i < key_word.size(); i++) {
-        if (key_word[i] == input_char) {
+        if (key_word[i] == input_char[0]) {
             count++;
         }
     }

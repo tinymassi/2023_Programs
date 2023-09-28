@@ -7,7 +7,7 @@
 int main() {
     hang::hang_man game1;
     std::ifstream words("word_list.txt");
-    char input_char;
+    std::string input_char;
     std::string key_word;
     int wrong_count = 0;
     key_word = game1.pick_word(words);
@@ -24,9 +24,11 @@ int main() {
         while (std::cin >> input_char) {
             if (game1.is_char_valid(input_char) == false) {
                 std::cout << "Your character has already been entered or was invalid. Try again." << std::endl;
+            } else {
+                break;
             }
         }
-        if (game1.is_char_valid(input_char, key_word) == false) {
+        if (game1.is_char_in_key(input_char, key_word) == false) {
             wrong_count++;
             game1.man_printer(wrong_count);
         } else {

@@ -13,6 +13,7 @@ int main() {
     key_word = game1.pick_word(words);
     std::cout << key_word << std::endl;
     transform(key_word.begin(), key_word.end(), key_word.begin(), ::tolower);
+    transform(input_char.begin(), input_char.end(), input_char.begin(), ::tolower);
     game1.print();
     game1.print_blank(key_word);
 
@@ -28,6 +29,7 @@ int main() {
                 break;
             }
         }
+
         if (game1.is_char_in_key(input_char, key_word) == false) {
             wrong_count++;
             game1.man_printer(wrong_count);

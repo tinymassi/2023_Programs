@@ -80,6 +80,8 @@ bool is_char_valid(std::string input_char) {
     if (input_char.size() > 1) {
         return false;
     }
+
+    
    
     for (const std::string& used_char : used_chars) {
         if (input_char == used_char) {

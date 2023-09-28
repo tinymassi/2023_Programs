@@ -73,9 +73,6 @@ bool is_game_over() {
         }
     }
 
-    std::cout << std::endl;
-    std::cout << " ===== YOU WIN! ===== " << std::endl;
-
     return true;
 }
 
@@ -83,9 +80,9 @@ bool is_char_valid(std::string input_char) {
     if (input_char.size() > 1) {
         return false;
     }
-    
-    for (int i = 0; i < used_chars.size(); i++) {
-        if (used_chars[i] == input_char[0]) {
+   
+    for (const std::string& used_char : used_chars) {
+        if (input_char == used_char) {
             return false;
         }
     }
@@ -97,7 +94,7 @@ void print_word_status (std::string input, std::string key_word) {
     int count = 0;
 
     for (int i = 0; i < word_stat.size(); i++) {
-        if (key_word[i] == input[1]) {
+        if (key_word[i] == input[0]) {
             word_stat[i].pop_back();
             word_stat[i] = input;
             count++;

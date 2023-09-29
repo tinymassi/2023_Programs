@@ -4,6 +4,10 @@
 #include <algorithm>
 #include "hang_man_header.h"
 
+#define RESET   "\033[0m"
+#define GREEN   "\033[32m"
+#define RED     "\033[31m"
+
 int main() {
     hang::hang_man game1;
     std::ifstream words("word_list.txt");
@@ -18,15 +22,18 @@ int main() {
     game1.print_used_chars();
 
     while (wrong_count <= 5) {
+        std::cout << std::endl;
         if (game1.is_game_over()) {
             break;
         }
 
+        std::cout << "> ";
         while (std::cin >> input_char) {
             transform(input_char.begin(), input_char.end(), input_char.begin(), ::tolower);
+            std::cout << std::endl;
             if (game1.is_char_valid(input_char) == false) {
                 std::cout << std::endl;
-                std::cout << "Your character has already been entered or was invalid. Try again." << std::endl;
+                std::cout << RED << "Your character has already been entered or was invalid. Try again." << RESET << std::endl;
                 std::cout << std::endl;
             } else {
                 break;
@@ -45,10 +52,10 @@ int main() {
 
     if (wrong_count == 6) {
         std::cout << std::endl;
-        std::cout << "===== YOU LOSE =====" << std::endl;
+        std::cout << RED << "===== YOU LOSE =====" << RESET << std::endl;
     } else {
         std::cout << std::endl;
-        std::cout << "===== YOU WIN =====" << std::endl;
+        std::cout << GREEN << "===== YOU WIN =====" << RESET << std::endl;
     }
 
 }

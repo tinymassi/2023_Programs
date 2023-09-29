@@ -16,7 +16,6 @@ public:
 std::vector<std::string> hang;
 std::vector<std::string> word_stat;
 std::vector<std::string> used_chars;
-int num = 0;
 
 hang_man(){
     std::string line;
@@ -93,17 +92,25 @@ bool is_char_valid(std::string input_char) {
 }
 
 void print_used_chars() {
+    int num = 0;
     std::cout << std::endl;
     std::cout << "Guessed Characters: ";
     for (auto i : used_chars) {
-        std::cout << i << ", ";
+        if (num == 0) {
+            std::cout << i;
+        } else {
+            std::cout << ", " << i;
+        }
+        num++;
     }
+    
     std::cout << std::endl;
 }
 
 void print_word_status (std::string input, std::string key_word) {
+    std::cout << std::endl;
     int count = 0;
-        used_chars.push_back(input);
+    used_chars.push_back(input);
 
     for (int i = 0; i < word_stat.size(); i++) {
         if (key_word[i] == input[0]) {

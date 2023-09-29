@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <cctype>
 
 #define RESET   "\033[0m"
 #define GREEN   "\033[32m"
@@ -83,13 +84,17 @@ bool is_char_valid(std::string input_char) {
     if (input_char.size() > 1) {
         return false;
     }
-
-    
    
     for (const std::string& used_char : used_chars) {
         if (input_char == used_char) {
             return false;
         }
+    }
+
+    const char* character = input_char.c_str();  // convert to char
+
+    if (!isalpha(*character)) {
+        return false;
     }
 
     return true;

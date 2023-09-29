@@ -92,8 +92,18 @@ bool is_char_valid(std::string input_char) {
     return true;
 }
 
+void print_used_chars() {
+    std::cout << std::endl;
+    std::cout << "Guessed Characters: ";
+    for (auto i : used_chars) {
+        std::cout << i << ", ";
+    }
+    std::cout << std::endl;
+}
+
 void print_word_status (std::string input, std::string key_word) {
     int count = 0;
+        used_chars.push_back(input);
 
     for (int i = 0; i < word_stat.size(); i++) {
         if (key_word[i] == input[0]) {
@@ -106,8 +116,6 @@ void print_word_status (std::string input, std::string key_word) {
     for (auto i : word_stat) {
         std::cout << i;
     }
-
-    used_chars.push_back(input);
 
     std::cout << std::endl;
 }

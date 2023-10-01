@@ -10,8 +10,12 @@
 #include <cctype>
 
 #define RESET   "\033[0m"
-#define GREEN   "\033[32m"
 #define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
 
 namespace hang {
 
@@ -85,7 +89,7 @@ bool is_char_valid(std::string input_char) {
         return false;
     }
    
-    for (const std::string& used_char : used_chars) {
+    for (const std::string& used_char : used_chars) {  // convert used_char from str to char
         if (input_char == used_char) {
             return false;
         }
@@ -103,7 +107,7 @@ bool is_char_valid(std::string input_char) {
 void print_used_chars() {
     int num = 0;
     std::cout << std::endl;
-    std::cout << "Guessed Characters: ";
+    std::cout << CYAN << "Guessed Characters: " << RESET;
     for (auto i : used_chars) {
         if (num == 0) {
             std::cout << i;
@@ -130,7 +134,11 @@ void print_word_status (std::string input, std::string key_word) {
     }
 
     for (auto i : word_stat) {
-        std::cout << i;
+        if (i == "_") {
+            std::cout << i;
+        } else {
+            std::cout << GREEN << i << RESET;
+        }
     }
 
     std::cout << std::endl;

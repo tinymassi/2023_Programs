@@ -64,9 +64,7 @@ Seahorse
 Turtle
 Vulture
 Walrus
-Xray
 Yacht
-Zephyr
 Albatross
 Bison
 Cheetah
@@ -82,9 +80,6 @@ Lemur
 Meerkat
 Ocelot
 Rhino
-Tapir
-Uakari
-Xray
 Zebra
 Bloody
 Dick
@@ -103,7 +98,6 @@ Dork
 Nonce
 Tits
 Moron
-Cretin
 Fuck
 Dickhead
 Cocksucker
@@ -207,3 +201,4 @@ Normal
 Seem
 Dressing
 Calculation
+Lola

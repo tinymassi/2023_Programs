@@ -5,13 +5,17 @@
 #include "hang_man_header.h"
 
 #define RESET   "\033[0m"
-#define GREEN   "\033[32m"
 #define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
 
 int main() {
     hang::hang_man game1;
     std::ifstream words("word_list.txt");
-    std::string input_char;  //  make a patch so that the input_char can only be alpha
+    std::string input_char;  // make a patch so that the input_char can only be alpha
     std::string key_word;
     int wrong_count = 0;
     key_word = game1.pick_word(words);
@@ -51,12 +55,15 @@ int main() {
     }
 
     if (wrong_count == 6) {
-        std::cout << std::endl;
+         std::cout << std::endl;
+        std::cout << RED << "====================" << RESET << std::endl;
         std::cout << RED << "===== YOU LOSE =====" << RESET << std::endl;
+        std::cout << RED << "====================" << RESET << std::endl;
         std::cout << RED << "The word was: " << key_word_copy << RESET << std::endl;
     } else {
-        std::cout << std::endl;
+        std::cout << GREEN << "===================" << RESET << std::endl;
         std::cout << GREEN << "===== YOU WIN =====" << RESET << std::endl;
+        std::cout << GREEN << "===================" << RESET << std::endl;
     }
-
+    std::cout << std::endl;
 }

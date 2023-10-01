@@ -107,7 +107,8 @@ bool is_char_valid(std::string input_char) {
 void print_used_chars() {
     int num = 0;
     std::cout << std::endl;
-    std::cout << CYAN << "Guessed Characters: " << RESET;
+    std::cout << CYAN << "Guessed Characters: " << RESET << std::endl;
+    std::cout << "[";
     for (auto i : used_chars) {
         if (num == 0) {
             std::cout << i;
@@ -116,6 +117,7 @@ void print_used_chars() {
         }
         num++;
     }
+    std::cout << "]";
     
     std::cout << std::endl;
 }

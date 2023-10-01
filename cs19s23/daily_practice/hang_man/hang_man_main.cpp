@@ -37,7 +37,7 @@ int main() {
             transform(input_char.begin(), input_char.end(), input_char.begin(), ::tolower);
             std::cout << std::endl;
             if (game1.is_char_valid(input_char) == false) {
-                std::cout << RED << "Your character has already been entered or was invalid. Try again." << RESET << std::endl;
+                std::cout << RED << "Character was already used or was invalid. Try again." << RESET << std::endl;
                 std::cout << std::endl;
                 std::cout << "> ";
             } else {

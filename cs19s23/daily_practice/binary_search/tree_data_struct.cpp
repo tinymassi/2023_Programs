@@ -7,6 +7,8 @@
     // a binary tree basically is that a node cannot have more than 2 children
     // a binary search tree (BST) is like a binary tree but the nodes are 
     // organized in a certain way
+    // DFS Depths first search
+    // BFS Breadth first search
 
 struct Node {
     int data;
@@ -23,8 +25,28 @@ Node* create_node (int data) {
     return new_node;
 }
 
-int main() {
+void printTree (Node* root) {
+    if (root == nullptr) return;  // node we are on is null end this recursion
 
+    std::cout << root->data << std::endl;
+    printTree(root->left_child);  // print all left childs until nullptr
+    printTree(root->right_child);  // print all right childs until nullptr
+}
+
+int main() {
+    // Level 1
+    Node* root = create_node(1);
+    // Level 2
+    root->left_child = create_node(2);
+    root->right_child = create_node(3);
+    // Level 3
+    root->left_child->left_child = create_node(4);
+    root->left_child->right_child = create_node(5);
+    root->right_child->right_child = create_node(7);
+    root->right_child->left_child = create_node(6);
+    // Level 4
+    root->left_child->right_child->left_child = create_node(9);
+    root->right_child->right_child->left_child = create_node(15);
     
 
     return 0;

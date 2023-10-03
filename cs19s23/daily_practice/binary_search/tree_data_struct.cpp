@@ -25,10 +25,11 @@ Node* create_node (int data) {
     return new_node;
 }
 
-void printTree (Node* root) {
+void printTree (Node* root) {  // Preorder algorithm kinda makes sense...
+
     if (root == nullptr) return;  // node we are on is null end this recursion
 
-    std::cout << root->data << std::endl;
+    std::cout << root->data << std::endl;  // print data
     printTree(root->left_child);  // print all left childs until nullptr
     printTree(root->right_child);  // print all right childs until nullptr
 }
@@ -47,6 +48,8 @@ int main() {
     // Level 4
     root->left_child->right_child->left_child = create_node(9);
     root->right_child->right_child->left_child = create_node(15);
+
+    printTree(root);
     
 
     return 0;

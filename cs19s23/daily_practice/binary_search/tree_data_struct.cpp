@@ -25,13 +25,22 @@ Node* create_node (int data) {
     return new_node;
 }
 
-void printTree (Node* root) {  // Preorder algorithm kinda makes sense...
+void printTree_pre (Node* root) {  // Preorder algorithm kinda makes sense...
 
     if (root == nullptr) return;  // node we are on is null end this recursion
 
     std::cout << root->data << std::endl;  // print data
-    printTree(root->left_child);  // print all left childs until nullptr
-    printTree(root->right_child);  // print all right childs until nullptr
+    printTree_pre(root->left_child);  // print all left childs until nullptr
+    printTree_pre(root->right_child);  // print all right childs until nullptr
+}
+
+void printTree_in (Node* root) {  // inorder algorithm
+
+    if (root == nullptr) return;  // node we are on is null end this recursion
+
+    printTree_in(root->left_child);
+    std::cout << root->data << std::endl;
+    printTree_in(root->right_child);
 }
 
 int main() {
@@ -49,7 +58,7 @@ int main() {
     root->left_child->right_child->left_child = create_node(9);
     root->right_child->right_child->left_child = create_node(15);
 
-    printTree(root);
+    printTree_pre(root);
     
 
     return 0;

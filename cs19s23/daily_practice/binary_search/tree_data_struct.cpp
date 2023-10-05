@@ -25,7 +25,7 @@ Node* create_node (std::string data) {
     return new_node;
 }
 
-void printTree_pre (Node* root) {  // Preorder algorithm kinda makes sense...
+void printTree_pre (Node* root) {  // preorder algorithm
 
     if (root == nullptr) return;  // node we are on is null end this recursion
 

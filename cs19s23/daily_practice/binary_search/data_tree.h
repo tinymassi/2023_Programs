@@ -9,12 +9,6 @@ template <typename T> class tree {
     public:
 
     tree () {  // default constructor
-        if (root == nullptr) {
-            root->data == input_data;
-            root->left_child = nullptr;
-            root->right_child = nullptr;
-            return root;
-        }
     }
 
     Node* create_node (T input_data) {  // make default constructor make the root from function call
@@ -27,9 +21,9 @@ template <typename T> class tree {
         return new_node;
     }
 
-    void pre_tree_print() {
+    void pre_tree_print(Node* filler) {
         
-        if (root == nullptr) {return};
+        if (root == nullptr) return;
 
         std::cout << root->data;
         pre_tree_print(root->left_child);
@@ -38,8 +32,8 @@ template <typename T> class tree {
 
     void inorder_tree_print() {
 
-        if (root == nullptr) {return};
-        
+        if (root == nullptr) return;
+
         inorder_tree_print(root->left_child);
         std::cout << root->data;
         inorder_tree_print(root->right_child);
@@ -51,7 +45,7 @@ template <typename T> class tree {
         Node* left_child;
         Node* right_child;
         T data;
-    }
+    };
     Node* root;
 };
 

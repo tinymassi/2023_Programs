@@ -27,6 +27,13 @@ template <typename T> class tree {
         return new_node;
     }
 
+    void pre_tree_print() {
+        if (root == nullptr) {return};
+        std::cout << root->data << std::endl;
+        pre_tree_print(root->left_child);
+        pre_tree_print(root->right_child);
+    }
+
 
     private:
     struct Node {

@@ -28,10 +28,21 @@ template <typename T> class tree {
     }
 
     void pre_tree_print() {
+        
         if (root == nullptr) {return};
-        std::cout << root->data << std::endl;
+
+        std::cout << root->data;
         pre_tree_print(root->left_child);
         pre_tree_print(root->right_child);
+    }
+
+    void inorder_tree_print() {
+
+        if (root == nullptr) {return};
+        
+        inorder_tree_print(root->left_child);
+        std::cout << root->data;
+        inorder_tree_print(root->right_child);
     }
 
 

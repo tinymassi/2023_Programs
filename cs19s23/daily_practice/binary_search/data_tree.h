@@ -7,18 +7,18 @@ template <typename T> class tree {
 
     struct Node;
     public:
+    int count = 0;
 
     tree () {  // default constructor
     }
 
-    Node* create_node (T input_data) {  // make default constructor make the root from function call
-
+    void create_node (T input_data) {  // make default constructor make the root from function call
         Node* new_node = new Node();
+        if (count == 0) new_node = root;
         new_node->left_child = nullptr;
         new_node->right_child = nullptr;
         new_node->data = input_data;
-
-        return new_node;
+        count++;
     }
 
     void pre_tree_print(Node* filler) {

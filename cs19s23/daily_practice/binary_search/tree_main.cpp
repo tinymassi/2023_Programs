@@ -5,24 +5,11 @@ int main() {
 
     search::tree<std::string> my_tree;
     // Level 1
-    my_tree.create_node("works, ");
-    // Level 2
-    root->left_child = create_node("in-");
-    root->right_child = create_node("sentence ");
-    // Level 3
-    root->left_child->left_child = create_node("If ");
-    root->left_child->right_child = create_node("function ");
-    root->right_child->right_child = create_node("sense.");
-    root->right_child->left_child = create_node("this ");
-    // Level 4
-    root->left_child->right_child->left_child = create_node("order ");
-    root->right_child->right_child->left_child = create_node("makes ");
+    std::string data_entry;
 
-    // printTree_pre(root);
-    // std::cout << std::endl;
-    printTree_in(root);
-    std::cout << std::endl;
-    
+    while (std::cin >> data_entry) {
+        my_tree.create_node(data_entry);
+    }
 
     return 0;
 

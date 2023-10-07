@@ -9,11 +9,11 @@ template <typename T> class tree {
     public:
     int count = 0;
 
-    tree () {  // default constructor
+    tree () {
     }
 
-    void create_node (T input_data) {  // make default constructor make the root from function call
-        Node* new_node = new Node();
+    void create_node (T input_data) {  // find a way to make the search tree assign
+        Node* new_node = new Node();   // children by itself
         if (count == 0) new_node = root;
         new_node->left_child = nullptr;
         new_node->right_child = nullptr;

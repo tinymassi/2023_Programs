@@ -14,7 +14,10 @@ template <typename T> class tree {
 
     void create_node (T input_data) {  // find a way to make the search tree assign
         Node* new_node = new Node();   // children by itself
-        if (count == 0) new_node = root;
+        if (count == 0) { 
+            new_node = root;
+            new_node->parent = nullptr;
+        }
         new_node->left_child = nullptr;
         new_node->right_child = nullptr;
         new_node->data = input_data;
@@ -42,6 +45,7 @@ template <typename T> class tree {
 
     private:
     struct Node {
+        Node* parent;
         Node* left_child;
         Node* right_child;
         T data;

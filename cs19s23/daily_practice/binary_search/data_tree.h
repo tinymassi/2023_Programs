@@ -17,6 +17,8 @@ template <typename T> class tree {
         if (count == 0) { 
             new_node = root;
             new_node->parent = nullptr;
+        } else {
+            new_node->parent = root;
         }
         new_node->left_child = nullptr;
         new_node->right_child = nullptr;

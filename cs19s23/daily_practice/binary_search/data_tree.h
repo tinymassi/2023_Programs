@@ -12,10 +12,10 @@ template <typename T> class tree {
     tree () {  // default constructor for class tree
     }
 
-    Node* create_node (T data, Node* position) {  // figure out type
+    Node* create_node (T data, Node* position) {
         if (position == root) {
             root->parent == nullptr;
-            root->data == input_data;
+            root->data == data;
             count++;
             return position;
         }
@@ -28,19 +28,20 @@ template <typename T> class tree {
     void insert (T input_data) {
         if (count == 0) {
             create_node(input_data, root);
+            return;
         }
-        move_through_tree(root);
+        move_through_tree(input_data, root);
     }
 
-    void move_through_tree (Node* position) {
+    void move_through_tree (T input_data, Node* position) {
 
         if (input_data < position->data && position->left_child != nullptr) {
-            move_through_tree(position->left_child);
+            move_through_tree(input_data, position->left_child);
         } else if (input_data < position->data && position->left_child == nullptr) {
             create_node(input_data, root->left_child);
             return;
         } else if (input_data > position->data && position->right_child != nullptr) {
-            move_through_tree(position->right_child);
+            move_through_tree(input_data, position->right_child);
         } else if (input_data > position->data && position->right_child == nullptr) {
             create_node(input_data, position->right_child);
             return;

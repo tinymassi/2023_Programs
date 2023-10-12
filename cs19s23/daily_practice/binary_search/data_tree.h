@@ -13,19 +13,23 @@ template <typename T> class tree {
     }
 
     void create_node (T input_data) {  // find a way to make the search tree assign
-        Node* new_node = new Node();   // children by itself
         if (count == 0) {
+            Node* new_node = new Node();
             new_node = root;
-            new_node->parent = nullptr;
-        } else {
-            new_node->parent = root;
+            root->parent == nullptr;
+            root->data == input_data;
+            return;
         }
+
         count++;
-        new_node->left_child = nullptr;
-        new_node->right_child = nullptr;
-        new_node->data = input_data;
-        create_node(new_node->left_child);
-        create_node(new_node->right_child);
+        if (root == nullptr) {
+            Node* new_node2 = new Node();
+            new_node2 = root;
+            root->data == input_data;
+            return;
+        }
+        create_node(root->left_child);
+        create_node(root->right_child);
     }
 
     void pre_tree_print(Node* filler) {

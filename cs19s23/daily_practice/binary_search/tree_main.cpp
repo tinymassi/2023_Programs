@@ -7,7 +7,7 @@ int main() {
     std::string input_data;
 
     while (std::cin >> input_data) {
-        binary_tree.move_through_tree(input_data);
+        binary_tree.insert(input_data);
     }
 
     return 0;

@@ -3,14 +3,12 @@
 
 int main() {
 
-    search::tree<std::string> my_tree;
-    // Level 1
-    std::string data_entry;
+    search::tree<std::string> binary_tree;
+    std::string input_data;
 
-    while (std::cin >> data_entry) {
-        my_tree.create_node(data_entry);
+    while (std::cin >> input_data) {
+        binary_tree.move_through_tree(input_data);
     }
 
     return 0;
-
 }

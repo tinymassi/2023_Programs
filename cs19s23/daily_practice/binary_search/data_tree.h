@@ -12,7 +12,6 @@ template <typename T> class tree {
     int root_check = 0;
     int left = 1;
     int right = 2;
-    int node_count = 0;
     std::vector<T> output;
 
     tree () {  // default constructor for class tree
@@ -25,8 +24,6 @@ template <typename T> class tree {
             new_node->parent = nullptr;
             new_node->data = data;
             root_check++;
-            node_count++;
-            std::cout << "I am the root: " << new_node->data << std::endl;
             return;
         }
         if (child == 1) {
@@ -34,7 +31,6 @@ template <typename T> class tree {
         } else if (child == 2) {
             position->right_child = new_node;
         }
-        node_count++;
         new_node->data = data;
     }
 
@@ -65,52 +61,45 @@ template <typename T> class tree {
 
     void pre_print() {
         pre_tree_print(root);
+        std::cout << "[";
+        for (int i = 0; i < output.size(); i++) {
+            if (i == output.size() - 1) {
+                std::cout << output[i];
+            } else {
+                std::cout << output[i] << ", ";
+            }
+        }
+        std::cout << "]" << std::endl;
+        output.clear();
     }
 
     void inorder_print() {
         inorder_tree_print(root);
+        std::cout << "[";
+        for (int i = 0; i < output.size(); i++) {
+            if (i == output.size() - 1) {
+                std::cout << output[i];
+            } else {
+                std::cout << output[i] << ", ";
+            }
+        }
+        std::cout << "]" << std::endl;
+        output.clear();
     }
 
-    void pre_tree_print(Node* position) {  // change this function to work with this tree
-        
-        if (count  == node_count) {
-            for (auto i : output) {
-                std::cout << i << ", ";
-            }
-            output.pop_back();
-        }
+    void pre_tree_print(Node* position) {  // prints tree with pre algorithm
         if (position == nullptr) return;
-        int count = 0;
+        
         output.push_back(position->data);
-        count++;
-        
-        // // this doesnt work...
-        // if (position->right_child == nullptr && position->left_child == nullptr && root_check == 3) {
-        //     std::cout << position->data << std::endl;
-        // } else {
-        //     std::cout << position->data << ", ";
-        // }
-        
         pre_tree_print(position->left_child);
         pre_tree_print(position->right_child);
     }
 
-    void inorder_tree_print(Node* position) {  // change this function to work with this tree
-
+    void inorder_tree_print(Node* position) {  // prints tree with inorder algorithm
         if (position == nullptr) return;
-        if (position == root) {
-            root_check++;
-        }
-        
-        // this doesnt work...
-        if (position->right_child == nullptr && position->left_child == nullptr && root_check == 3) {
-            std::cout << position->data << std::endl;
-        } else {
-            std::cout << position->data << ", ";
-        }
 
         inorder_tree_print(position->left_child);
-        std::cout << position->data << ", ";
+        output.push_back(position->data);
         inorder_tree_print(position->right_child);
     }
 

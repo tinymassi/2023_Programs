@@ -14,6 +14,7 @@ int main() {
     }
 
     binary_tree.pre_print();
+    binary_tree.inorder_print();
 
     return 0;
 }

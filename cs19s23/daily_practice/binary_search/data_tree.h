@@ -1,5 +1,7 @@
 #ifndef DATA_TREE_H
 #define DATA_TREE_H
+#include <iostream>
+#include <vector>
 
 namespace search {
 
@@ -7,20 +9,24 @@ template <typename T> class tree {
 
     struct Node;
     public:
-    int count = 0;
+    int root_check = 0;
     int left = 1;
     int right = 2;
+    int node_count = 0;
+    std::vector<T> output;
 
     tree () {  // default constructor for class tree
     }
 
     void create_node (T data, Node* position, int child) {
         Node* new_node = new Node();
-        if (position == root) {
+        if (child == 0) {
             root = new_node;
             new_node->parent = nullptr;
             new_node->data = data;
-            count++;
+            root_check++;
+            node_count++;
+            std::cout << "I am the root: " << new_node->data << std::endl;
             return;
         }
         if (child == 1) {
@@ -28,11 +34,12 @@ template <typename T> class tree {
         } else if (child == 2) {
             position->right_child = new_node;
         }
+        node_count++;
         new_node->data = data;
     }
 
     void insert (T input_data) {
-        if (count == 0) {
+        if (root_check == 0) {
             create_node(input_data, root, 0);
             return;
         }
@@ -56,22 +63,55 @@ template <typename T> class tree {
         }
     }
 
+    void pre_print() {
+        pre_tree_print(root);
+    }
+
+    void inorder_print() {
+        inorder_tree_print(root);
+    }
+
     void pre_tree_print(Node* position) {  // change this function to work with this tree
         
-        if (root == nullptr) return;
-
-        std::cout << position->data;
+        if (count  == node_count) {
+            for (auto i : output) {
+                std::cout << i << ", ";
+            }
+            output.pop_back();
+        }
+        if (position == nullptr) return;
+        int count = 0;
+        output.push_back(position->data);
+        count++;
+        
+        // // this doesnt work...
+        // if (position->right_child == nullptr && position->left_child == nullptr && root_check == 3) {
+        //     std::cout << position->data << std::endl;
+        // } else {
+        //     std::cout << position->data << ", ";
+        // }
+        
         pre_tree_print(position->left_child);
         pre_tree_print(position->right_child);
     }
 
-    void inorder_tree_print() {  // change this function to work with this tree
+    void inorder_tree_print(Node* position) {  // change this function to work with this tree
 
-        if (root == nullptr) return;
+        if (position == nullptr) return;
+        if (position == root) {
+            root_check++;
+        }
+        
+        // this doesnt work...
+        if (position->right_child == nullptr && position->left_child == nullptr && root_check == 3) {
+            std::cout << position->data << std::endl;
+        } else {
+            std::cout << position->data << ", ";
+        }
 
-        inorder_tree_print(root->left_child);
-        std::cout << root->data;
-        inorder_tree_print(root->right_child);
+        inorder_tree_print(position->left_child);
+        std::cout << position->data << ", ";
+        inorder_tree_print(position->right_child);
     }
 
 

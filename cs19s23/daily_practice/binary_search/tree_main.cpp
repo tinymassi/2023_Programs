@@ -7,8 +7,13 @@ int main() {
     std::string input_data;
 
     while (std::cin >> input_data) {
+        if (input_data == "Stop") {
+            break;
+        }
         binary_tree.insert(input_data);
     }
+
+    binary_tree.pre_print();
 
     return 0;
 }

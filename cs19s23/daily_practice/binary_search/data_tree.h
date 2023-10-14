@@ -2,6 +2,7 @@
 #define DATA_TREE_H
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 namespace search {
 
@@ -13,6 +14,7 @@ template <typename T> class tree {
     int left = 1;
     int right = 2;
     std::vector<T> output;
+    bool needle_found = false;
 
     tree () {  // default constructor for class tree
     }
@@ -101,6 +103,34 @@ template <typename T> class tree {
         inorder_tree_print(position->left_child);
         output.push_back(position->data);
         inorder_tree_print(position->right_child);
+    }
+
+    void find(T needle) {
+        auto start = std::chrono::high_resolution_clock::now();
+        find_needle(needle, root);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+        if (needle_found == true) {
+            if (duration.count() == 1) {
+                std::cout << "I found " << needle << " in " << duration.count() << " microsecond!" << std::endl;
+            } else { 
+                std::cout << "I found " << needle << " in " << duration.count() << " microseconds!" << std::endl;
+            }
+        } else {
+            std::cout << needle << " is not in the search tree." << std::endl;
+        }
+        needle_found = false;
+    }
+
+    void find_needle (T needle, Node* position) {
+        if (position == nullptr) return;
+
+        if (position->data == needle) { 
+            needle_found = true;
+        }
+
+        find_needle(needle, position->left_child);
+        find_needle(needle, position->right_child);
     }
 
 

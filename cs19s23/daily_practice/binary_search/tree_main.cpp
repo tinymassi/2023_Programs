@@ -1,14 +1,20 @@
 #include <iostream>
+#include <algorithm>
 #include "data_tree.h"
+
+#define CYAN    "\033[36m"
 
 int main() {
 
     search::tree<std::string> binary_tree;
     std::string input_data;
 
+    std::cout << std::endl;
+    std::cout << CYAN << "Fill your tree with data:" << RESET << std::endl;
     std::cout << "> ";
     while (std::cin >> input_data) {
-        if (input_data == "Stop") {
+        std::transform(input_data.begin(), input_data.end(), input_data.begin(), ::tolower);
+        if (input_data == "stop") {
             break;
         }
         binary_tree.insert(input_data);
@@ -18,8 +24,14 @@ int main() {
     // binary_tree.pre_print();
     // binary_tree.inorder_print();
 
+    std::cout << std::endl;
+    std::cout << CYAN << "Find some data in your tree:" << RESET << std::endl;
     std::cout << "> ";
     while (std::cin >> input_data) {
+        std::transform(input_data.begin(), input_data.end(), input_data.begin(), ::tolower);
+        if (input_data == "stop") {
+            break;
+        }
         binary_tree.find(input_data);
         std::cout << "> ";
     }

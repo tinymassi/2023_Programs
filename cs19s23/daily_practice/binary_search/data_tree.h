@@ -4,6 +4,14 @@
 #include <vector>
 #include <chrono>
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+
 namespace search {
 
 template <typename T> class tree {
@@ -112,12 +120,12 @@ template <typename T> class tree {
         std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
         if (needle_found == true) {
             if (duration.count() == 1) {
-                std::cout << "I found " << needle << " in " << duration.count() << " microsecond!" << std::endl;
+                std::cout << GREEN << "I found " << needle << " in " << duration.count() << " microsecond!" << RESET << std::endl;
             } else { 
-                std::cout << "I found " << needle << " in " << duration.count() << " microseconds!" << std::endl;
+                std::cout << GREEN << "I found " << needle << " in " << duration.count() << " microseconds!" << RESET << std::endl;
             }
         } else {
-            std::cout << needle << " is not in the search tree." << std::endl;
+            std::cout << RED << needle << " is not in the search tree." << RESET << std::endl;
         }
         needle_found = false;
     }

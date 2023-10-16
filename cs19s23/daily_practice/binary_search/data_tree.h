@@ -141,6 +141,9 @@ template <typename T> class tree {
         find_needle(needle, position->right_child);
     }
 
+    void clear_tree() { // make this function wipe the entire data structure
+    }
+
 
     private:
     struct Node {

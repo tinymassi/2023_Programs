@@ -1,25 +1,38 @@
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include "data_tree.h"
+
 
 #define CYAN    "\033[36m"
 
 int main() {
 
-    search::tree<std::string> binary_tree;
+    search::tree<int> binary_tree;
     std::string input_data;
+    std::string line;
+    std::ifstream data_file("tree_loader.txt");
 
-    std::cout << std::endl;
-    std::cout << CYAN << "Fill your tree with data:" << RESET << std::endl;
-    std::cout << "> ";
-    while (std::cin >> input_data) {
-        std::transform(input_data.begin(), input_data.end(), input_data.begin(), ::tolower);
-        if (input_data == "stop") {
-            break;
-        }
-        binary_tree.insert(input_data);
-        std::cout << "> ";
+    while (std::getline(data_file, line)) {
+        std::istringstream iss(line);
+        int data;
+        iss >> data;
+        binary_tree.insert(data);
     }
+
+    // std::cout << std::endl;
+    // std::cout << CYAN << "Fill your tree with data:" << RESET << std::endl;
+    // std::cout << "> ";
+    // while (std::cin >> input_data) {
+    //     std::transform(input_data.begin(), input_data.end(), input_data.begin(), ::tolower);
+    //     if (input_data == "stop") {
+    //         break;
+    //     }
+    //     binary_tree.insert(input_data);
+    //     std::cout << "> ";
+    // }
 
     // binary_tree.pre_print();
     // binary_tree.inorder_print();

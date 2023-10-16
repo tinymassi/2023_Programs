@@ -11,7 +11,7 @@
 int main() {
 
     search::tree<int> binary_tree;
-    std::string input_data;
+    int input_data;
     std::string line;
     std::ifstream data_file("tree_loader.txt");
 
@@ -41,8 +41,8 @@ int main() {
     std::cout << CYAN << "Find some data in your tree:" << RESET << std::endl;
     std::cout << "> ";
     while (std::cin >> input_data) {
-        std::transform(input_data.begin(), input_data.end(), input_data.begin(), ::tolower);
-        if (input_data == "stop") {
+        //std::transform(input_data.begin(), input_data.end(), input_data.begin(), ::tolower);
+        if (input_data == 10001) {
             break;
         }
         binary_tree.find(input_data);

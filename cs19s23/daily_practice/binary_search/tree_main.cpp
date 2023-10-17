@@ -21,6 +21,8 @@ int main() {
         iss >> data;
         binary_tree.insert(data);
     }
+    
+    std::cout << binary_tree.size() << std::endl;
 
     // std::cout << std::endl;
     // std::cout << CYAN << "Fill your tree with data:" << RESET << std::endl;

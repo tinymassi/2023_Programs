@@ -21,6 +21,7 @@ template <typename T> class tree {
     int root_check = 0;
     int left = 1;
     int right = 2;
+    int size = 0;
     std::vector<T> output;
     bool needle_found = false;
 
@@ -34,6 +35,7 @@ template <typename T> class tree {
             new_node->parent = nullptr;
             new_node->data = data;
             root_check++;
+            size++;
             return;
         }
         if (child == 1) {
@@ -41,6 +43,7 @@ template <typename T> class tree {
         } else if (child == 2) {
             position->right_child = new_node;
         }
+        size++;
         new_node->data = data;
     }
 
@@ -142,6 +145,10 @@ template <typename T> class tree {
     }
 
     void clear_tree() { // make this function wipe the entire data structure
+    }
+
+    int size() {
+        return size;
     }
 
 

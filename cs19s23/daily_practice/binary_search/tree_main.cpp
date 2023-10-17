@@ -22,6 +22,8 @@ int main() {
         binary_tree.insert(data);
     }
     
+    int size = binary_tree.size();
+    
     std::cout << binary_tree.size() << std::endl;
 
     // std::cout << std::endl;

@@ -148,7 +148,20 @@ template <typename T> class tree {
         find_needle(needle, position->right_child);
     }
 
-    void erase (T value) {
+    Node* data_positon (T needle, Node* position) {  // try to figure this out
+        if (position == nullptr) return;
+
+        if (position->data == needle) { 
+            return position;
+        }
+
+        find_needle(needle, position->left_child);
+        find_needle(needle, position->right_child);
+    }
+
+    void erase (T value) {  // try to figure this out
+        find(value);
+
         
     }
 

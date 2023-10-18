@@ -148,6 +148,11 @@ template <typename T> class tree {
         find_needle(needle, position->right_child);
     }
 
+    void erase (T value) {
+        
+    }
+
+
     private:
     struct Node {
         Node* parent;

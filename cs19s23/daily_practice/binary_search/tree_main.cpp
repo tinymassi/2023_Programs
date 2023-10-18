@@ -23,7 +23,7 @@ int main() {
     }
 
     std::cout << std::endl;
-    std::cout << binary_tree.size() << std::endl;
+    std::cout << "Search tree filled with " << binary_tree.size() << " integers!" << std::endl;
     
 
     // std::cout << std::endl;

@@ -84,7 +84,7 @@ void HashTable::printTable() {
         if (table[i].size() == 0) continue;  // skips the over code and moves to next iteration
 
         auto bItr = table[i].begin();
-        for (; bItr != table[i].end(); bItr++) {  // move through the list
+        for (; bItr != table[i].end(); bItr++) {  // move through the list to print stuff
             std::cout << "[INFO] Key: " << bItr->first << " Value: " << bItr->second << std::endl;
         }
     }

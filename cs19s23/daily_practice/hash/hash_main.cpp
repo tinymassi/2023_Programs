@@ -88,6 +88,33 @@ void HashTable::printTable() {
             std::cout << "[INFO] Key: " << bItr->first << " Value: " << bItr->second << std::endl;
         }
     }
+    return;
+}
+
+int main() {
+    HashTable my_hash_table;
+    if (my_hash_table.isEmpty()) {
+        std::cout << "The table is empty." << std::endl;
+    }
+
+    my_hash_table.insertItem(906, "Tom");
+    my_hash_table.insertItem(302, "Hank");
+    my_hash_table.insertItem(503, "Bob");
+    my_hash_table.insertItem(709, "Tony");
+    my_hash_table.insertItem(906, "Rick");
+
+    my_hash_table.printTable();
+
+    my_hash_table.removeItem(302);
+    my_hash_table.removeItem(100);
+
+    if (my_hash_table.isEmpty()) {
+        std::cout << "The table is empty." << std::endl;
+    } else {
+        std::cout << "The hash table is not empty" << std::endl;
+    }
+
+    return 0;
 }
 
  // contine watching C++ Hash Table Implementation by Coding Jesus on YT...

@@ -9,7 +9,6 @@ class HashTable {
     private:
         static const int hashGroups = 10;
         std::list<std::pair<int, std::string>> table[hashGroups];  // List 1, Index 0, List 2, Index 1...
-        // what does this list look like as a data structure?
 
     public:
         bool isEmpty() const;
@@ -33,22 +32,30 @@ bool HashTable::isEmpty() const {
     }
 }
 
-int HashTable::hashFunction (int key) {  // what is the point of this function?
-    return key % hashGroups; 
+int HashTable::hashFunction (int key) {
+    return key % hashGroups;  // gets the index thats embedded within the key
 }
 
 void HashTable::insertItem (int key, std::string value) {
     int hashValue = hashFunction(key);
-    auto& cell = table[hashValue];  // what?
-    auto bItr = begin(cell);  // what??
+    auto& cell = table[hashValue];  // create a reference to the list with the data in it
+    auto bItr = std::begin(cell);  // iterator to the start of the list
     bool keyExists = false;
     for (; bItr != end(cell); bItr++) {
         if (bItr->first == key) {
             keyExists = true;
-            bItr->second = value;
+            bItr->second = value;  // replace the value in the list if updated version
+            std::cout << "[WARNING] Key exists. Value replaced." << std::endl;
             break;
         }
     }
+
+    if (!keyExists) {  // if there is no matching key at this index...
+        // add the value with this key to the list at its respective index.
+        cell.emplace_back(key, value);  // not sure what emplace back does. Is it a function of lists?
+    }
+
+    return;
 }
 
  // contine watching C++ Hash Table Implementation by Coding Jesus on YT...

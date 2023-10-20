@@ -58,4 +58,25 @@ void HashTable::insertItem (int key, std::string value) {
     return;
 }
 
+void HashTable::removeItem (int key) {
+    int hashValue = hashFunction(key);
+    auto& cell = table[hashValue];  // create a reference to the list with the data in it
+    auto bItr = std::begin(cell);  // iterator to the start of the list
+    bool keyExists = false;
+    for (; bItr != end(cell); bItr++) {
+        if (bItr->first == key) {
+            keyExists = true;
+            bItr = cell.erase(bItr);  // returns the next iterator to bItr after removing data
+            std::cout << "Item successfully removed." << std::endl;
+            break;
+        }
+    }
+
+    if (!keyExists) {
+        std::cout << "Item not found in Hash Table. Item not removed" << std::endl;
+    }
+
+    return;
+}
+
  // contine watching C++ Hash Table Implementation by Coding Jesus on YT...

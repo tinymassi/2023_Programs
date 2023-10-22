@@ -33,7 +33,7 @@ bool HashTable::isEmpty() const {
 }
 
 int HashTable::hashFunction (int key) {
-    return key % hashGroups;  // gets the index thats embedded within the key
+    return key % hashGroups;  // returns the index thats embedded within the key
 }
 
 void HashTable::insertItem (int key, std::string value) {
@@ -93,25 +93,22 @@ void HashTable::printTable() {
 
 int main() {
     HashTable my_hash_table;
-    if (my_hash_table.isEmpty()) {
-        std::cout << "The table is empty." << std::endl;
-    }
+    int ID{};
+    std::string name{};
+    bool stop = false;
 
-    my_hash_table.insertItem(906, "Tom");
-    my_hash_table.insertItem(302, "Hank");
-    my_hash_table.insertItem(503, "Bob");
-    my_hash_table.insertItem(709, "Tony");
-    my_hash_table.insertItem(906, "Rick");
-
-    my_hash_table.printTable();
-
-    my_hash_table.removeItem(302);
-    my_hash_table.removeItem(100);
-
-    if (my_hash_table.isEmpty()) {
-        std::cout << "The table is empty." << std::endl;
-    } else {
-        std::cout << "The hash table is not empty" << std::endl;
+    std::cout << "Enter 'Stop' to end program." << std::endl;
+    while (!stop) {
+        std::cout << "Enter your student ID:" << std::endl;
+        std::cout << "> ";
+        std::cin >> ID;
+        std::cout << std::endl;
+        std::cout << "Enter your name:" << std::endl;
+        std::cout << "> ";
+        my_hash_table.insertItem(ID, name);
+        if (name == "stop" || name == "Stop") {
+            stop = true;
+        }
     }
 
     return 0;

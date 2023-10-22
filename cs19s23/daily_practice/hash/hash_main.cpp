@@ -105,10 +105,13 @@ int main() {
         std::cout << std::endl;
         std::cout << "Enter your name:" << std::endl;
         std::cout << "> ";
-        my_hash_table.insertItem(ID, name);
+        std::cin >> name;
         if (name == "stop" || name == "Stop") {
             stop = true;
+        } else {
+            my_hash_table.insertItem(ID, name);
         }
+        std::cout << std::endl;
     }
 
     return 0;

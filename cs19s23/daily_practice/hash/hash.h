@@ -33,8 +33,9 @@ template <typename T> class hash_map {
     }
 
     void insert(T key, T data) {
+        table_size++;
         T index = hash_function(key);  // get index of data
-        T& cell = table[index];  // start at location of index
+        auto& cell = table[index];  // start at location of index
         auto iterator = std::begin(cell);  // make iterator to beginning of that cell
         bool is_data_in_hash = false;
         for (; iterator != std::end(cell); iterator++) {

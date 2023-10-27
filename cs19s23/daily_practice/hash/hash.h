@@ -34,7 +34,7 @@ template <typename T> class hash_map {
 
     void insert(T key, T data) {
         table_size++;
-        T index = hash_function(key);  // get index of data
+        int index = hash_function(key);  // get index of data
         auto& cell = table[index];  // start at location of index
         auto iterator = std::begin(cell);  // make iterator to beginning of that cell
         bool is_data_in_hash = false;
@@ -55,7 +55,23 @@ template <typename T> class hash_map {
     }
 
     void remove(T key) {
+        int index = hash_function(key);
+        auto& cell = table[key];
+        auto iterator = std::begin(cell);
+        bool is_item_gone = false;
+        for (; itr != std::end(cell); itr++) {
+            if (iterator->first == key) {
+                iterator = cell.erase(iterator);
+                is_item_gone = true;
+                break;
+            }
+        }
 
+        if (is_item_gone) {
+            std::cout << "Data has been removed from the table." << std::endl;
+        } else {
+            std::cout << "Data was not found in table."
+        }
     }
 
     T search_table(T key) {

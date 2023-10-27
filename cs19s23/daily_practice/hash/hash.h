@@ -79,7 +79,15 @@ template <typename T> class hash_map {
     }
 
     void print_table() {
-
+        for (int i = 0; i < table.size(); i++) {
+            if (table[i].size() == 0) continue;
+            auto& cell = table[i];
+            auto iterator = std::begin(cell);
+            for (;iterator != std::end(cell); iterator++) {
+                std::cout << "KEY: " << iterator->first << "VALUE: " << iterator->second << std::endl;
+            }
+        }
+        return;
     }
 
 };

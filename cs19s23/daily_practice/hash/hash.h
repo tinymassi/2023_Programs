@@ -28,10 +28,6 @@ template <typename T> class hash_map {
         return key % table_size;  // how could this work with other data types that are not int?
     }
 
-    void index_finder() {
-        
-    }
-
     void insert(T key, T data) {
         table_size++;
         int index = hash_function(key);  // get index of data
@@ -75,7 +71,18 @@ template <typename T> class hash_map {
     }
 
     T search_table(T key) {
+        T data;
+        int index = hash_function(key);
+        auto& cell = table[index];
+        auto iterator = std::begin(cell);
 
+        for (; iterator != std::end(cell); iterator++) {
+            if (iterator->first == key) {
+                return iterator->second;
+            }
+        }
+
+        return "This key has no pair in the table or doesnt exist.";
     }
 
     void print_table() {
@@ -84,7 +91,7 @@ template <typename T> class hash_map {
             auto& cell = table[i];
             auto iterator = std::begin(cell);
             for (;iterator != std::end(cell); iterator++) {
-                std::cout << "KEY: " << iterator->first << "VALUE: " << iterator->second << std::endl;
+                std::cout << "KEY: " << iterator->first << " VALUE: " << iterator->second << std::endl;
             }
         }
         return;

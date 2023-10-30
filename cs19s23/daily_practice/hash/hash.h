@@ -2,6 +2,7 @@
 #define HASH_H
 #include <iostream>
 #include <list>
+#include <vector>
 
 namespace hash {
 
@@ -9,8 +10,8 @@ template <typename T> class hash_map {
 
     private:
     
-    static const int table_size{};  // whats with static const?
-    std::list<std::pair<T, T>> table[table_size];  // how does a key other than an int work?
+    // int table_size{};  // whats with static const?
+    std::vector<std::list<std::pair<int, T>>> table;  // how does a key other than an int work?
 
     public:
 
@@ -24,12 +25,11 @@ template <typename T> class hash_map {
         return true;
     }  // why const function what this mean?
 
-    int hash_function (T key) {
-        return key % table_size;  // how could this work with other data types that are not int?
+    int hash_function (int key) {
+        return key % table.size();  // how could this work with other data types that are not int?
     }
 
-    void insert(T key, T data) {
-        table_size++;
+    void insert(int key, T data) {  // first load the vector with some indexes so no floating point exemption?
         int index = hash_function(key);  // get index of data
         auto& cell = table[index];  // start at location of index
         auto iterator = std::begin(cell);  // make iterator to beginning of that cell
@@ -46,16 +46,16 @@ template <typename T> class hash_map {
             std::cout << "Data is already in hash map" << std::endl;
         } else {
             std::cout << "Data has been added to the hash map" << std::endl;
-            table[index].push_back(key, data);
+            table[index].emplace_back(key, data);
         }
     }
 
-    void remove(T key) {
+    void remove(int key) {
         int index = hash_function(key);
         auto& cell = table[key];
         auto iterator = std::begin(cell);
         bool is_item_gone = false;
-        for (; itr != std::end(cell); itr++) {
+        for (; iterator != std::end(cell); iterator++) {
             if (iterator->first == key) {
                 iterator = cell.erase(iterator);
                 is_item_gone = true;
@@ -66,11 +66,11 @@ template <typename T> class hash_map {
         if (is_item_gone) {
             std::cout << "Data has been removed from the table." << std::endl;
         } else {
-            std::cout << "Data was not found in table."
+            std::cout << "Data was not found in table." << std::endl;
         }
     }
 
-    T search_table(T key) {
+    T search_table(int key) {
         T data;
         int index = hash_function(key);
         auto& cell = table[index];

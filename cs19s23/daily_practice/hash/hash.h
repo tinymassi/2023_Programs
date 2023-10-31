@@ -3,6 +3,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <cstring>
 
 namespace hash {
 
@@ -10,8 +11,8 @@ template <typename T> class hash_map {
 
     private:
     
-    // int table_size{};  // whats with static const?
-    std::vector<std::list<std::pair<int, T>>> table;  // how does a key other than an int work?
+    static const int table_size = 1000;  // whats with static const?
+    std::list<std::pair<int, T>> table[table_size];  // how does a key other than an int work?
 
     public:
 
@@ -26,7 +27,7 @@ template <typename T> class hash_map {
     }  // why const function what this mean?
 
     int hash_function (int key) {
-        return key % table.size();  // how could this work with other data types that are not int?
+        return key % table_size;  // how could this work with other data types that are not int?
     }
 
     void insert(int key, T data) {  // first load the vector with some indexes so no floating point exemption?
@@ -50,16 +51,18 @@ template <typename T> class hash_map {
         }
     }
 
-    void remove(int key) {
+    void remove(int key, T value) {
         int index = hash_function(key);
         auto& cell = table[key];
         auto iterator = std::begin(cell);
         bool is_item_gone = false;
         for (; iterator != std::end(cell); iterator++) {
             if (iterator->first == key) {
-                iterator = cell.erase(iterator);
-                is_item_gone = true;
-                break;
+                if (iterator->second == value) {
+                    iterator = cell.erase(iterator);
+                    is_item_gone = true;
+                    break;
+                }
             }
         }
 
@@ -86,7 +89,7 @@ template <typename T> class hash_map {
     }
 
     void print_table() {
-        for (int i = 0; i < table.size(); i++) {
+        for (int i = 0; i < table_size; i++) {
             if (table[i].size() == 0) continue;
             auto& cell = table[i];
             auto iterator = std::begin(cell);

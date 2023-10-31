@@ -33,6 +33,7 @@ int main() {
             std::cin >> value;
             my_map.remove(key, value);
         }
+        std::cout << std::endl;
     }
 
 }

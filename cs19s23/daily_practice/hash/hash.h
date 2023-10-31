@@ -5,6 +5,14 @@
 #include <vector>
 #include <cstring>
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+
 namespace hash {
 
 template <typename T> class hash_map {
@@ -44,11 +52,12 @@ template <typename T> class hash_map {
         }
 
         if (is_data_in_hash) {
-            std::cout << "Data is already in hash map" << std::endl;
+            std::cout << RED << "Data is already in hash map" << RESET << std::endl;
         } else {
-            std::cout << "Data has been added to the hash map" << std::endl;
+            std::cout << GREEN << "Data has been added to the hash map" << RESET << std::endl;
             table[index].emplace_back(key, data);
         }
+        std::cout << std::endl;
     }
 
     void remove(int key, T value) {
@@ -67,13 +76,13 @@ template <typename T> class hash_map {
         }
 
         if (is_item_gone) {
-            std::cout << "Data has been removed from the table." << std::endl;
+            std::cout << GREEN << "Data has been removed from the table." << RESET << std::endl;
         } else {
-            std::cout << "Data was not found in table." << std::endl;
+            std::cout << RED << "Data was not found in table." << RESET << std::endl;
         }
     }
 
-    T search_table(int key) {
+    void search_table(int key, T value) {
         T data;
         int index = hash_function(key);
         auto& cell = table[index];
@@ -81,11 +90,15 @@ template <typename T> class hash_map {
 
         for (; iterator != std::end(cell); iterator++) {
             if (iterator->first == key) {
-                return iterator->second;
+                if (iterator->second == value) {
+                    std::cout << GREEN << "I found the this data in the table" << RESET << std::endl;
+                }
             }
         }
 
-        return "This key has no pair in the table or doesnt exist.";
+        std::cout << RED << "This key has no pair in the table or doesnt exist." << RESET << std::endl;
+
+        return;
     }
 
     void print_table() {
@@ -94,7 +107,8 @@ template <typename T> class hash_map {
             auto& cell = table[i];
             auto iterator = std::begin(cell);
             for (;iterator != std::end(cell); iterator++) {
-                std::cout << "KEY: " << iterator->first << " VALUE: " << iterator->second << std::endl;
+                std::cout << GREEN << "KEY: " << RESET << iterator->first << GREEN << " VALUE: " << RESET << iterator->second << std::endl;
+                std::cout << std::endl;
             }
         }
         return;

@@ -19,7 +19,7 @@ int main() {
 
     while (is_input_valid) {
         std::cout << GREEN << "What would you like to do with your hash map?" << RESET << std::endl; 
-        std::cout << GREEN <<  "Enter anything other than a,b, & c to exit." << RESET << std::endl;
+        std::cout << GREEN <<  "Enter anything other than a, b, & c to exit." << RESET << std::endl;
         std::cout << std::endl;
         std::cout << "a) Enter a key & value   b) See your table   c) Remove a key & value" << std::endl;
         std::cout << "> ";

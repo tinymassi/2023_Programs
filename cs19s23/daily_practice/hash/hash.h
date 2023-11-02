@@ -19,7 +19,7 @@ template <typename T> class hash_map {
 
     private:
     
-    static const int table_size = 1000;  // whats with static const?
+    static const int table_size = 1000;
     std::list<std::pair<int, T>> table[table_size];  // how does a key other than an int work?
 
     public:

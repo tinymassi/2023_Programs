@@ -22,8 +22,8 @@ class log {
         for (; i < table[index].size(); i++) {
             if (table[index][i].size() > 0) {
                 auto itr = table[index][i].begin();
-                auto itr_itr = itr->second.begin();
-                for (; itr_itr != itr->second.end(); itr++) {
+                auto itr_itr = itr->second.begin();  // revolting naming
+                for (; itr_itr != itr->second.end(); itr_itr++) {  // nasty shit but maybe works?
                     if (itr_itr->first == date) {
                         if (itr_itr->second == entry) {
                             std::cout << "Data already in log." << std::endl;
@@ -45,7 +45,22 @@ class log {
     }
 
     void print_log() {
+        int index = 0;
+        for (int i = 0; i < table[i].size(); i++) {  // move to pos in outer vector
+            for (; index < table[i].size(); index++) {  // move through vector at outer vectors index
+                if (table[index].size() > 0) {
+                    if (table[index][i].size() > 0) {
+                        auto itr = table[index][i].begin();
+                        auto itr_itr = itr->second.begin();  // revolting naming
+                        for (; itr_itr != itr->second.end(); itr_itr++) {  // nasty shit but maybe works?
+                            std::cout << "DATE: " << itr_itr->first << std::endl;
+                            std::cout << "LOG: " << itr_itr->second << std::endl;
+                        }
+                    }
+                }
+            }
 
+        }
     }
 
     int hash_function(int password) {

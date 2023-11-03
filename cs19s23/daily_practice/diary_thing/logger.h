@@ -32,10 +32,6 @@ class log {
                     }
                 }
             }
-            if (vector_index == table[array_index].size() - 1) {
-                array_index++;
-                vector_index = 0;
-            }
         }
 
         if (is_data_in_table == false) {
@@ -47,7 +43,7 @@ class log {
 
     }
 
-    void print_log() {
+    void print_log() {  // this still needs work
         int array_index{};
         for (int vector_index{}; vector_index < table[array_index].size(); vector_index++) {
             if (table[array_index].size() > 0) {

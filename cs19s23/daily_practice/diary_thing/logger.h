@@ -19,7 +19,7 @@ class log {
     void insert(int password, std::string date, std::string entry) {
         int index = hash_function(password);
         bool is_data_in_table = false;
-        int i = 0;
+        int i{};
         for (; i < table[index].size(); i++) {
             if (table[index][i].second.size() > 0) {
                 auto itr = table[index][i].second.begin();
@@ -44,22 +44,19 @@ class log {
 
     }
 
-    void print_log() {  // this does fuck all rn
-        int index = 0;
-        for (int i = 0; i < table[i].size(); i++) {  // move to pos in outer vector
-            for (; index < table[i].size(); index++) {  // move through vector at outer vectors index
-                if (table[index].size() > 0) {
-                    if (table[index][i].size() > 0) {
-                        auto itr = table[index][i].begin();
-                        auto itr_itr = itr->second.begin();  // revolting naming
-                        for (; itr_itr != itr->second.end(); itr_itr++) {  // nasty shit but maybe works?
-                            std::cout << "DATE: " << itr_itr->first << std::endl;
-                            std::cout << "LOG: " << itr_itr->second << std::endl;
-                        }
+    void print_log() {
+        int index{};
+        for (int i{}; i < table[index].size(); i++) {
+            if (table[index].size() > 0) {
+                if (table[index][i].second.size() > 0) {
+                    auto itr = table[index][i].second.begin();
+                    for (; itr != table[index][i].second.end(); itr++) {
+                        std::cout << "[DATE]: " << itr->first << std::endl;
+                        std::cout << "[LOG]: " << itr->second << std::endl;
                     }
                 }
             }
-
+            index++;
         }
     }
 

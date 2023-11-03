@@ -1,5 +1,5 @@
-#ifndef LOGGER.H
-#define LOGGER.H
+#ifndef LOGGER_H
+#define LOGGER_H
 #include <iostream>
 #include <vector>
 #include <string>
@@ -44,7 +44,7 @@ class log {
 
     }
 
-    void print_log() {
+    void print_log() {  // this does fuck all rn
         int index = 0;
         for (int i = 0; i < table[i].size(); i++) {  // move to pos in outer vector
             for (; index < table[i].size(); index++) {  // move through vector at outer vectors index

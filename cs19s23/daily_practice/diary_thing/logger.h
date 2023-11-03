@@ -1,10 +1,13 @@
 #ifndef LOGGER.H
 #define LOGGER.H
-#include "vector"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <list>
 
 namespace log {
 
-template <typename T> class log {
+class log {
 
     private:
     int static const size = 1000;
@@ -14,24 +17,24 @@ template <typename T> class log {
 
     void insert(int password, std::string date, std::string entry) {
         int index = hash_function(password);
-        bool is_data_in_log = false;
+        bool is_data_in_table = false;
         int i = 0;
         for (; i < table[index].size(); i++) {
-            if (table[index[i]].size() > 0) {
-                auto itr = table[index[i]].begin();
-                for (; itr != table[index[i]].end(); itr++) {
-                    if (itr->first == date) {
+            if (table[index][i].size() > 0) {
+                auto itr = table[index][i].second.begin();
+                for (; itr != table[index][i].second.end(); itr++) {
+                    if (itr->first-> == date) {
                         if (itr->second == entry) {
                             std::cout << "Data already in log." << std::endl;
-                            is_data_in_log = true;
+                            is_data_in_table = true;
                         }
                     }
                 }
             }
         }
 
-        if (is_data_in_log == false) {
-            table[index[i]].emplace_back(date, entry);
+        if (is_data_in_table == false) {
+            table[index][i].emplace_back(date, entry);
         }
 
     }

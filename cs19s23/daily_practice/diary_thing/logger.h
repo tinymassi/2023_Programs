@@ -11,7 +11,8 @@ class log {
 
     private:
     int static const size = 1000;
-    std::vector<std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>>> table [size];
+    // vec<vec< ... >> table[size]: extra dimension? three [] lookups to get inner type
+    std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size];
 
     public:
 
@@ -20,12 +21,11 @@ class log {
         bool is_data_in_table = false;
         int i = 0;
         for (; i < table[index].size(); i++) {
-            if (table[index][i].size() > 0) {
-                auto itr = table[index][i].begin();
-                auto itr_itr = itr->second.begin();  // revolting naming
-                for (; itr_itr != itr->second.end(); itr_itr++) {  // nasty shit but maybe works?
-                    if (itr_itr->first == date) {
-                        if (itr_itr->second == entry) {
+            if (table[index][i].second.size() > 0) {
+                auto itr = table[index][i].second.begin();
+                for (; itr != table[index][i].second.end(); itr++) {  // nasty shit but maybe works?
+                    if (itr->first == date) {
+                        if (itr->second == entry) {
                             std::cout << "Data already in log." << std::endl;
                             is_data_in_table = true;
                         }
@@ -35,7 +35,7 @@ class log {
         }
 
         if (is_data_in_table == false) {
-            table[index][i].emplace_back(date, entry);
+            table[index][i].second.emplace_back(date, entry);
         }
 
     }

@@ -21,10 +21,11 @@ class log {
         int i = 0;
         for (; i < table[index].size(); i++) {
             if (table[index][i].size() > 0) {
-                auto itr = table[index][i].second.begin();
-                for (; itr != table[index][i].second.end(); itr++) {
-                    if (itr->first-> == date) {
-                        if (itr->second == entry) {
+                auto itr = table[index][i].begin();
+                auto itr_itr = itr->second.begin();
+                for (; itr_itr != itr->second.end(); itr++) {
+                    if (itr_itr->first == date) {
+                        if (itr_itr->second == entry) {
                             std::cout << "Data already in log." << std::endl;
                             is_data_in_table = true;
                         }

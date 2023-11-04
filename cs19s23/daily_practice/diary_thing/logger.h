@@ -5,6 +5,14 @@
 #include <string>
 #include <list>
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+
 namespace log {
 
 class log {
@@ -29,7 +37,7 @@ class log {
                         for (; itr != table[array_index][vector_index].second.end(); itr++) {
                             if (itr->first == date) {
                                 if (itr->second == entry) {
-                                    std::cout << "Data already in log." << std::endl;
+                                    std::cout << "Data already in log." << '\n';
                                     is_data_in_table = true;
                                 }
                             }
@@ -60,10 +68,12 @@ class log {
                     if (table[array_index][vector_index].second.size() > 0) {
                         auto itr = table[array_index][vector_index].second.begin();
                         for (; itr != table[array_index][vector_index].second.end(); itr++) {
-                            std::cout << "[DATE]: " << itr->first << std::endl;
-                            std::cout << std::endl;
-                            std::cout << "[LOG]: " << std::endl;
-                            std::cout << itr->second << std::endl;
+                            std::cout << GREEN << "[DATE]: " << RESET << '\n';
+                            std::cout << itr->first << '\n';
+                            std::cout << '\n';
+                            std::cout << GREEN << "[LOG]: " << RESET << '\n';
+                            std::cout << itr->second << '\n';
+                            std::cout << '\n';
                         }
                     } 
                 }

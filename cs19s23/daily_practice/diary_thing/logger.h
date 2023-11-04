@@ -17,25 +17,32 @@ class log {
     public:
 
     void insert(int password, std::string date, std::string entry) {
+        std::list<std::pair<std::string, std::string>> empty_list;
         int array_index = hash_function(password);
         bool is_data_in_table = false;
         int vector_index{};
-        for (; vector_index < table[array_index].size(); vector_index++) {
-            if (table[array_index][vector_index].second.size() > 0) {
-                auto itr = table[array_index][vector_index].second.begin();
-                for (; itr != table[array_index][vector_index].second.end(); itr++) {
-                    if (itr->first == date) {
-                        if (itr->second == entry) {
-                            std::cout << "Data already in log." << std::endl;
-                            is_data_in_table = true;
+        int backup_index{};
+        table[array_index].push_back(std::make_pair(password, empty_list));
+        if (table[array_index].size() > 0) {
+            for (; vector_index < table[array_index].size(); vector_index++) {
+                    if (table[array_index][vector_index].second.size() > 0) {
+                        auto itr = table[array_index][vector_index].second.begin();
+                        for (; itr != table[array_index][vector_index].second.end(); itr++) {
+                            if (itr->first == date) {
+                                if (itr->second == entry) {
+                                    std::cout << "Data already in log." << std::endl;
+                                    is_data_in_table = true;
+                                }
+                            }
                         }
-                    }
-                }
+                } 
+            break;
             }
         }
 
-        if (is_data_in_table == false) {
-            table[array_index][vector_index].second.emplace_back(date, entry);
+        if (!is_data_in_table) {
+            table[array_index][backup_index].second.emplace_back(date, entry);
+            std::cout << "Data was added to log!" << std::endl;
         }
     }
 
@@ -51,6 +58,7 @@ class log {
                     auto itr = table[array_index][vector_index].second.begin();
                     for (; itr != table[array_index][vector_index].second.end(); itr++) {
                         std::cout << "[DATE]: " << itr->first << std::endl;
+                        std::cout << std::endl;
                         std::cout << "[LOG]: " << itr->second << std::endl;
                     }
                 }

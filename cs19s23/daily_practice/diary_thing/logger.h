@@ -55,10 +55,8 @@ class log {
         int vector_index{};
         bool valid = true;
         while (valid) {
-            if ()
-            for (; vector_index < table[array_index].size(); vector_index++) {
-                if (table[array_index].size() > 0) {
-                    std::cout << "HEY" << std::endl;
+            if (table[array_index].size() > 0) {
+                for (; vector_index < table[array_index].size(); vector_index++) {
                     if (table[array_index][vector_index].second.size() > 0) {
                         auto itr = table[array_index][vector_index].second.begin();
                         for (; itr != table[array_index][vector_index].second.end(); itr++) {
@@ -69,12 +67,13 @@ class log {
                         }
                     } 
                 }
-                if (vector_index == table[array_index].size() - 1) {
-                    vector_index = 0;
-                    array_index++;
-                }
             }
-        }
+            array_index++;
+            vector_index = 0;
+            if (array_index == 1000) {
+                valid = false;
+            }
+        } 
     }
 
     int hash_function(int password) {

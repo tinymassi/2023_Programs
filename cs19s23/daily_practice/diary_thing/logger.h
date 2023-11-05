@@ -52,7 +52,9 @@ class log {
                 insert(password, date, entry);
                 std::cout << std::endl;
             } else if (input == "b") {
-                print_log();
+                std::cout << "Enter your password to view your entries: ";
+                std::cin >> password;
+                print_user_log(password);
             } else if (input == "c") {
                 std::cout << "Enter your password: ";
                 std::cin >> password;
@@ -66,7 +68,6 @@ class log {
         std::cout << std::endl;
         }
     }
-
 
     void insert(int password, std::string date, std::string entry) {
         std::list<std::pair<std::string, std::string>> empty_list;
@@ -122,7 +123,38 @@ class log {
         }
     }
 
-    void print_log() {  // change so it is specific to a password
+    void print_user_log(int password) {  // change so it is specific to a password
+        int array_index = hash_function(password);
+        int vector_index{};
+        bool something_printed = false;
+        
+        for (; vector_index < table[array_index].size(); vector_index++) {
+            if (table[array_index][vector_index].second.size() > 0) {
+                auto itr = table[array_index][vector_index].second.begin();
+                for (; itr != table[array_index][vector_index].second.end(); itr++) {
+                    std::cout << '\n';
+                    std::cout << GREEN << "+-----------------------------+" << RESET << '\n';
+                    std::cout << GREEN << "[DATE]: " << RESET << '\n';
+                    std::cout << itr->first << '\n';
+                    std::cout << '\n';
+                    std::cout << GREEN << "[LOG]: " << RESET << '\n';
+                    std::cout << itr->second << '\n';
+                    std::cout << GREEN << "+-----------------------------+" << RESET << '\n';
+                    std::cout << '\n';
+                    something_printed = true;
+                }
+            }
+        break;
+        }
+
+        if (!something_printed) {
+            std::cout << '\n';
+            std::cout << RED << "There are no entries under this password." << RESET << '\n';
+            std::cout << '\n';
+        }
+    }
+
+    void print_entire_log() {  // change so it is specific to a password
         int array_index{};
         int vector_index{};
         bool valid = true;

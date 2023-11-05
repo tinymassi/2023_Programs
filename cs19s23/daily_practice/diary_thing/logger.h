@@ -43,41 +43,80 @@ class log {
             std::cout <<'\n';
             if (input == "a") {
                 while (!check) {
-                std::cout << "Enter your password: ";
-                std::cin >> str_password;
-                std::cout << '\n';
-                std::cout << "Enter todays date (MM/DD/YY): ";
-                std::cin >> date;
-                // std::cout << '\n';
-                // std::cout << "Write your entry: " << '\n';
-                // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                // std::getline(std::cin, entry);
-                    if (is_entry_valid(str_password, date)) {
+                    std::cout << "Enter your password: ";
+                    std::cin >> str_password;
+                    if (is_password_valid(str_password)) {
                         check = true;
                         int_password = std::stoi(str_password);
                     } else {
+                        check = false;
                         std::cout << '\n';
-                        std::cout << RED << "Password or date invalid. Try again." << RESET << '\n';
+                        std::cout << RED << "Password invalid. Try again." << RESET << '\n';
                         std::cout << '\n';
                     }
                 }
+                check = false;
+                while (!check) {
+                    std::cout << "Enter todays date (MM/DD/YY): ";
+                    std::cin >> date;
+                    if (is_date_valid(date)) {
+                        check = true;
+                    } else {
+                        check = false;
+                        std::cout << '\n';
+                        std::cout << RED << "Date invalid. Try again." << RESET << '\n';
+                        std::cout << '\n';
+                    }
+                }
+                std::cout << '\n';
                 std::cout << "Write your entry: " << '\n';
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, entry);
                 insert(int_password, date, entry);
-                std::cout << std::endl;
+                std::cout << '\n';
+                check = false;
             } else if (input == "b") {
-                std::cout << "Enter your password to view your entries: ";
-                std::cin >> str_password;
-                int_password = std::stoi(str_password);
+                while (!check) {
+                    std::cout << "Enter your password to view your entries: ";
+                    std::cin >> str_password;
+                    if (is_password_valid(str_password)) {
+                        check = true;
+                        int_password = std::stoi(str_password);
+                    } else {
+                        check = false;
+                        std::cout << '\n';
+                        std::cout << RED << "Password invalid. Try again." << RESET << '\n';
+                        std::cout << '\n';
+                    }
+                }
                 print_user_log(int_password);
             } else if (input == "c") {
-                std::cout << "Enter your password: ";
-                std::cin >> str_password;
-                int_password = std::stoi(str_password);
-                std::cout << std::endl;
-                std::cout << "Enter the date (MM/DD/YY) of the entry you wish to remove: ";
-                std::cin >> date;
+                while (!check) {
+                    std::cout << "Enter your password: ";
+                    std::cin >> str_password;
+                    if (is_password_valid(str_password)) {
+                        check = true;
+                        int_password = std::stoi(str_password);
+                    } else {
+                        check = false;
+                        std::cout << '\n';
+                        std::cout << RED << "Password invalid. Try again." << RESET << '\n';
+                        std::cout << '\n';
+                    }
+                }
+                check = false;
+                while (!check) {
+                    std::cout << "Enter the date (MM/DD/YY) of the entry you wish to remove: ";
+                    std::cin >> date;
+                    if (is_date_valid(date)) {
+                        check = true;
+                    } else {
+                        check = false;
+                        std::cout << '\n';
+                        std::cout << RED << "Date invalid. Try again." << RESET << '\n';
+                        std::cout << '\n';
+                    }
+                }
                 remove(int_password, date);
             } else {
                 user_input = false;
@@ -86,7 +125,19 @@ class log {
         }
     }
 
-    bool is_entry_valid (std::string password, std::string date) {  // add this to check validity of entries
+    bool is_password_valid (std::string password) {
+        for (int i = 0; i < password.size(); i++) {
+            if (password[i] >= '0' && password[i] <= '9') {
+                continue;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool is_date_valid (std::string date) {  // add this to check validity of entries
         if (date.size() == 8) {
             for (int i = 0; i < date.size(); i++) {
                 if (i != 2 && i != 5) {
@@ -104,15 +155,6 @@ class log {
         } else {
             return false;
         }
-
-        for (int i = 0; i < password.size(); i++) {
-            if (date[i] >= 48 && date[i] <= 57) {
-                continue;
-            } else {
-                return false;
-            }
-        }
-
         return true;
     }
 

@@ -32,16 +32,16 @@ class log {
         table[array_index].push_back(std::make_pair(password, empty_list));
         if (table[array_index].size() > 0) {
             for (; vector_index < table[array_index].size(); vector_index++) {
-                    if (table[array_index][vector_index].second.size() > 0) {
-                        auto itr = table[array_index][vector_index].second.begin();
-                        for (; itr != table[array_index][vector_index].second.end(); itr++) {
-                            if (itr->first == date) {
-                                if (itr->second == entry) {
-                                    std::cout << "Data already in log." << '\n';
-                                    is_data_in_table = true;
-                                }
+                if (table[array_index][vector_index].second.size() > 0) {
+                    auto itr = table[array_index][vector_index].second.begin();
+                    for (; itr != table[array_index][vector_index].second.end(); itr++) {
+                        if (itr->first == date) {
+                            if (itr->second == entry) {
+                                std::cout << "Data already in log." << '\n';
+                                is_data_in_table = true;
                             }
                         }
+                    }
                 } 
             break;
             }
@@ -59,16 +59,16 @@ class log {
         int vector_index{};
         
         for (; vector_index < table[array_index].size(); vector_index++) {
-                if (table[array_index][vector_index].second.size() > 0) {
-                    auto itr = table[array_index][vector_index].second.begin();
-                    for (; itr != table[array_index][vector_index].second.end(); itr++) {
-                        if (itr->first == date) {
-                            itr = table[array_index][vector_index].second.erase(itr);
-                            std::cout << GREEN << "Data from " << date << " has been removed." << RESET << '\n';
-                            was_data_removed = true;
-                        }
+            if (table[array_index][vector_index].second.size() > 0) {
+                auto itr = table[array_index][vector_index].second.begin();
+                for (; itr != table[array_index][vector_index].second.end(); itr++) {
+                    if (itr->first == date) {
+                        itr = table[array_index][vector_index].second.erase(itr);
+                        std::cout << GREEN << "Data from " << date << " has been removed." << RESET << '\n';
+                        was_data_removed = true;
                     }
-            } 
+                }
+            }
         break;
         }
 

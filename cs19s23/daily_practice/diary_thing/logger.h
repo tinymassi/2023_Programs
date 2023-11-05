@@ -25,7 +25,7 @@ class log {
 
     public:
 
-    log() {
+    log() {  // TODO: Make the entry EOF & make the program save the entriesS
         std::string str_password {};
         int int_password {};
         std::string date {};
@@ -42,6 +42,7 @@ class log {
             std::cin >> input;
             std::cout <<'\n';
             if (input == "a") {
+                check = false;
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
@@ -76,6 +77,7 @@ class log {
                 std::cout << '\n';
                 check = false;
             } else if (input == "b") {
+                check = false;
                 while (!check) {
                     std::cout << "Enter your password to view your entries: ";
                     std::cin >> str_password;
@@ -90,7 +92,8 @@ class log {
                     }
                 }
                 print_user_log(int_password);
-            } else if (input == "c") {
+            } else if (input == "c") {  // TODO: Fix the check bool value
+                check = false;
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;

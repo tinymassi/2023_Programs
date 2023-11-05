@@ -25,7 +25,7 @@ class log {
 
     public:
 
-    log() {  // TODO: Make the entry EOF & make the program save the entriesS
+    log() {  // TODO: Make the entry EOF & make the program save the entries
         std::string str_password {};
         int int_password {};
         std::string date {};

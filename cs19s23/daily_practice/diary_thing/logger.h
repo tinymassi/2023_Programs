@@ -123,7 +123,7 @@ class log {
         }
     }
 
-    void print_user_log(int password) {  // change so it is specific to a password
+    void print_user_log(int password) {  // 
         int array_index = hash_function(password);
         int vector_index{};
         bool something_printed = false;
@@ -154,7 +154,7 @@ class log {
         }
     }
 
-    void print_entire_log() {  // change so it is specific to a password
+    void print_entire_log() {  // prints out the entire hash map
         int array_index{};
         int vector_index{};
         bool valid = true;

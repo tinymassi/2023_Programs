@@ -26,13 +26,14 @@ class log {
     public:
 
     log() {  // TODO: Make the entry EOF & make the program save the entries
-        std::string str_password {};
         int int_password {};
+        std::string str_password {};
         std::string date {};
         std::string entry {};
+        std::string terminal_entry{};
+        std::string input{};
         bool user_input = true;
         bool check = false;
-        std::string input;
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
             std::cout << GREEN << "Enter anything other than a, b, & c to exit." << RESET << '\n';
@@ -71,10 +72,18 @@ class log {
                 }
                 std::cout << '\n';
                 std::cout << "Write your entry: " << '\n';
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::getline(std::cin, entry);
+                // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                while (!std::cin.eof()) {
+                    std::getline(std::cin, terminal_entry);
+                    entry += "\n";
+                    entry += terminal_entry;
+                }
                 insert(int_password, date, entry);
+                std::cout << "INPUT: " << entry;
                 std::cout << '\n';
+                entry = "";
+                terminal_entry = "";
+                input = "";  // TODO: this stops the infinite loop but also ends the program??
                 check = false;
             } else if (input == "b") {
                 check = false;
@@ -91,8 +100,9 @@ class log {
                         std::cout << '\n';
                     }
                 }
+                input = "";
                 print_user_log(int_password);
-            } else if (input == "c") {  // TODO: Fix the check bool value
+            } else if (input == "c") {
                 check = false;
                 while (!check) {
                     std::cout << "Enter your password: ";
@@ -107,6 +117,7 @@ class log {
                         std::cout << '\n';
                     }
                 }
+                input = "";
                 check = false;
                 while (!check) {
                     std::cout << "Enter the date (MM/DD/YY) of the entry you wish to remove: ";

@@ -225,7 +225,7 @@ class log {
         }
     }
 
-    void print_user_log(int password) {  // 
+    void print_user_log(int password) {
         int array_index = hash_function(password);
         int vector_index{};
         bool something_printed = false;

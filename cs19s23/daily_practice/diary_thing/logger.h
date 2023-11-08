@@ -73,6 +73,7 @@ class log {
                 std::cout << "Write your entry: " << '\n';
                 std::cout << "To finish writing, type 'End' at the bottom: " << '\n';
                 std::cout << '\n';
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 while (true) {
                     std::getline(std::cin, terminal_entry);
                     if (terminal_entry == "End" || terminal_entry == "end") {
@@ -239,7 +240,7 @@ class log {
                     std::cout << GREEN << "[DATE]: " << RESET << '\n';
                     std::cout << itr->first << '\n';
                     std::cout << '\n';
-                    std::cout << GREEN << "[LOG]: " << RESET << '\n';
+                    std::cout << GREEN << "[LOG]: " << RESET;
                     std::cout << itr->second << '\n';
                     std::cout << GREEN << "+-----------------------------+" << RESET << '\n';
                     std::cout << '\n';

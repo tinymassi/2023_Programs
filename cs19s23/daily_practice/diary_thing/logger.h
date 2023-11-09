@@ -33,6 +33,8 @@ class log {
       // format the text file in a way that the program can read and understand
       // pipe the data from the text file into my logger.h
       // encrypt the data! then decrypt it!
+      // use a library for encryption and decyption. There are tons of these. crypt.h, libcrypto
+      // check open SSL for this stuff ^
 
 
     log() {  // TODO: Make the program save the entries
@@ -94,8 +96,6 @@ class log {
                     }
                 }
                 insert(int_password, date, entry);
-                std::cout << "INPUT: " << entry;
-                std::cout << '\n';
                 entry = "";
                 terminal_entry = "";
             } else if (input == "b") {

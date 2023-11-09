@@ -25,8 +25,18 @@ class log {
 
     public:
 
-    log() {  // TODO: Make the entry EOF & make the program save the entries
-        int int_password {};
+      // TODO: Serialization of the data in this porgram? turn it into binady data instead of saving as a data type
+      // save it in a known configuration. Utilizing iterators for this could help
+
+      // TODO: Use a text file to send all the data to.
+      // pipe information to text file
+      // format the text file in a way that the program can read and understand
+      // pipe the data from the text file into my logger.h
+      // encrypt the data! then decrypt it!
+
+
+    log() {  // TODO: Make the program save the entries
+        int int_password {};  
         std::string str_password {};
         std::string date {};
         std::string entry {};

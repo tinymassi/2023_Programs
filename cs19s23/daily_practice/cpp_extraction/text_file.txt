@@ -1,6 +1,6 @@
-hey
-this
-is
-my
-input
+add
+more
 data
+will
+this
+stack

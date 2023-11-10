@@ -2,6 +2,11 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <botan/botan.h>
+#include <botan/auto_rng.h>
+#include <botan/aes.h>
+#include <botan/cipher_mode.h>
+
 
 void saveDataToFile(const std::vector<std::string>& container,const std::string& file_name) {
     std::ofstream save_to_file (file_name, std::ios::app);
@@ -16,6 +21,11 @@ void saveDataToFile(const std::vector<std::string>& container,const std::string&
     }
 }
 
+std::string encrypt (const std::string& cipherText, const std::string& key) {
+    
+}
+
+
 void loadDataFromFile (std::vector<std::string>& container, std::string& file_name) {
     std::ifstream take_from_file (file_name);
     if (take_from_file.is_open()) {
@@ -27,6 +37,10 @@ void loadDataFromFile (std::vector<std::string>& container, std::string& file_na
     } else {
         std::cerr << "Unable to open file: " << file_name << std::endl;
     }
+}
+
+std::string decrypt () {
+    
 }
 
 int main() {
@@ -50,10 +64,6 @@ int main() {
     saveDataToFile(container, text_file_name);
 
     loadDataFromFile(container, text_file_name);
-
-    for (auto i : container) {
-        std::cout << i << '\n';
-    }
 
     return{};
 }

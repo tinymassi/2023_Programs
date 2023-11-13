@@ -25,7 +25,7 @@ class log {
 
     public:
 
-      // TODO: Serialization of the data in this porgram? turn it into binady data instead of saving as a data type
+      // TODO: Serialization of the data in this program? turn it into binady data instead of saving as a data type
       // save it in a known configuration. Utilizing iterators for this could help
 
       // TODO: Use a text file to send all the data to.

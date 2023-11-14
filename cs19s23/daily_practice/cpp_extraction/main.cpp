@@ -3,7 +3,28 @@
 #include <sstream>
 #include <fstream>
 #include <openssl/aes.h>
+#include <openssl/rand.h>
+#include <openssl/evp.h>
 
+void encrypt (std::string& password) {
+    std::string cyphertext;
+    std::string key;
+    EVP_CIPHER_CTX *ctx;
+
+    ctx = EVP_CIPHER_CTX_new();
+
+    int len;
+    int ciphertext_length;
+
+    ciphertext_length = len;
+    ciphertext_length += len;
+
+    EVP_CIPHER_CTX_free(ctx);
+}
+
+void decrypt (std::string password) {
+
+}
 
 void saveDataToFile(const std::vector<std::string>& container,const std::string& file_name) {
     std::ofstream save_to_file (file_name, std::ios::app);

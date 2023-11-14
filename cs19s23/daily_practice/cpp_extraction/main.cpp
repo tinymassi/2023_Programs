@@ -5,18 +5,27 @@
 #include <openssl/aes.h>
 #include <openssl/rand.h>
 #include <openssl/evp.h>
+#include <cstring>
 
-void encrypt (std::string& password) {
-    std::string cyphertext;
-    std::string key;
+void encrypt (const unsigned char* password) {
+    unsigned char ciphertext[128];
+    const unsigned char key[] = "0123456789abcdef";
+    const unsigned char iv[] = "abcdefghijklmnop";
     EVP_CIPHER_CTX *ctx;
 
     ctx = EVP_CIPHER_CTX_new();
 
+    EVP_EncryptInit_ex(ctx, EVP_aes_128_cfb(), NULL, key, iv);
+
     int len;
     int ciphertext_length;
 
+    EVP_EncryptUpdate(ctx, ciphertext, &len, password, );
+
     ciphertext_length = len;
+
+    EVP_EncryptFinal_ex(ctx, ciphertext + len, &len);
+
     ciphertext_length += len;
 
     EVP_CIPHER_CTX_free(ctx);

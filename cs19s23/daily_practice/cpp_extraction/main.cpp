@@ -20,7 +20,7 @@ void encrypt (const unsigned char* password) {
     int len;
     int ciphertext_length;
 
-    EVP_EncryptUpdate(ctx, ciphertext, &len, password, );
+    EVP_EncryptUpdate(ctx, ciphertext, &len, password, *password.size());  // wut
 
     ciphertext_length = len;
 

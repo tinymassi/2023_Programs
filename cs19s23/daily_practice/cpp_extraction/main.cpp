@@ -7,28 +7,37 @@
 #include <openssl/evp.h>
 #include <cstring>
 
-void encrypt (const unsigned char* password) {
-    unsigned char ciphertext[128];
-    const unsigned char key[] = "0123456789abcdef";
-    const unsigned char iv[] = "abcdefghijklmnop";
-    EVP_CIPHER_CTX *ctx;
+std::string encrypt (std::string password) {
+    unsigned char ciphertext[128];  // an array of size 128 elementsused to store result of encryption
+    const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
+    const unsigned char iv[] = "abcdefghijklmnop";  // This helps to randomize the encryption process
+    const unsigned char* binary_password = reinterpret_cast<const unsigned char*>(password.c_str());
+    EVP_CIPHER_CTX *ctx;  // a structure used to maintain information for cryptography such as the decryption or encryption algorithm
+    std::string encrypted_password;
 
-    ctx = EVP_CIPHER_CTX_new();
+    ctx = EVP_CIPHER_CTX_new();  // allocated memory for a new EVP_CIPHER structure & returns pointer to created struct
+    EVP_EncryptInit_ex(ctx, EVP_aes_128_cfb(), NULL, key, iv);  // initializes encryption operation
+    // EVP_aes_128_cfb() is a function that creates an EVP_CYPHER object representing the algorithm used for encryption for key length of 128 bits
 
-    EVP_EncryptInit_ex(ctx, EVP_aes_128_cfb(), NULL, key, iv);
+    int len;  // used to store the length of the outuput after encryption process
+    int ciphertext_length;  // used to store the length of the ciphertext (encrypted data) after encryption process
 
-    int len;
-    int ciphertext_length;
+    EVP_EncryptUpdate(ctx, ciphertext, &len, binary_password, password.size());  // updates the encryption context ('ctx') by taking the password, and producing
+                                                                                 // the encrypted output in the ciphertext buffer. &len is used to track # of bytes in update.
 
-    EVP_EncryptUpdate(ctx, ciphertext, &len, password, *password.size());  // wut
+    ciphertext_length = len;  // updates the cipher text length after EVP update
 
-    ciphertext_length = len;
+    EVP_EncryptFinal_ex(ctx, ciphertext + len, &len);  // this produces the final encrypted output.
 
-    EVP_EncryptFinal_ex(ctx, ciphertext + len, &len);
+    ciphertext_length += len;  // again updating the cipher text length
 
-    ciphertext_length += len;
+    EVP_CIPHER_CTX_free(ctx);  // this deallocates the memory that was created with the EVP_CIPHER_CTX pointer structure
 
-    EVP_CIPHER_CTX_free(ctx);
+    for (int i = 0; i < strlen(reinterpret_cast<const char *> (binary_password)); i++) {
+        encrypted_password += binary_password[i];
+    }
+
+    return encrypted_password;
 }
 
 void decrypt (std::string password) {
@@ -39,7 +48,7 @@ void saveDataToFile(const std::vector<std::string>& container,const std::string&
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
-            save_to_file << container[i] << '\n';
+            save_to_file << encrypt(container[i]) << '\n';
         }
         save_to_file.close();
         std::cout << "Data successfully transferred to " << file_name << '\n';

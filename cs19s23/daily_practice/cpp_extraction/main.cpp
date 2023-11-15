@@ -57,11 +57,6 @@ void saveDataToFile(const std::vector<std::string>& container,const std::string&
     }
 }
 
-std::string encrypt (const std::string& cipherText, const std::string& key) {
-    
-}
-
-
 void loadDataFromFile (std::vector<std::string>& container, std::string& file_name) {
     std::ifstream take_from_file (file_name);
     if (take_from_file.is_open()) {
@@ -75,9 +70,9 @@ void loadDataFromFile (std::vector<std::string>& container, std::string& file_na
     }
 }
 
-std::string decrypt () {
+// std::string decrypt () {
     
-}
+// }
 
 int main() {
 

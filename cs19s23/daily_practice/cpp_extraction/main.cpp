@@ -33,6 +33,8 @@ std::string encrypt (std::string password) {
 
     EVP_CIPHER_CTX_free(ctx);  // this deallocates the memory that was created with the EVP_CIPHER_CTX pointer structure
 
+    // encrypted_password.append(reinterpret_cast<const char*>(ciphertext), ciphertext_length);
+
     for (int i = 0; i < strlen(reinterpret_cast<const char *> (binary_password)); i++) {
         encrypted_password += binary_password[i];
     }

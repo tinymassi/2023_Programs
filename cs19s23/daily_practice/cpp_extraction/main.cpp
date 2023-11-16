@@ -42,8 +42,19 @@ std::string encrypt (std::string password) {
     return encrypted_password;
 }
 
-void decrypt (std::string password) {
+std::string decrypt (std::string encrypted_password) {
+    unsigned char decryptedtext[128];  // an array of size 128 elementsused to store result of encryption
+    const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
+    const unsigned char iv[] = "abcdefghijklmnop";  // This helps to randomize the encryption process
+    const unsigned char* binary_encrypted_password = reinterpret_cast<const unsigned char*>(encrypted_password.c_str());
+    EVP_CIPHER_CTX* ctx;
+    ctx = EVP_CIPHER_CTX_new();
+    EVP_DecryptInit_ex(ctx, EVP_aes_128_cfb(), NULL, key, iv);
 
+    int len;
+    int encrypted_password_length;
+
+    EVP_DecryptUpdate(ctx, plaintext, &len, decryptedtext, decryptedtextLength);
 }
 
 void saveDataToFile(const std::vector<std::string>& container,const std::string& file_name) {
@@ -64,7 +75,7 @@ void loadDataFromFile (std::vector<std::string>& container, std::string& file_na
     if (take_from_file.is_open()) {
         std::string line{};
         while (std::getline(take_from_file, line)) {
-            container.push_back(line);
+            container.push_back(decrypt(line));
         }
         take_from_file.close();
     } else {

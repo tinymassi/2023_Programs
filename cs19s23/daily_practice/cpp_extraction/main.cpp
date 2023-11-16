@@ -47,14 +47,21 @@ std::string decrypt (std::string encrypted_password) {
     const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
     const unsigned char iv[] = "abcdefghijklmnop";  // This helps to randomize the encryption process
     const unsigned char* binary_encrypted_password = reinterpret_cast<const unsigned char*>(encrypted_password.c_str());
+    std::string decrypted_password;
     EVP_CIPHER_CTX* ctx;
     ctx = EVP_CIPHER_CTX_new();
     EVP_DecryptInit_ex(ctx, EVP_aes_128_cfb(), NULL, key, iv);
 
     int len;
-    int encrypted_password_length;
+    int decryptedtext_length;
 
-    EVP_DecryptUpdate(ctx, plaintext, &len, decryptedtext, decryptedtextLength);
+    EVP_DecryptUpdate(ctx, decryptedtext, &len, binary_encrypted_password, encrypted_password.size());
+    decryptedtext_length = len;
+
+    EVP_DecryptFinal_ex(ctx, decryptedtext + len, &len);
+
+    decryptedtext_length += len;
+
 }
 
 void saveDataToFile(const std::vector<std::string>& container,const std::string& file_name) {

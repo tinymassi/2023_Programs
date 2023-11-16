@@ -62,6 +62,9 @@ std::string decrypt (std::string encrypted_password) {
 
     decryptedtext_length += len;
 
+    decrypted_password.append(reinterpret_cast<const char*>(decryptedtext), decryptedtext_length);
+
+    return decrypted_password;
 }
 
 void saveDataToFile(const std::vector<std::string>& container,const std::string& file_name) {

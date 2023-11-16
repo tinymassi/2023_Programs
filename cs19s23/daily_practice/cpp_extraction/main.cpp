@@ -86,16 +86,13 @@ void loadDataFromFile (std::vector<std::string>& container, std::string& file_na
         std::string line{};
         while (std::getline(take_from_file, line)) {
             container.push_back(decrypt(line));
+            std::cout << "FROM FILE: " << decrypt(line) << std::endl;
         }
         take_from_file.close();
     } else {
         std::cerr << "Unable to open file: " << file_name << std::endl;
     }
 }
-
-// std::string decrypt () {
-    
-// }
 
 int main() {
 

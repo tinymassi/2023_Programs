@@ -107,20 +107,22 @@ int main() {
     while (check1) {
         while (check2) {
             std::getline(std::cin, terminal_input);
-            if (input == "next" || input == "Next") {
+            if (terminal_input == "next" || terminal_input == "Next") {
                 check2 = false;
             } else {
                 input += "\n";
                 input += terminal_input;
             }
+            std::cout << "INPUT: " << input << '\n';
         }
         check2 = true;
         container.push_back(input);
         input = "";
         std::cout << "Are you done?" << '\n';
+        std::cout << "> ";
         std::cin >> terminal_input;
         if (terminal_input == "end" || terminal_input == "End") {
-            check1 == true;
+            break;
         }
     }
 

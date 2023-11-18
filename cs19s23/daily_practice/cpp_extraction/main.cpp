@@ -115,6 +115,7 @@ int main() {
     bool check2 = true;
     while (check1) {
         while (check2) {
+            std::cout << "INSERT DATA INTO VECTOR: " << '\n';
             std::getline(std::cin, terminal_input);
             if (terminal_input == "next" || terminal_input == "Next") {
                 check2 = false;

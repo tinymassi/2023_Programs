@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <string>
 #include <fstream>
 #include <openssl/aes.h>
 #include <openssl/rand.h>
@@ -98,17 +99,28 @@ int main() {
 
     std::cout << "Enter data:" << '\n';
     std::string text_file_name = "text_file.txt";
+    std::string terminal_input{};
     std::string input{};
     std::vector<std::string> container;
-    bool check = true;
-    while (check) {
-        while (std::cin >> input) {
-            if (input == "end" || input == "End") {
-                check = false;
-                break;
+    bool check1 = true;
+    bool check2 = true;
+    while (check1) {
+        while (check2) {
+            std::getline(std::cin, terminal_input);
+            if (input == "next" || input == "Next") {
+                check2 = false;
             } else {
-                container.push_back(input);
+                input += "\n";
+                input += terminal_input;
             }
+        }
+        check2 = true;
+        container.push_back(input);
+        input = "";
+        std::cout << "Are you done?" << '\n';
+        std::cin >> terminal_input;
+        if (terminal_input == "end" || terminal_input == "End") {
+            check1 == true;
         }
     }
 

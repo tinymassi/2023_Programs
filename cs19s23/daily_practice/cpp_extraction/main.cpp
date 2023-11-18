@@ -8,6 +8,14 @@
 #include <openssl/evp.h>
 #include <cstring>
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+
 std::string encrypt (std::string password) {
     unsigned char ciphertext[128];  // an array of size 128 elementsused to store result of encryption
     const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
@@ -75,7 +83,7 @@ void saveDataToFile(const std::vector<std::string>& container,const std::string&
             save_to_file << encrypt(container[i]) << '\n';
         }
         save_to_file.close();
-        std::cout << "Data successfully transferred to " << file_name << '\n';
+        std::cout << GREEN << "Data successfully transferred to " << RESET << file_name << '\n';
     } else {
         std::cerr << "Unable to open file: " << file_name << '\n';
     }
@@ -83,11 +91,12 @@ void saveDataToFile(const std::vector<std::string>& container,const std::string&
 
 void loadDataFromFile (std::vector<std::string>& container, std::string& file_name) {
     std::ifstream take_from_file (file_name);
+    std::cout << GREEN << "DECRYPTED MESSAGE: " << RESET << '\n';
     if (take_from_file.is_open()) {
         std::string line{};
         while (std::getline(take_from_file, line)) {
             container.push_back(decrypt(line));
-            std::cout << "FROM FILE: " << decrypt(line) << std::endl;
+            std::cout << GREEN << "FROM FILE: " << RESET << decrypt(line) << std::endl;
         }
         take_from_file.close();
     } else {
@@ -113,7 +122,6 @@ int main() {
                 input += "\n";
                 input += terminal_input;
             }
-            std::cout << "INPUT: " << input << '\n';
         }
         check2 = true;
         container.push_back(input);

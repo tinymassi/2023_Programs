@@ -44,10 +44,6 @@ std::string encrypt (std::string password) {
 
     encrypted_password.append(reinterpret_cast<const char*>(ciphertext), ciphertext_length);
 
-    // for (int i = 0; i < strlen(reinterpret_cast<const char *> (binary_password)); i++) {
-    //     encrypted_password += binary_password[i];
-    // }
-
     return encrypted_password;
 }
 
@@ -114,8 +110,8 @@ int main() {
     bool check1 = true;
     bool check2 = true;
     while (check1) {
+        std::cout << "INSERT DATA INTO VECTOR: " << '\n';
         while (check2) {
-            std::cout << "INSERT DATA INTO VECTOR: " << '\n';
             std::getline(std::cin, terminal_input);
             if (terminal_input == "next" || terminal_input == "Next") {
                 check2 = false;

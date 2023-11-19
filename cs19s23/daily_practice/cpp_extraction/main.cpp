@@ -72,7 +72,7 @@ std::string decrypt (std::string encrypted_password) {
     return decrypted_password;
 }
 
-void saveDataToFile(const std::vector<std::string>& container,const std::string& file_name) {
+void saveDataToFile(const std::vector<auto>& container,const std::string& file_name) {
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
@@ -105,24 +105,33 @@ int main() {
     std::cout << "Enter data:" << '\n';
     std::string text_file_name = "text_file.txt";
     std::string terminal_input{};
-    std::string input{};
-    std::vector<std::string> container;
+    std::string string_entry{};
+    std::string string_password{};
+    int integer_password{};
+    std::vector<std::string> log_container;
+    std::vector<int> password_container;
     bool check1 = true;
     bool check2 = true;
     while (check1) {
-        std::cout << "INSERT DATA INTO VECTOR: " << '\n';
+        std::cout << "INSERT PASSWORD INTO VECTOR: " << '\n';
+        while (check2) {
+            std::getline(std::cin, string_password);
+            integer_password = std::stoi(string_password);
+            password_container.push_back(integer_password);
+        }
+        std::cout << "INSERT LOG INTO VECTOR: " << '\n';
         while (check2) {
             std::getline(std::cin, terminal_input);
             if (terminal_input == "next" || terminal_input == "Next") {
                 check2 = false;
             } else {
-                input += "\n";
-                input += terminal_input;
+                string_entry += "\n";
+                string_entry += terminal_input;
             }
         }
         check2 = true;
-        container.push_back(input);
-        input = "";
+        log_container.push_back(string_entry);
+        string_entry = "";
         std::cout << "Are you done?" << '\n';
         std::cout << "> ";
         std::cin >> terminal_input;

@@ -72,7 +72,7 @@ std::string decrypt (std::string encrypted_password) {
     return decrypted_password;
 }
 
-void saveDataToFile(const std::vector<auto>& container,const std::string& file_name) {
+void saveDataToFile(const std::vector<std::string>& container,const std::string& file_name) {
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
@@ -140,7 +140,7 @@ int main() {
         }
     }
 
-    saveDataToFile(container, text_file_name);
+    saveDataToFile(container, text_file_name);  // figure out how to make the save data and extract data functions int and str friendly
 
     loadDataFromFile(container, text_file_name);
 

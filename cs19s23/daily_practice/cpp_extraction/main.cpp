@@ -7,6 +7,7 @@
 #include <openssl/rand.h>
 #include <openssl/evp.h>
 #include <cstring>
+#include <limits>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -76,8 +77,11 @@ void saveDataToFile(const std::vector<std::pair<int, std::string>>& container,co
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
-            save_to_file << "[KEY]: " << container[i].first << '\n';
-            save_to_file << "[VALUE]: " << container[i].second << '\n';
+            save_to_file << "[KEY]: " << '\n';
+            save_to_file << container[i].first << '\n';
+            save_to_file << "[VALUE]: " << '\n';
+            save_to_file << container[i].second << '\n';
+            save_to_file << '\n';
         }
         save_to_file.close();
         std::cout << GREEN << "Data successfully transferred to " << file_name << RESET << '\n';
@@ -115,6 +119,7 @@ int main() {
         std::cin >> terminal_input;
         password = std::stoi(terminal_input);
         std::cout << "INSERT ENTRY INTO VECTOR: " << '\n';
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         while (check1) {
             std::getline(std::cin, terminal_input);
             if (terminal_input == "next" || terminal_input == "Next") {
@@ -131,13 +136,6 @@ int main() {
         if (terminal_input == "end" || terminal_input == "End") {
             break;
         }
-    }
-
-    for (int i = 0; i < container.size(); i++) {
-        std::cout << "[KEY]: " << container[i].first << '\n';
-        std::cout << "[VALUE]: " << container[i].second << '\n';
-        std::cout << '\n';
-        std::cout << '\n';
     }
 
     saveDataToFile(container, text_file_name);  // figure out how to make the save data and extract data functions int and str friendly

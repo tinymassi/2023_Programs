@@ -1,9 +1,0 @@
-
-[KEY]: 95003
-[VALUE]: 
-this is my secret entry ooOOoO
-
-[KEY]: 95000
-[VALUE]: 
-this is also my super secret entry
-

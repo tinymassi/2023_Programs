@@ -76,9 +76,8 @@ void saveDataToFile(const std::vector<std::pair<int, std::string>>& container,co
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
-            save_to_file << "[KEY]: " << container[i].first;
-            save_to_file << "[VALUE]: " << container[i].second;
-            std::cout << '\n';
+            save_to_file << "[KEY]: " << container[i].first << '\n';
+            save_to_file << "[VALUE]: " << container[i].second << '\n';
         }
         save_to_file.close();
         std::cout << GREEN << "Data successfully transferred to " << file_name << RESET << '\n';

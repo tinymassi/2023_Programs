@@ -90,14 +90,19 @@ void saveDataToFile(const std::vector<std::pair<int, std::string>>& container,co
     }
 }
 
-void loadDataFromFile (std::vector<std::string>& container, std::string& file_name) {
+void loadDataFromFile (std::vector<std::pair<int, std::string>>& container, std::string& file_name) {
     std::ifstream take_from_file (file_name);
     std::cout << GREEN << "DECRYPTED MESSAGE: " << RESET << '\n';
     if (take_from_file.is_open()) {
         std::string line{};
+        std::string entry{};
         while (std::getline(take_from_file, line)) {
-            container.push_back(decrypt(line));
-            std::cout << GREEN << "FROM FILE: " << RESET << decrypt(line) << std::endl;
+            if (line == "[KEY]" || line == "[VALUE]") {
+                continue;
+            } else {
+                container.push_back(decrypt(line));
+                std::cout << GREEN << "FROM FILE: " << RESET << decrypt(line) << std::endl;
+            }
         }
         take_from_file.close();
     } else {
@@ -133,7 +138,7 @@ int main() {
         std::cout << "Are you done?" << '\n';
         std::cout << "> ";
         std::cin >> terminal_input;
-        if (terminal_input == "end" || terminal_input == "End") {
+        if (terminal_input == "yes" || terminal_input == "Yes") {
             break;
         }
     }

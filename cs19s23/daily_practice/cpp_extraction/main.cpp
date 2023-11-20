@@ -102,36 +102,27 @@ void loadDataFromFile (std::vector<std::string>& container, std::string& file_na
 
 int main() {
 
-    std::cout << "Enter data:" << '\n';
-    std::string text_file_name = "text_file.txt";
+    std::vector<std::pair<int, std::string>> container;
     std::string terminal_input{};
-    std::string string_entry{};
-    std::string string_password{};
-    int integer_password{};
-    std::vector<std::string> log_container;
-    std::vector<int> password_container;
+    std::string text_entry{};
+    int password{};
     bool check1 = true;
-    bool check2 = true;
+
     while (check1) {
         std::cout << "INSERT PASSWORD INTO VECTOR: " << '\n';
-        while (check2) {
-            std::getline(std::cin, string_password);
-            integer_password = std::stoi(string_password);
-            password_container.push_back(integer_password);
-        }
-        std::cout << "INSERT LOG INTO VECTOR: " << '\n';
-        while (check2) {
+        std::cin >> terminal_input;
+        password = std::stoi(terminal_input);
+        std::cout << "INSERT ENTRY INTO VECTOR: " << '\n';
+        while (check1) {
             std::getline(std::cin, terminal_input);
             if (terminal_input == "next" || terminal_input == "Next") {
-                check2 = false;
-            } else {
-                string_entry += "\n";
-                string_entry += terminal_input;
+                break;
             }
+            text_entry += "\n";
+            text_entry += terminal_input;
         }
-        check2 = true;
-        log_container.push_back(string_entry);
-        string_entry = "";
+        container.push_back(std::make_pair(password, text_entry));
+        text_entry = "";
         std::cout << "Are you done?" << '\n';
         std::cout << "> ";
         std::cin >> terminal_input;
@@ -140,9 +131,56 @@ int main() {
         }
     }
 
-    saveDataToFile(container, text_file_name);  // figure out how to make the save data and extract data functions int and str friendly
+    for (int i = 0; i < container.size(); i++) {
+        std::cout << "[KEY]: " << container[i].first << '\n';
+        std::cout << "[VALUE]: " << container[i].second << '\n';
+        std::cout << '\n';
+        std::cout << '\n';
+    }
 
-    loadDataFromFile(container, text_file_name);
+
+
+    // std::cout << "Enter data:" << '\n';
+    // std::string text_file_name = "text_file.txt";
+    // std::string terminal_input{};
+    // std::string string_entry{};
+    // std::string string_password{};
+    // int integer_password{};
+    // std::vector<std::string> log_container;
+    // std::vector<int> password_container;
+    // bool check1 = true;
+    // bool check2 = true;
+    // while (check1) {
+    //     std::cout << "INSERT PASSWORD INTO VECTOR: " << '\n';
+    //     while (check2) {
+    //         std::getline(std::cin, string_password);
+    //         integer_password = std::stoi(string_password);
+    //         password_container.push_back(integer_password);
+    //     }
+    //     std::cout << "INSERT LOG INTO VECTOR: " << '\n';
+    //     while (check2) {
+    //         std::getline(std::cin, terminal_input);
+    //         if (terminal_input == "next" || terminal_input == "Next") {
+    //             check2 = false;
+    //         } else {
+    //             string_entry += "\n";
+    //             string_entry += terminal_input;
+    //         }
+    //     }
+    //     check2 = true;
+    //     log_container.push_back(string_entry);
+    //     string_entry = "";
+    //     std::cout << "Are you done?" << '\n';
+    //     std::cout << "> ";
+    //     std::cin >> terminal_input;
+    //     if (terminal_input == "end" || terminal_input == "End") {
+    //         break;
+    //     }
+    // }
+
+    // saveDataToFile(container, text_file_name);  // figure out how to make the save data and extract data functions int and str friendly
+
+    // loadDataFromFile(container, text_file_name);
 
     return{};
 }

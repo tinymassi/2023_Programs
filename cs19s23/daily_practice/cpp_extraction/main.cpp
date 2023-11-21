@@ -81,7 +81,7 @@ void saveDataToFile(const std::vector<std::pair<int, std::string>>& container,co
             save_to_file << container[i].first << '\n';
             save_to_file << "[VALUE]: " << '\n';
             save_to_file << container[i].second << '\n';
-            save_to_file << '\n';
+            // save_to_file << '\n';
         }
         save_to_file.close();
         std::cout << GREEN << "Data successfully transferred to " << file_name << RESET << '\n';

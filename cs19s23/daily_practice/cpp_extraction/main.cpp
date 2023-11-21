@@ -100,6 +100,7 @@ void loadDataFromFile (std::vector<std::pair<int, std::string>>& container, std:
         while (std::getline(take_from_file, line)) {
             if (line == "[KEY]" || line == "[VALUE]" || line == "") {
                 if (line == "") {
+                    container.push_back(std::make_pair(password, entry));
                     entry = "";
                 }
                 continue;
@@ -110,12 +111,16 @@ void loadDataFromFile (std::vector<std::pair<int, std::string>>& container, std:
                     entry += line;
                     entry += '\n';
                 }
-                std::cout << GREEN << "FROM FILE: " << RESET << decrypt(line) << std::endl;
             }
         }
         take_from_file.close();
     } else {
         std::cerr << "Unable to open file: " << file_name << std::endl;
+    }
+
+    for (int i = 0; i < container.size(); i++) {
+        std::cout << container[i].first << '\n';
+        std::cout << container[i].second << '\n';
     }
 }
 
@@ -132,6 +137,9 @@ int main() {
         std::cout << "INSERT PASSWORD INTO VECTOR: " << '\n';
         std::cin >> terminal_input;
         password = std::stoi(terminal_input);
+        if (password == 0000) {
+            break;
+        }
         std::cout << "INSERT ENTRY INTO VECTOR: " << '\n';
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         while (check1) {
@@ -154,7 +162,7 @@ int main() {
 
     saveDataToFile(container, text_file_name);  // figure out how to make the save data and extract data functions int and str friendly
 
-    // loadDataFromFile(container, text_file_name);
+    loadDataFromFile(container, text_file_name);
 
     return{};
 }

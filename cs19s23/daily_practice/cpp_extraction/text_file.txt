@@ -18,3 +18,29 @@ this is my other entry
 what do you think?
 
 
+[KEY]: 
+1234
+[VALUE]: 
+hello this is 
+my entry!
+
+
+[KEY]: 
+4567
+[VALUE]: 
+i didnt mean to enter this 
+this was an accidental entry.
+
+
+[KEY]: 
+8132
+[VALUE]: 
+this is my entry
+
+
+[KEY]: 
+1234
+[VALUE]: 
+nothing
+
+

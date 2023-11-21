@@ -96,11 +96,20 @@ void loadDataFromFile (std::vector<std::pair<int, std::string>>& container, std:
     if (take_from_file.is_open()) {
         std::string line{};
         std::string entry{};
+        int password{};
         while (std::getline(take_from_file, line)) {
-            if (line == "[KEY]" || line == "[VALUE]") {
+            if (line == "[KEY]" || line == "[VALUE]" || line == "") {
+                if (line == "") {
+                    entry = "";
+                }
                 continue;
             } else {
-                container.push_back(decrypt(line));
+                if (line.find_first_not_of("0123456789") == std::string::npos) {
+                    password = std::stoi(line);
+                } else {
+                    entry += line;
+                    entry += '\n';
+                }
                 std::cout << GREEN << "FROM FILE: " << RESET << decrypt(line) << std::endl;
             }
         }

@@ -98,19 +98,19 @@ void loadDataFromFile (std::vector<std::pair<int, std::string>>& container, std:
         std::string entry{};
         int password{};
         while (std::getline(take_from_file, line)) {
-            if (line == "[KEY]" || line == "[VALUE]" || line == "") {
-                if (line == "") {
-                    container.push_back(std::make_pair(password, entry));
-                    entry = "";
-                }
-                continue;
-            } else {
+            if (line != "[KEY]: " && line != "[VALUE]: " && line != "") {
                 if (line.find_first_not_of("0123456789") == std::string::npos) {
                     password = std::stoi(line);
                 } else {
+                    // if (line == "[KEY]: " || line == "[VALUE]: ") {
+                    //     std::cout << RED << "CAUGHT IT: " << RESET << line << '\n';
+                    // }
                     entry += line;
                     entry += '\n';
                 }
+            } else if (line == "") {
+                container.push_back(std::make_pair(password, entry));
+                entry = "";
             }
         }
         take_from_file.close();

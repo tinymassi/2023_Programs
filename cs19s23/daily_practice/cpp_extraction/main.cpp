@@ -8,6 +8,7 @@
 #include <openssl/evp.h>
 #include <cstring>
 #include <limits>
+#include <algorithm>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -33,7 +34,7 @@ std::string encrypt (std::string string) {
     int ciphertext_length;  // used to store the length of the ciphertext (encrypted data) after encryption process
 
     EVP_EncryptUpdate(ctx, ciphertext, &len, binary_string, string.size());  // updates the encryption context ('ctx') by taking the password, and producing
-                                                                                 // the encrypted output in the ciphertext buffer. &len is used to track # of bytes in update.
+                                                                             // the encrypted output in the ciphertext buffer. &len is used to track # of bytes in update.
 
     ciphertext_length = len;  // updates the cipher text length after EVP update
 
@@ -43,7 +44,7 @@ std::string encrypt (std::string string) {
 
     EVP_CIPHER_CTX_free(ctx);  // this deallocates the memory that was created with the EVP_CIPHER_CTX pointer structure
 
-    encrypted_string.append(reinterpret_cast<const char*>(ciphertext), ciphertext_length);
+    encrypted_string.assign(reinterpret_cast<const char*>(ciphertext), ciphertext_length);
 
     return encrypted_string;
 }
@@ -68,7 +69,7 @@ std::string decrypt (std::string encrypted_string) {
 
     decryptedtext_length += len;
 
-    decrypted_string.append(reinterpret_cast<const char*>(decryptedtext), decryptedtext_length);
+    decrypted_string.assign(reinterpret_cast<const char*>(decryptedtext), decryptedtext_length);
 
     return decrypted_string;
 }
@@ -77,9 +78,10 @@ void saveDataToFile(const std::vector<std::pair<std::string, std::string>>& cont
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
-            save_to_file << "[KEY]: " << '\n';
+            save_to_file << encrypt("[KEY]: ") << '\n';
+            std::cout << "IM TRYING TO ENCRYPT " << container[i].first << '\n';
             save_to_file << encrypt(container[i].first) << '\n';
-            save_to_file << "[VALUE]: " << '\n';
+            save_to_file << encrypt("[VALUE]: ") << '\n';
             save_to_file << encrypt(container[i].second) << '\n';
         }
         save_to_file.close();
@@ -99,9 +101,11 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
         int password{};
         while (std::getline(take_from_file, line)) {
             line = decrypt(line);
+            std::cout << "THIS IS THE LINE: " << line << '\n';
             if (line != "[KEY]: " && line != "[VALUE]: " && line != "") {
-                if (line.find_first_not_of("0123456789") == std::string::npos) {
+                if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                     password = std::stoi(line);
+                    std::cout << "PASSWORD: " << password << '\n';
                 } else {
                     entry += line;
                     entry += '\n';

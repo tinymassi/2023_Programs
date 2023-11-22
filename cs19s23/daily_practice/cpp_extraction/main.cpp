@@ -137,7 +137,7 @@ int main() {
 
     while (check1) {
         std::cout << "INSERT PASSWORD INTO VECTOR: " << '\n';
-        std::cin >> terminal_input;
+        std::cin >> password;
         if (password == "stop" || password == "Stop") {
             break;
         }
@@ -159,6 +159,10 @@ int main() {
         if (terminal_input == "yes" || terminal_input == "Yes") {
             break;
         }
+    }
+
+    for (int i = 0; i < container.size(); i++) {
+        std::cout << "PASSWORD: " << container[i].first << '\n';
     }
 
     saveDataToFile(container, text_file_name);

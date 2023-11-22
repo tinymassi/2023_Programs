@@ -79,7 +79,6 @@ void saveDataToFile(const std::vector<std::pair<std::string, std::string>>& cont
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
             save_to_file << encrypt("[KEY]: ") << '\n';
-            std::cout << "IM TRYING TO ENCRYPT " << container[i].first << '\n';
             save_to_file << encrypt(container[i].first) << '\n';
             save_to_file << encrypt("[VALUE]: ") << '\n';
             save_to_file << encrypt(container[i].second) << '\n';
@@ -105,7 +104,6 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
             if (line != "[KEY]: " && line != "[VALUE]: " && line != "") {
                 if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                     password = std::stoi(line);
-                    std::cout << "PASSWORD: " << password << '\n';
                 } else {
                     entry += line;
                     entry += '\n';
@@ -159,10 +157,6 @@ int main() {
         if (terminal_input == "yes" || terminal_input == "Yes") {
             break;
         }
-    }
-
-    for (int i = 0; i < container.size(); i++) {
-        std::cout << "PASSWORD: " << container[i].first << '\n';
     }
 
     saveDataToFile(container, text_file_name);

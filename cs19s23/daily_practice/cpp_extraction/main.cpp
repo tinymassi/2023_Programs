@@ -17,13 +17,13 @@
 #define MAGENTA "\033[35m"
 #define CYAN    "\033[36m"
 
-std::string encrypt (std::string password) {
+std::string encrypt (std::string string) {
     unsigned char ciphertext[128];  // an array of size 128 elementsused to store result of encryption
     const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
     const unsigned char iv[] = "abcdefghijklmnop";  // This helps to randomize the encryption process
-    const unsigned char* binary_password = reinterpret_cast<const unsigned char*>(password.c_str());
+    const unsigned char* binary_string = reinterpret_cast<const unsigned char*>(string.c_str());
     EVP_CIPHER_CTX *ctx;  // a structure used to maintain information for cryptography such as the decryption or encryption algorithm
-    std::string encrypted_password;
+    std::string encrypted_string;
 
     ctx = EVP_CIPHER_CTX_new();  // allocated memory for a new EVP_CIPHER structure & returns pointer to created struct
     EVP_EncryptInit_ex(ctx, EVP_aes_128_cfb(), NULL, key, iv);  // initializes encryption operation
@@ -32,7 +32,7 @@ std::string encrypt (std::string password) {
     int len;  // used to store the length of the outuput after encryption process
     int ciphertext_length;  // used to store the length of the ciphertext (encrypted data) after encryption process
 
-    EVP_EncryptUpdate(ctx, ciphertext, &len, binary_password, password.size());  // updates the encryption context ('ctx') by taking the password, and producing
+    EVP_EncryptUpdate(ctx, ciphertext, &len, binary_string, string.size());  // updates the encryption context ('ctx') by taking the password, and producing
                                                                                  // the encrypted output in the ciphertext buffer. &len is used to track # of bytes in update.
 
     ciphertext_length = len;  // updates the cipher text length after EVP update
@@ -43,17 +43,17 @@ std::string encrypt (std::string password) {
 
     EVP_CIPHER_CTX_free(ctx);  // this deallocates the memory that was created with the EVP_CIPHER_CTX pointer structure
 
-    encrypted_password.append(reinterpret_cast<const char*>(ciphertext), ciphertext_length);
+    encrypted_string.append(reinterpret_cast<const char*>(ciphertext), ciphertext_length);
 
-    return encrypted_password;
+    return encrypted_string;
 }
 
-std::string decrypt (std::string encrypted_password) {
+std::string decrypt (std::string encrypted_string) {
     unsigned char decryptedtext[128];  // an array of size 128 elementsused to store result of encryption
     const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
     const unsigned char iv[] = "abcdefghijklmnop";  // This helps to randomize the encryption process
-    const unsigned char* binary_encrypted_password = reinterpret_cast<const unsigned char*>(encrypted_password.c_str());
-    std::string decrypted_password;
+    const unsigned char* binary_encrypted_string = reinterpret_cast<const unsigned char*>(encrypted_string.c_str());
+    std::string decrypted_string;
     EVP_CIPHER_CTX* ctx;
     ctx = EVP_CIPHER_CTX_new();
     EVP_DecryptInit_ex(ctx, EVP_aes_128_cfb(), NULL, key, iv);
@@ -61,27 +61,26 @@ std::string decrypt (std::string encrypted_password) {
     int len;
     int decryptedtext_length;
 
-    EVP_DecryptUpdate(ctx, decryptedtext, &len, binary_encrypted_password, encrypted_password.size());
+    EVP_DecryptUpdate(ctx, decryptedtext, &len, binary_encrypted_string, encrypted_string.size());
     decryptedtext_length = len;
 
     EVP_DecryptFinal_ex(ctx, decryptedtext + len, &len);
 
     decryptedtext_length += len;
 
-    decrypted_password.append(reinterpret_cast<const char*>(decryptedtext), decryptedtext_length);
+    decrypted_string.append(reinterpret_cast<const char*>(decryptedtext), decryptedtext_length);
 
-    return decrypted_password;
+    return decrypted_string;
 }
 
-void saveDataToFile(const std::vector<std::pair<int, std::string>>& container,const std::string& file_name) {
+void saveDataToFile(const std::vector<std::pair<std::string, std::string>>& container,const std::string& file_name) {
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
             save_to_file << "[KEY]: " << '\n';
-            save_to_file << container[i].first << '\n';
+            save_to_file << encrypt(container[i].first) << '\n';
             save_to_file << "[VALUE]: " << '\n';
-            save_to_file << container[i].second << '\n';
-            // save_to_file << '\n';
+            save_to_file << encrypt(container[i].second) << '\n';
         }
         save_to_file.close();
         std::cout << GREEN << "Data successfully transferred to " << file_name << RESET << '\n';
@@ -90,26 +89,25 @@ void saveDataToFile(const std::vector<std::pair<int, std::string>>& container,co
     }
 }
 
-void loadDataFromFile (std::vector<std::pair<int, std::string>>& container, std::string& file_name) {
+void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& container, std::string& file_name) {
     std::ifstream take_from_file (file_name);
+    std::vector <std::pair<int, std::string>> file_data_container;
     std::cout << GREEN << "DECRYPTED MESSAGE: " << RESET << '\n';
     if (take_from_file.is_open()) {
         std::string line{};
         std::string entry{};
         int password{};
         while (std::getline(take_from_file, line)) {
+            line = decrypt(line);
             if (line != "[KEY]: " && line != "[VALUE]: " && line != "") {
                 if (line.find_first_not_of("0123456789") == std::string::npos) {
                     password = std::stoi(line);
                 } else {
-                    // if (line == "[KEY]: " || line == "[VALUE]: ") {
-                    //     std::cout << RED << "CAUGHT IT: " << RESET << line << '\n';
-                    // }
                     entry += line;
                     entry += '\n';
                 }
             } else if (line == "") {
-                container.push_back(std::make_pair(password, entry));
+                file_data_container.push_back(std::make_pair(password, entry));
                 entry = "";
             }
         }
@@ -119,25 +117,24 @@ void loadDataFromFile (std::vector<std::pair<int, std::string>>& container, std:
     }
 
     for (int i = 0; i < container.size(); i++) {
-        std::cout << container[i].first << '\n';
-        std::cout << container[i].second << '\n';
+        std::cout << "[KEY]: " << file_data_container[i].first << '\n';
+        std::cout << "[VALUE]: " << file_data_container[i].second << '\n';
     }
 }
 
 int main() {
 
-    std::vector<std::pair<int, std::string>> container;
+    std::vector<std::pair<std::string, std::string>> container;
     std::string text_file_name = "text_file.txt";
     std::string terminal_input{};
     std::string text_entry{};
-    int password{};
+    std::string password{};
     bool check1 = true;
 
     while (check1) {
         std::cout << "INSERT PASSWORD INTO VECTOR: " << '\n';
         std::cin >> terminal_input;
-        password = std::stoi(terminal_input);
-        if (password == 0000) {
+        if (password == "stop" || password == "Stop") {
             break;
         }
         std::cout << "INSERT ENTRY INTO VECTOR: " << '\n';
@@ -160,8 +157,7 @@ int main() {
         }
     }
 
-    saveDataToFile(container, text_file_name);  // figure out how to make the save data and extract data functions int and str friendly
-
+    saveDataToFile(container, text_file_name);
     loadDataFromFile(container, text_file_name);
 
     return{};

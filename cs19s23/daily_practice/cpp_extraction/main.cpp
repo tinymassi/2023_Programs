@@ -98,7 +98,6 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
         std::string line{};
         std::string entry{};
         int password{};
-        int loop_tracker = 0;
         while (std::getline(take_from_file, line)) {
             line = decrypt(line);
             if (line != "START" && line != "END" && line != "") {
@@ -112,7 +111,6 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
                 file_data_container.push_back(std::make_pair(password, entry));
                 entry = "";
             }
-            loop_tracker++;
         }
         take_from_file.close();
     } else {

@@ -57,6 +57,7 @@ class log {
         bool user_input = true;
         bool check = false;
         std::vector<std::tuple<std::string, std::string, std::string>> input_container;
+        loadDataFromFile(text_file);
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
             std::cout << GREEN << "Enter anything other than a, b, & c to exit." << RESET << '\n';
@@ -339,16 +340,16 @@ class log {
     void loadDataFromFile(std::string& file_name) {
         std::fstream take_from_file (file_name);
         std::vector <std::tuple<int, std::string, std::string>> from_file_container;
-        int password{};
-        std::string line{};
-        std::string date{};
-        std::string entry{};
         if (take_from_file.is_open()) {
-            while (getline(std::cin, line)) {
+            std::string line{};
+            std::string entry{};
+            std::string date{};
+            int password{};
+            while (getline(take_from_file, line)) {
                 line = line;  // this is for decryption later
                 if (line != "[START]" && line != "[END]") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit)) {
-                        password = stoi(line);
+                        password = std::stoi(line);
                     } else if (is_date_valid(line)) {
                         date = line;
                     } else {

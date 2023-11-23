@@ -100,7 +100,6 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
         int password{};
         while (std::getline(take_from_file, line)) {
             line = decrypt(line);
-            std::cout << "THIS IS THE LINE: " << line << '\n';
             if (line != "[KEY]: " && line != "[VALUE]: " && line != "") {
                 if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                     password = std::stoi(line);
@@ -118,7 +117,7 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
         std::cerr << "Unable to open file: " << file_name << std::endl;
     }
 
-    for (int i = 0; i < container.size(); i++) {
+    for (int i = 0; i < file_data_container.size(); i++) {
         std::cout << "[KEY]: " << file_data_container[i].first << '\n';
         std::cout << "[VALUE]: " << file_data_container[i].second << '\n';
     }

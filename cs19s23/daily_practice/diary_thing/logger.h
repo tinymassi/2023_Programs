@@ -336,8 +336,39 @@ class log {
         }
     }
 
-    void loadDataFromFile() {
+    void loadDataFromFile(std::string& file_name) {
+        std::fstream take_from_file (file_name);
+        std::vector <std::tuple<int, std::string, std::string>> from_file_container;
+        int password{};
+        std::string line{};
+        std::string date{};
+        std::string entry{};
+        if (take_from_file.is_open()) {
+            while (getline(std::cin, line)) {
+                line = line;  // this is for decryption later
+                if (line != "[START]" && line != "[END]") {
+                    if (std::all_of(line.begin(), line.end(), ::isdigit)) {
+                        password = stoi(line);
+                    } else if (is_date_valid(line)) {
+                        date = line;
+                    } else {
+                        entry += line;
+                        entry += '\n';
+                    }
+                } else if (line == "[END]") {
+                    from_file_container.push_back(std::make_tuple(password, date, entry));
+                    date = "";
+                    entry = "";
+                }
+            }
+            take_from_file.close();
+        } else {
+            std::cerr << "Failed to open " << file_name << '\n';
+        }
 
+        for (int i = 0; i < from_file_container.size(); i++) {
+            insert(std::get<0>(from_file_container[i]), std::get<1>(from_file_container[i]), (std::get<2>(from_file_container[i])));
+        }
     }
 
     int hash_function(int password) {

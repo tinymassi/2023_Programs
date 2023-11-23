@@ -108,7 +108,7 @@ class log {
                     }
                 }
                 input_container.push_back(std::make_tuple(str_password, date, entry));
-                insert(int_password, date, entry);
+                insert(int_password, date, entry, "Main Function");
                 entry = "";
                 terminal_entry = "";
             } else if (input == "b") {
@@ -196,7 +196,7 @@ class log {
         return true;
     }
 
-    void insert(int password, std::string date, std::string entry) {
+    void insert(int password, std::string date, std::string entry, std::string from_where) {
         std::list<std::pair<std::string, std::string>> empty_list;
         int array_index = hash_function(password);
         bool is_data_in_table = false;
@@ -221,8 +221,10 @@ class log {
 
         if (!is_data_in_table) {
             table[array_index][vector_index].second.emplace_back(date, entry);
-            std::cout << '\n';
-            std::cout << GREEN << "Data was added to log!" << RESET << '\n';
+            if (from_where == "Main Function") {
+                std::cout << '\n';
+                std::cout << GREEN << "Data was added to log!" << RESET << '\n';
+            }
         }
     }
 
@@ -349,7 +351,6 @@ class log {
                 // line = line;  // this is for decryption later
                 if (line != "[START]" && line != "[END]" && line != "") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit)) {
-                        std::cout << "THIS -> " << line << '\n';
                         password = std::stoi(line);
                     } else if (is_date_valid(line)) {
                         date = line;
@@ -369,7 +370,7 @@ class log {
         }
 
         for (int i = 0; i < from_file_container.size(); i++) {
-            insert(std::get<0>(from_file_container[i]), std::get<1>(from_file_container[i]), (std::get<2>(from_file_container[i])));
+            insert(std::get<0>(from_file_container[i]), std::get<1>(from_file_container[i]), (std::get<2>(from_file_container[i])), "Load Function");
         }
     }
 

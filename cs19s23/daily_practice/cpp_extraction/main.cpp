@@ -78,10 +78,10 @@ void saveDataToFile(const std::vector<std::pair<std::string, std::string>>& cont
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
-            save_to_file << encrypt("[KEY]: ") << '\n';
+            save_to_file << encrypt("START") << '\n';
             save_to_file << encrypt(container[i].first) << '\n';
-            save_to_file << encrypt("[VALUE]: ") << '\n';
             save_to_file << encrypt(container[i].second) << '\n';
+            save_to_file << encrypt("END") << '\n';
         }
         save_to_file.close();
         std::cout << GREEN << "Data successfully transferred to " << file_name << RESET << '\n';
@@ -98,19 +98,21 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
         std::string line{};
         std::string entry{};
         int password{};
+        int loop_tracker = 0;
         while (std::getline(take_from_file, line)) {
             line = decrypt(line);
-            if (line != "[KEY]: " && line != "[VALUE]: " && line != "") {
+            if (line != "START" && line != "END" && line != "") {
                 if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                     password = std::stoi(line);
                 } else {
                     entry += line;
                     entry += '\n';
                 }
-            } else if (line == "") {
+            } else if (line == "END") {
                 file_data_container.push_back(std::make_pair(password, entry));
                 entry = "";
             }
+            loop_tracker++;
         }
         take_from_file.close();
     } else {

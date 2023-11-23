@@ -346,9 +346,10 @@ class log {
             std::string date{};
             int password{};
             while (getline(take_from_file, line)) {
-                line = line;  // this is for decryption later
-                if (line != "[START]" && line != "[END]") {
+                // line = line;  // this is for decryption later
+                if (line != "[START]" && line != "[END]" && line != "") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit)) {
+                        std::cout << "THIS -> " << line << '\n';
                         password = std::stoi(line);
                     } else if (is_date_valid(line)) {
                         date = line;

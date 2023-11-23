@@ -5,6 +5,15 @@
 #include <string>
 #include <list>
 #include <limits>
+#include <openssl/aes.h>
+#include <openssl/rand.h>
+#include <openssl/evp.h>
+#include <cstring>
+#include <limits>
+#include <algorithm>
+#include <tuple>
+#include <fstream>
+#include <sstream>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -44,8 +53,10 @@ class log {
         std::string entry {};
         std::string terminal_entry{};
         std::string input{};
+        std::string text_file = "logger_data.txt";
         bool user_input = true;
         bool check = false;
+        std::vector<std::tuple<std::string, std::string, std::string>> input_container;
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
             std::cout << GREEN << "Enter anything other than a, b, & c to exit." << RESET << '\n';
@@ -95,6 +106,7 @@ class log {
                         entry += terminal_entry;
                     }
                 }
+                input_container.push_back(std::make_tuple(str_password, date, entry));
                 insert(int_password, date, entry);
                 entry = "";
                 terminal_entry = "";
@@ -147,6 +159,7 @@ class log {
         std::cout << std::endl;
         check = false;
         }
+        saveDataToFile(input_container, text_file);
     }
 
     bool is_password_valid (std::string password) {
@@ -304,6 +317,27 @@ class log {
             std::cout << RED << "There are no entries under this password." << RESET << '\n';
             std::cout << '\n';
         }
+    }
+
+    void saveDataToFile (const std::vector<std::tuple<std::string, std::string, std::string>> input_container, const std::string& file_name) {
+        std::ofstream save_to_file (file_name, std::ios::app);
+        if (save_to_file.is_open()) {
+            for (int i = 0; i < input_container.size(); i++) {
+                save_to_file << "[START]" << '\n';
+                save_to_file << std::get<0>(input_container[i]) << '\n';
+                save_to_file << std::get<1>(input_container[i]) << '\n';
+                save_to_file << std::get<2>(input_container[i]) << '\n';
+                save_to_file << "[END]" << '\n';
+                save_to_file << '\n';
+            }
+            save_to_file.close();
+        } else {
+            std::cerr << "Failed to open " << file_name << '\n';
+        }
+    }
+
+    void loadDataFromFile() {
+
     }
 
     int hash_function(int password) {

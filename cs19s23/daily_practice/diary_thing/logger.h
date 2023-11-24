@@ -283,7 +283,7 @@ class log {
         }
     }
 
-    void print_entire_log() {  // prints out the entire hash map
+    void print_entire_log() {  // might not work with current log rn
         int array_index{};
         int vector_index{};
         bool valid = true;
@@ -326,11 +326,11 @@ class log {
         std::ofstream save_to_file (file_name, std::ios::app);
         if (save_to_file.is_open()) {
             for (int i = 0; i < input_container.size(); i++) {
-                save_to_file << "[START]" << '\n';
-                save_to_file << std::get<0>(input_container[i]) << '\n';
-                save_to_file << std::get<1>(input_container[i]) << '\n';
-                save_to_file << std::get<2>(input_container[i]) << '\n';
-                save_to_file << "[END]" << '\n';
+                save_to_file << encrypt("[START]") << '\n';
+                save_to_file << encrypt(std::get<0>(input_container[i])) << '\n';
+                save_to_file << encrypt(std::get<1>(input_container[i])) << '\n';
+                save_to_file << encrypt(std::get<2>(input_container[i])) << '\n';
+                save_to_file << encrypt("[END]") << '\n';
                 save_to_file << '\n';
             }
             save_to_file.close();
@@ -348,7 +348,7 @@ class log {
             std::string date{};
             int password{};
             while (getline(take_from_file, line)) {
-                // line = line;  // this is for decryption later
+                line = decrypt(line);  // this is for decryption later
                 if (line != "[START]" && line != "[END]" && line != "") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                         password = std::stoi(line);

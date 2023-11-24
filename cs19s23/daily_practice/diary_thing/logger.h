@@ -15,6 +15,13 @@
 #include <fstream>
 #include <sstream>
 
+  // g++ main.cpp -lssl -lcrypto
+  // ./a.out
+
+  // TODO: ADD A FUNCTION THAT HIDES YOUR PASSWORD AS YOU TYPE IT IN THE TERMIANL WINDOW
+  // TODO: ALSO ADD A MASTERKEY SO THAT IF SOMEONE FORGETS THEIR PASSWORD YOU CAN SEE
+  // ALL THE PASSWORDS AND RETRIEVE IT.
+
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
@@ -34,19 +41,7 @@ class log {
 
     public:
 
-      // TODO: Serialization of the data in this program? turn it into binady data instead of saving as a data type
-      // save it in a known configuration. Utilizing iterators for this could help
-
-      // TODO: Use a text file to send all the data to.
-      // pipe information to text file
-      // format the text file in a way that the program can read and understand
-      // pipe the data from the text file into my logger.h
-      // encrypt the data! then decrypt it!
-      // use a library for encryption and decyption. There are tons of these. crypt.h, libcrypto
-      // check open SSL for this stuff ^
-
-
-    log() {  // TODO: Make the program save the entries
+    log() {
         int int_password {};  
         std::string str_password {};
         std::string date {};
@@ -175,7 +170,7 @@ class log {
         return true;
     }
 
-    bool is_date_valid (std::string date) {  // add this to check validity of entries
+    bool is_date_valid (std::string date) {
         if (date.size() == 8) {
             for (int i = 0; i < date.size(); i++) {
                 if (i != 2 && i != 5) {
@@ -283,7 +278,7 @@ class log {
         }
     }
 
-    void print_entire_log() {  // might not work with current log rn
+    void print_entire_log() {
         int array_index{};
         int vector_index{};
         bool valid = true;

@@ -368,9 +368,9 @@ class log {
             insert(std::get<0>(from_file_container[i]), std::get<1>(from_file_container[i]), (std::get<2>(from_file_container[i])), "Load Function");
         }
     }
-
+      // TODO: add a good practice for formatting the ciphertext array size based on entry
     std::string encrypt (std::string string) {
-        unsigned char ciphertext[128];  // an array of size 128 elementsused to store result of encryption
+        unsigned char ciphertext[1000];  // an array of size 128 elementsused to store result of encryption
         const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
         const unsigned char iv[] = "abcdefghijklmnop";  // This helps to randomize the encryption process
         const unsigned char* binary_string = reinterpret_cast<const unsigned char*>(string.c_str());
@@ -401,7 +401,7 @@ class log {
     }
 
     std::string decrypt (std::string encrypted_string) {
-        unsigned char decryptedtext[128];  // an array of size 128 elementsused to store result of encryption
+        unsigned char decryptedtext[1000];  // an array of size 128 elementsused to store result of encryption
         const unsigned char key[] = "0123456789abcdef";  // const unsigned char bc it relates to binary data its const bc this data shouldnt be modified
         const unsigned char iv[] = "abcdefghijklmnop";  // This helps to randomize the encryption process
         const unsigned char* binary_encrypted_string = reinterpret_cast<const unsigned char*>(encrypted_string.c_str());

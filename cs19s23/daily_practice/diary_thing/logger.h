@@ -242,6 +242,8 @@ class log {
         break;
         }
 
+        removeFromFile(date);
+
         if (!was_data_removed) {
             std::cout << RED << "Data from " << date << " is not in the log." << RESET << '\n';
         }
@@ -329,8 +331,9 @@ class log {
                 file_to_add_to << encrypt(line) << '\n';
             } else {
                 check = true;
-                if (line == "") {  // change this to if == "[END]" & make sure to add to file_to_add_to
+                if (line == "[END]") {  // change this to if == "[END]" & make sure to add to file_to_add_to
                     check = false;
+                    file_to_add_to << encrypt(line) << '\n';
                 }
             }
         }

@@ -320,7 +320,25 @@ class log {
     void removeFromFile (std::string date) {
         std::ifstream file_to_remove_from ("logger_data.txt");
         std::ofstream file_to_add_to ("logger_data_2.txt");
+        std::string line{};
+        bool check = false;
 
+        while (getline(file_to_remove_from, line)) {
+            line = decrypt(line);
+            if (line != date && !check) {
+                file_to_add_to << encrypt(line) << '\n';
+            } else {
+                check = true;
+                if (line == "") {  // change this to if == "[END]" & make sure to add to file_to_add_to
+                    check = false;
+                }
+            }
+        }
+
+        file_to_remove_from.close();
+        file_to_add_to.close();
+
+        std::rename("logger_data.txt", "logger_data_2.txt");
     }
 
     void saveDataToFile (const std::vector<std::tuple<std::string, std::string, std::string>> input_container, const std::string& file_name) {

@@ -317,6 +317,12 @@ class log {
         }
     }
 
+    void removeFromFile (std::string date) {
+        std::ifstream file_to_remove_from ("logger_data.txt");
+        std::ofstream file_to_add_to ("logger_data_2.txt");
+
+    }
+
     void saveDataToFile (const std::vector<std::tuple<std::string, std::string, std::string>> input_container, const std::string& file_name) {
         std::ofstream save_to_file (file_name, std::ios::app);
         if (save_to_file.is_open()) {

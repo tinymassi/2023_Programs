@@ -319,7 +319,7 @@ class log {
         }
     }
 
-    void removeFromFile (std::string date) {
+    void removeFromFile (std::string date) {  // this still doesnt work
         std::ifstream fileToRemoveFrom ("logger_data.txt");
         std::ofstream fileToAddTo ("logger_data_2.txt");
         std::string line{};

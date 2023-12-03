@@ -320,28 +320,31 @@ class log {
     }
 
     void removeFromFile (std::string date) {
-        std::ifstream file_to_remove_from ("logger_data.txt");
-        std::ofstream file_to_add_to ("logger_data_2.txt");
+        std::ifstream fileToRemoveFrom ("logger_data.txt");
+        std::ofstream fileToAddTo ("logger_data_2.txt");
         std::string line{};
-        bool check = true;
         bool check_for_date = false;
 
-        while (check) {
-            getline(file_to_remove_from, line);
+        while (getline(fileToRemoveFrom, line)) {
             line = decrypt(line);
             if (line == date) {
-                check = true;
-            } else if (check && line != "[END]") {
+                check_for_date = true;
+            } else if (check_for_date && line != "[END]") {
                 continue;
-            } else if (check && line == "[END]") {
-                check = false;
+            } else if (check_for_date && line == "[END]") {
+                check_for_date = false;
+                fileToAddTo << encrypt(line) << '\n';
             } else {
-                file_to_add_to << line << '\n';
+                fileToAddTo << encrypt(line) << '\n';
             }
         }
 
-        file_to_remove_from.close();
-        file_to_add_to.close();
+        fileToRemoveFrom.close();
+        fileToAddTo.close();
+
+        std::ofstream fileToClear("logger_data.txt", std::ios::trunc);
+
+        fileToClear.close();
 
         std::rename("logger_data.txt", "logger_data_2.txt");
     }

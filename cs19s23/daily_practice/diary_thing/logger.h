@@ -321,6 +321,7 @@ class log {
 
     void removeFromFile (std::string date) {  // this still doesnt work
         std::ifstream fileToRemoveFrom ("logger_data.txt");
+        const char* tempFile = "temp_swap_file.txt";
         std::ofstream fileToAddTo ("logger_data_2.txt");
         std::string line{};
         bool check_for_date = false;
@@ -339,14 +340,16 @@ class log {
             }
         }
 
+        std::ofstream fileToClear("logger_data.txt", std::ios::trunc);
+
         fileToRemoveFrom.close();
         fileToAddTo.close();
 
-        std::ofstream fileToClear("logger_data.txt", std::ios::trunc);
-
         fileToClear.close();
 
+        std::rename(tempFile, "logger_data.txt");  // find a better way to swap the file names lol
         std::rename("logger_data.txt", "logger_data_2.txt");
+        std::rename("logger_data_2.txt", tempFile);
     }
 
     void saveDataToFile (const std::vector<std::tuple<std::string, std::string, std::string>> input_container, const std::string& file_name) {

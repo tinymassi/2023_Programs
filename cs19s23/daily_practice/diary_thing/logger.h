@@ -323,18 +323,20 @@ class log {
         std::ifstream file_to_remove_from ("logger_data.txt");
         std::ofstream file_to_add_to ("logger_data_2.txt");
         std::string line{};
-        bool check = false;
+        bool check = true;
+        bool check_for_date = false;
 
-        while (getline(file_to_remove_from, line)) {
+        while (check) {
+            getline(file_to_remove_from, line);
             line = decrypt(line);
-            if (line != date && !check) {
-                file_to_add_to << encrypt(line) << '\n';
-            } else {
+            if (line == date) {
                 check = true;
-                if (line == "[END]") {  // change this to if == "[END]" & make sure to add to file_to_add_to
-                    check = false;
-                    file_to_add_to << encrypt(line) << '\n';
-                }
+            } else if (check && line != "[END]") {
+                continue;
+            } else if (check && line == "[END]") {
+                check = false;
+            } else {
+                file_to_add_to << line << '\n';
             }
         }
 

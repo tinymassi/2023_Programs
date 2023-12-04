@@ -128,7 +128,7 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
 }
 
 void RemoveFromFile (std::string key_word) {
-    std::ifstream from_file ("text_file_1.txt");
+    std::ifstream from_file ("text_file.txt");
     std::ofstream to_file ("text_file_2.txt");
     const char* temp_file = "temp.txt";
     bool was_word_found = false;
@@ -138,16 +138,20 @@ void RemoveFromFile (std::string key_word) {
     while (getline(from_file, line)) {
         // line = decrypt(line);
         if (line == key_word) {
+            std::cout << "i found: " << line << '\n'; 
             was_word_found = true;
         } else if (was_word_found == true && line == "END") {
             to_file << line << '\n';
         } else if (was_word_found == true && line != "END") {
             continue;
         } else {
+            std::cout << "im inserting: " << line << '\n'; 
             to_file << line << '\n';
         }
     }
     
+    from_file.close();
+    to_file.close();
 
 }
 

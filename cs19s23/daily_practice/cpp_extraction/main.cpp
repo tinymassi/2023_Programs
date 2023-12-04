@@ -78,10 +78,14 @@ void saveDataToFile(const std::vector<std::pair<std::string, std::string>>& cont
     std::ofstream save_to_file (file_name, std::ios::app);
     if (save_to_file.is_open()) {
         for (int i = 0; i < container.size(); i++) {
-            save_to_file << encrypt("START") << '\n';
-            save_to_file << encrypt(container[i].first) << '\n';
-            save_to_file << encrypt(container[i].second) << '\n';
-            save_to_file << encrypt("END") << '\n';
+            // save_to_file << encrypt("START") << '\n';
+            // save_to_file << encrypt(container[i].first) << '\n';
+            // save_to_file << encrypt(container[i].second) << '\n';
+            // save_to_file << encrypt("END") << '\n';
+            save_to_file << "START" << '\n';
+            save_to_file << container[i].first  << '\n';
+            save_to_file << container[i].second << '\n';
+            save_to_file << "END" << '\n';
         }
         save_to_file.close();
         std::cout << GREEN << "Data successfully transferred to " << file_name << RESET << '\n';
@@ -93,13 +97,13 @@ void saveDataToFile(const std::vector<std::pair<std::string, std::string>>& cont
 void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& container, std::string& file_name) {
     std::ifstream take_from_file (file_name);
     std::vector <std::pair<int, std::string>> file_data_container;
-    std::cout << GREEN << "DECRYPTED MESSAGE: " << RESET << '\n';
+    // std::cout << GREEN << "DECRYPTED MESSAGE: " << RESET << '\n';
     if (take_from_file.is_open()) {
         std::string line{};
         std::string entry{};
         int password{};
         while (std::getline(take_from_file, line)) {
-            line = decrypt(line);
+            // line = decrypt(line);
             if (line != "START" && line != "END" && line != "") {
                 if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                     password = std::stoi(line);
@@ -121,6 +125,30 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
         std::cout << "[KEY]: " << file_data_container[i].first << '\n';
         std::cout << "[VALUE]: " << file_data_container[i].second << '\n';
     }
+}
+
+void RemoveFromFile (std::string key_word) {
+    std::ifstream from_file ("text_file_1.txt");
+    std::ofstream to_file ("text_file_2.txt");
+    const char* temp_file = "temp.txt";
+    bool was_word_found = false;
+
+    std::string line{};
+
+    while (getline(from_file, line)) {
+        // line = decrypt(line);
+        if (line == key_word) {
+            was_word_found = true;
+        } else if (was_word_found == true && line == "END") {
+            to_file << line << '\n';
+        } else if (was_word_found == true && line != "END") {
+            continue;
+        } else {
+            to_file << line << '\n';
+        }
+    }
+    
+
 }
 
 int main() {
@@ -160,6 +188,12 @@ int main() {
 
     saveDataToFile(container, text_file_name);
     loadDataFromFile(container, text_file_name);
+
+    std::string dummy_string{};
+
+    std::cout << "Enter the word you wanna remove" << '\n';
+    std::cin >> dummy_string;
+    RemoveFromFile(dummy_string);
 
     return{};
 }

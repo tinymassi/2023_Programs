@@ -242,7 +242,7 @@ class log {
         break;
         }
 
-        removeFromFile(date);
+        // removeFromFile(date);
 
         if (!was_data_removed) {
             std::cout << RED << "Data from " << date << " is not in the log." << RESET << '\n';

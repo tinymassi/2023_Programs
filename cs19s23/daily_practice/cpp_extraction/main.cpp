@@ -127,10 +127,17 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
     }
 }
 
+void swapFileNames (const char*& temp_file, const char*& old_name, const char*& new_name) {
+    
+}
+
 void RemoveFromFile (std::string key_word) {
-    std::ifstream from_file ("text_file.txt");
-    std::ofstream to_file ("text_file_2.txt");
     const char* temp_file = "temp.txt";
+    const char* from_file_name = "text_file.txt";
+    const char* to_file_name = "text_file_2.txt";
+
+    std::ifstream from_file (from_file_name);
+    std::ofstream to_file (to_file_name);
     bool was_word_found = false;
 
     std::string line{};
@@ -152,6 +159,7 @@ void RemoveFromFile (std::string key_word) {
     
     from_file.close();
     to_file.close();
+
 
 }
 

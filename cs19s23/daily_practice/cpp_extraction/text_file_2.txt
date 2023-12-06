@@ -1,6 +1,0 @@
-START
-1234
-test entry
-balls
-
-END

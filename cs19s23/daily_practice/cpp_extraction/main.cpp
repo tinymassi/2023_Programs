@@ -128,23 +128,11 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
 }
 
 void RemoveFromFile (std::string key_word) {
-    static int num = 0;
-    const char* from_file_name{};
-    const char* to_file_name{};
-    if (num % 2 != 0) {
-        from_file_name = "text_file_2.txt";
-        to_file_name = "text_file.txt";
-    } else {
-        from_file_name = "text_file.txt";
-        to_file_name = "text_file_2.txt";
-    }
+    bool was_entry_found = false;
 
-    num++;
-
-    std::ifstream from_file (from_file_name);
-    std::ofstream to_file (to_file_name);
+    std::ifstream from_file ("text_file.txt");
+    std::ofstream to_file ("text_file_2.txt");
     bool was_word_found = false;
-
     std::string line{};
     int entry_number{};
     int key_word_entry_number{};
@@ -156,23 +144,18 @@ void RemoveFromFile (std::string key_word) {
         } else if (line == key_word) {
             key_word_entry_number = entry_number;
             entry_number = 0;
-            std::cout << "I found " << line << " in entry #" << key_word_entry_number << '\n';
             break;
         }
     }
 
-    bool was_entry_found = false;
     from_file.seekg(0, std::ios::beg);
 
     while (getline(from_file, line)) {
         // line = decrypt(line);
-        std::cout << "I AM RUNNING" << '\n';
-        std::cout << line << '\n';
         if (line == "START") {
             entry_number++;
             if (entry_number == key_word_entry_number) {
                 was_entry_found = true;
-                std::cout << "I found the entry number again: " << entry_number << '\n';
             }
         }
 
@@ -185,9 +168,22 @@ void RemoveFromFile (std::string key_word) {
             to_file << line << "\n";
         }
     }
-    
+
     from_file.close();
     to_file.close();
+
+    std::ofstream delete_contents ("text_file.txt", std::ios::trunc);
+
+    std::ifstream from_file_2 ("text_file_2.txt");
+    std::ofstream to_file_2 ("text_file.txt");
+    
+    while (getline(from_file_2, line)) {
+        std::cout << "I am adding: " << line << " to the text file." << '\n';
+        to_file_2 << line << '\n';
+    }
+
+    std::ofstream delete_contents_2 ("text_file_2.txt", std::ios::trunc);
+    
 }
 
 int main() {

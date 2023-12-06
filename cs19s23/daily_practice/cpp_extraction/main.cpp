@@ -132,11 +132,11 @@ void RemoveFromFile (std::string key_word) {
     const char* from_file_name{};
     const char* to_file_name{};
     if (num % 2 != 0) {
-        from_file_name = "text_file.txt";
-        to_file_name = "text_file_2.txt";
-    } else {
         from_file_name = "text_file_2.txt";
         to_file_name = "text_file.txt";
+    } else {
+        from_file_name = "text_file.txt";
+        to_file_name = "text_file_2.txt";
     }
 
     num++;
@@ -146,20 +146,55 @@ void RemoveFromFile (std::string key_word) {
     bool was_word_found = false;
 
     std::string line{};
+    int entry_number{};
+    int key_word_entry_number{};
 
     while (getline(from_file, line)) {
         // line = decrypt(line);
-        if (line == key_word) {
-            std::cout << "i found: " << line << '\n'; 
-            was_word_found = true;
-        } else if (was_word_found == true && line == "END") {
-            to_file << line << '\n';
-        } else if (was_word_found == true && line != "END") {
+        if (line == "START") {
+            entry_number++;
+        } else if (line == key_word) {
+            key_word_entry_number = entry_number;
+            entry_number = 0;
+            break;
+        }
+    }
+
+    from_file.close();
+    bool was_entry_found = false;
+
+    while (getline(from_file, line)) {
+        // line = decrypt(line);
+
+        if (line == "START") {
+            entry_number++;
+            if (entry_number == key_word_entry_number) {
+                was_entry_found = true;
+            }
+        }
+
+        if (was_entry_found) {
+            continue;
+        } else if (was_entry_found == true && line == "END") {
+            was_entry_found = false;
             continue;
         } else {
-            std::cout << "im inserting: " << line << '\n'; 
-            to_file << line << '\n';
+            to_file << line << "\n";
         }
+        // if (line == key_word) {
+        //     std::cout << "i found: " << line << '\n'; 
+        //     was_word_found = true;
+        // } else if (was_word_found == true && line == "END") {
+        //     to_file << line << '\n';
+        // } else if (was_word_found == true && line != "END") {
+        //     continue;
+        // } else {
+        //     if (line == "START") {
+        //         entry_number++;
+        //     }
+        //     std::cout << "im inserting: " << line << '\n'; 
+        //     to_file << line << '\n';
+        // }
     }
     
     from_file.close();

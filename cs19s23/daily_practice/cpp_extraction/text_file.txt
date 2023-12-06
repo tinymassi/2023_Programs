@@ -1,22 +1,12 @@
 START
 1234
-this is my entry
-end
-done
+an entry
+blah
 
 END
 START
-1234
-another entry!
-
-END
-START
-nexrt
-
-END
-START
-next
-nexrt
-end
+another
+another entry
+balls
 
 END

@@ -127,6 +127,20 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
     }
 }
 
+void swap_file_data() {
+    std::string line{};
+    std::ifstream from_file ("text_file_2.txt");
+    std::ofstream to_file ("text_file.txt");
+    
+    while (getline(from_file, line)) {
+        std::cout << "I am adding: " << line << " to the text file." << '\n';
+        to_file << line << '\n';
+    }
+
+    std::ofstream delete_contents_2 ("text_file_2.txt", std::ios::trunc);
+
+}
+
 void RemoveFromFile (std::string key_word) {
     bool was_entry_found = false;
 
@@ -169,22 +183,14 @@ void RemoveFromFile (std::string key_word) {
         }
     }
 
+    std::ofstream delete_contents ("text_file.txt", std::ios::trunc);
+
     from_file.close();
     to_file.close();
 
-    std::ofstream delete_contents ("text_file.txt", std::ios::trunc);
-
-    std::ifstream from_file_2 ("text_file_2.txt");
-    std::ofstream to_file_2 ("text_file.txt");
-    
-    while (getline(from_file_2, line)) {
-        std::cout << "I am adding: " << line << " to the text file." << '\n';
-        to_file_2 << line << '\n';
-    }
-
-    std::ofstream delete_contents_2 ("text_file_2.txt", std::ios::trunc);
-    
+    swap_file_data();
 }
+
 
 int main() {
 

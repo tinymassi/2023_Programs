@@ -156,24 +156,27 @@ void RemoveFromFile (std::string key_word) {
         } else if (line == key_word) {
             key_word_entry_number = entry_number;
             entry_number = 0;
+            std::cout << "I found " << line << " in entry #" << key_word_entry_number << '\n';
             break;
         }
     }
 
-    from_file.close();
     bool was_entry_found = false;
+    from_file.seekg(0, std::ios::beg);
 
     while (getline(from_file, line)) {
         // line = decrypt(line);
-
+        std::cout << "I AM RUNNING" << '\n';
+        std::cout << line << '\n';
         if (line == "START") {
             entry_number++;
             if (entry_number == key_word_entry_number) {
                 was_entry_found = true;
+                std::cout << "I found the entry number again: " << entry_number << '\n';
             }
         }
 
-        if (was_entry_found) {
+        if (was_entry_found && line != "END") {
             continue;
         } else if (was_entry_found == true && line == "END") {
             was_entry_found = false;
@@ -181,20 +184,6 @@ void RemoveFromFile (std::string key_word) {
         } else {
             to_file << line << "\n";
         }
-        // if (line == key_word) {
-        //     std::cout << "i found: " << line << '\n'; 
-        //     was_word_found = true;
-        // } else if (was_word_found == true && line == "END") {
-        //     to_file << line << '\n';
-        // } else if (was_word_found == true && line != "END") {
-        //     continue;
-        // } else {
-        //     if (line == "START") {
-        //         entry_number++;
-        //     }
-        //     std::cout << "im inserting: " << line << '\n'; 
-        //     to_file << line << '\n';
-        // }
     }
     
     from_file.close();

@@ -1,10 +1,6 @@
 START
 1234
-an entry
-blah
+test entry
+balls
 
-END
-START
-another
-another entry
 END

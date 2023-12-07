@@ -155,7 +155,7 @@ class log {
         std::cout << std::endl;
         check = false;
         }
-        saveDataToFile(input_container, text_file);
+        saveDataToFileNew(table, text_file);
     }
 
     bool is_password_valid (std::string password) {
@@ -242,8 +242,8 @@ class log {
         break;
         }
 
-        std::ofstream delete_contents_2 (text_file, std::ios::trunc);
-        
+        // std::ofstream delete_contents_2 (text_file, std::ios::trunc);
+
         // removeFromFile(date);
 
         if (!was_data_removed) {
@@ -353,6 +353,35 @@ class log {
     //     std::rename("logger_data.txt", "logger_data_2.txt");
     //     std::rename("logger_data_2.txt", tempFile);
     // }
+
+    void saveDataToFileNew(std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size], std::string file_name) {
+        int array_index{};
+        int vector_index{};
+        bool valid = true;
+        std::ofstream save_to_file (file_name);
+        while (valid) {
+            if (table[array_index].size() > 0) {
+                for (; vector_index < table[array_index].size(); vector_index++) {
+                    if (table[array_index][vector_index].second.size() > 0) {
+                        auto itr = table[array_index][vector_index].second.begin();
+                        for (; itr != table[array_index][vector_index].second.end(); itr++) {
+                            save_to_file << "[START]" << '\n';
+                            save_to_file << itr->first << '\n';
+                            save_to_file << itr->second << '\n';
+                            save_to_file << "[END]" << '\n';
+                        }
+                    } 
+                }
+            }
+            array_index++;
+            vector_index = 0;
+            if (array_index == 1000) {
+                valid = false;
+            }
+        }
+
+        save_to_file.close();
+    }
 
     void saveDataToFile (const std::vector<std::tuple<std::string, std::string, std::string>> input_container, const std::string& file_name) {
         std::ofstream save_to_file (file_name, std::ios::app);

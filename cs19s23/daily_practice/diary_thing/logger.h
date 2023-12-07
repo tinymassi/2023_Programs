@@ -351,6 +351,7 @@ class log {
     void loadDataFromFile(std::string& file_name) {
         std::fstream take_from_file (file_name);
         std::vector <std::tuple<int, std::string, std::string>> from_file_container;
+        int num{};
         if (take_from_file.is_open()) {
             std::string line{};
             std::string entry{};
@@ -359,8 +360,9 @@ class log {
             while (getline(take_from_file, line)) {
                 // line = decrypt(line);  // this is for decryption later
                 if (line != "[START]" && line != "[END]" && line != "") {
-                    if (std::all_of(line.begin(), line.end(), ::isdigit)) {
+                    if (std::all_of(line.begin(), line.end(), ::isdigit) && num == 0) {
                         password = std::stoi(line);
+                        num++;
                     } else if (is_date_valid(line)) {
                         date = line;
                     } else {
@@ -371,6 +373,7 @@ class log {
                     from_file_container.push_back(std::make_tuple(password, date, entry));
                     date = "";
                     entry = "";
+                    num = 0;
                 }
             }
             take_from_file.close();

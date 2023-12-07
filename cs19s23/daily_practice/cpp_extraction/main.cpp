@@ -127,69 +127,69 @@ void loadDataFromFile (std::vector<std::pair<std::string, std::string>>& contain
     }
 }
 
-void swap_file_data() {
-    std::string line{};
-    std::ifstream from_file ("text_file_2.txt");
-    std::ofstream to_file ("text_file.txt");
+// void swap_file_data() {  // bad idea
+//     std::string line{};
+//     std::ifstream from_file ("text_file_2.txt");
+//     std::ofstream to_file ("text_file.txt");
     
-    while (getline(from_file, line)) {
-        std::cout << "I am adding: " << line << " to the text file." << '\n';
-        to_file << line << '\n';
-    }
+//     while (getline(from_file, line)) {
+//         std::cout << "I am adding: " << line << " to the text file." << '\n';
+//         to_file << line << '\n';
+//     }
 
-    std::ofstream delete_contents_2 ("text_file_2.txt", std::ios::trunc);
+//     std::ofstream delete_contents_2 ("text_file_2.txt", std::ios::trunc);
 
-}
+// }
 
-void RemoveFromFile (std::string key_word) {
-    bool was_entry_found = false;
+// void RemoveFromFile (std::string key_word) {  // bad idea
+//     bool was_entry_found = false;
 
-    std::ifstream from_file ("text_file.txt");
-    std::ofstream to_file ("text_file_2.txt");
-    bool was_word_found = false;
-    std::string line{};
-    int entry_number{};
-    int key_word_entry_number{};
+//     std::ifstream from_file ("text_file.txt");
+//     std::ofstream to_file ("text_file_2.txt");
+//     bool was_word_found = false;
+//     std::string line{};
+//     int entry_number{};
+//     int key_word_entry_number{};
 
-    while (getline(from_file, line)) {
-        // line = decrypt(line);
-        if (line == "START") {
-            entry_number++;
-        } else if (line == key_word) {
-            key_word_entry_number = entry_number;
-            entry_number = 0;
-            break;
-        }
-    }
+//     while (getline(from_file, line)) {
+//         // line = decrypt(line);
+//         if (line == "START") {
+//             entry_number++;
+//         } else if (line == key_word) {
+//             key_word_entry_number = entry_number;
+//             entry_number = 0;
+//             break;
+//         }
+//     }
 
-    from_file.seekg(0, std::ios::beg);
+//     from_file.seekg(0, std::ios::beg);
 
-    while (getline(from_file, line)) {
-        // line = decrypt(line);
-        if (line == "START") {
-            entry_number++;
-            if (entry_number == key_word_entry_number) {
-                was_entry_found = true;
-            }
-        }
+//     while (getline(from_file, line)) {
+//         // line = decrypt(line);
+//         if (line == "START") {
+//             entry_number++;
+//             if (entry_number == key_word_entry_number) {
+//                 was_entry_found = true;
+//             }
+//         }
 
-        if (was_entry_found && line != "END") {
-            continue;
-        } else if (was_entry_found == true && line == "END") {
-            was_entry_found = false;
-            continue;
-        } else {
-            to_file << line << "\n";
-        }
-    }
+//         if (was_entry_found && line != "END") {
+//             continue;
+//         } else if (was_entry_found == true && line == "END") {
+//             was_entry_found = false;
+//             continue;
+//         } else {
+//             to_file << line << "\n";
+//         }
+//     }
 
-    std::ofstream delete_contents ("text_file.txt", std::ios::trunc);
+//     std::ofstream delete_contents ("text_file.txt", std::ios::trunc);
 
-    from_file.close();
-    to_file.close();
+//     from_file.close();
+//     to_file.close();
 
-    swap_file_data();
-}
+//     swap_file_data();
+// }
 
 
 int main() {
@@ -232,9 +232,9 @@ int main() {
 
     std::string dummy_string{};
 
-    std::cout << "Enter the word you wanna remove" << '\n';
-    std::cin >> dummy_string;
-    RemoveFromFile(dummy_string);
+    // std::cout << "Enter the word you wanna remove" << '\n';
+    // std::cin >> dummy_string;
+    // RemoveFromFile(dummy_string);
 
     return{};
 }

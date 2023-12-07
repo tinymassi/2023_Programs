@@ -148,7 +148,7 @@ class log {
                         std::cout << '\n';
                     }
                 }
-                remove(int_password, date);
+                remove(int_password, date, text_file);
             } else {
                 user_input = false;
             }
@@ -223,7 +223,7 @@ class log {
         }
     }
 
-    void remove(int password, std::string date) {
+    void remove(int password, std::string date, std::string text_file) {
         int array_index = hash_function(password);
         bool was_data_removed = false;
         int vector_index{};
@@ -242,6 +242,8 @@ class log {
         break;
         }
 
+        std::ofstream delete_contents_2 (text_file, std::ios::trunc);
+        
         // removeFromFile(date);
 
         if (!was_data_removed) {
@@ -319,38 +321,38 @@ class log {
         }
     }
 
-    void removeFromFile (std::string date) {  // this still doesnt work
-        std::ifstream fileToRemoveFrom ("logger_data.txt");
-        const char* tempFile = "temp_swap_file.txt";
-        std::ofstream fileToAddTo ("logger_data_2.txt");
-        std::string line{};
-        bool check_for_date = false;
+    // void removeFromFile (std::string date) {  // this still doesnt work
+    //     std::ifstream fileToRemoveFrom ("logger_data.txt");
+    //     const char* tempFile = "temp_swap_file.txt";
+    //     std::ofstream fileToAddTo ("logger_data_2.txt");
+    //     std::string line{};
+    //     bool check_for_date = false;
 
-        while (getline(fileToRemoveFrom, line)) {
-            line = decrypt(line);
-            if (line == date) {
-                check_for_date = true;
-            } else if (check_for_date && line != "[END]") {
-                continue;
-            } else if (check_for_date && line == "[END]") {
-                check_for_date = false;
-                fileToAddTo << encrypt(line) << '\n';
-            } else {
-                fileToAddTo << encrypt(line) << '\n';
-            }
-        }
+    //     while (getline(fileToRemoveFrom, line)) {
+    //         line = decrypt(line);
+    //         if (line == date) {
+    //             check_for_date = true;
+    //         } else if (check_for_date && line != "[END]") {
+    //             continue;
+    //         } else if (check_for_date && line == "[END]") {
+    //             check_for_date = false;
+    //             fileToAddTo << encrypt(line) << '\n';
+    //         } else {
+    //             fileToAddTo << encrypt(line) << '\n';
+    //         }
+    //     }
 
-        std::ofstream fileToClear("logger_data.txt", std::ios::trunc);
+    //     std::ofstream fileToClear("logger_data.txt", std::ios::trunc);
 
-        fileToRemoveFrom.close();
-        fileToAddTo.close();
+    //     fileToRemoveFrom.close();
+    //     fileToAddTo.close();
 
-        fileToClear.close();
+    //     fileToClear.close();
 
-        std::rename(tempFile, "logger_data.txt");  // find a better way to swap the file names lol
-        std::rename("logger_data.txt", "logger_data_2.txt");
-        std::rename("logger_data_2.txt", tempFile);
-    }
+    //     std::rename(tempFile, "logger_data.txt");  // find a better way to swap the file names lol
+    //     std::rename("logger_data.txt", "logger_data_2.txt");
+    //     std::rename("logger_data_2.txt", tempFile);
+    // }
 
     void saveDataToFile (const std::vector<std::tuple<std::string, std::string, std::string>> input_container, const std::string& file_name) {
         std::ofstream save_to_file (file_name, std::ios::app);

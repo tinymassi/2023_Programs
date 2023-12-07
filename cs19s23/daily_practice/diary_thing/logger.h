@@ -18,7 +18,8 @@
   // g++ main.cpp -lssl -lcrypto
   // ./a.out
 
-  // TODO: ADD A FUNCTION THAT HIDES YOUR PASSWORD AS YOU TYPE IT IN THE TERMIANL WINDOW
+  // TODO: ADD A FUNCTION THAT HIDES YOUR PASSWORD AS YOU TYPE IT IN THE TERMINAL WINDOW
+  // TODO: CHANGE PASSWORDS TO BE ASSIGNED BASED ON STRING ENTRIES SO PPL CAN MAKE CUSTOM PASSWORDS
   // TODO: ALSO ADD A MASTERKEY SO THAT IF SOMEONE FORGETS THEIR PASSWORD YOU CAN SEE
   // ALL THE PASSWORDS AND RETRIEVE IT.
 
@@ -328,11 +329,11 @@ class log {
                     if (table[array_index][vector_index].second.size() > 0) {
                         auto itr = table[array_index][vector_index].second.begin();
                         for (; itr != table[array_index][vector_index].second.end(); itr++) {
-                            save_to_file << "[START]" << '\n';
-                            save_to_file << table[array_index][vector_index].first << '\n';
-                            save_to_file << itr->first << '\n';
-                            save_to_file << itr->second << '\n';
-                            save_to_file << "[END]" << '\n';
+                            save_to_file << encrypt("[START]") << '\n';
+                            save_to_file << encrypt(std::to_string(table[array_index][vector_index].first)) << '\n';
+                            save_to_file << encrypt(itr->first) << '\n';
+                            save_to_file << encrypt(itr->second) << '\n';
+                            save_to_file << encrypt("[END]") << '\n';
                             save_to_file << '\n';
                         }
                     } 
@@ -358,7 +359,7 @@ class log {
             std::string date{};
             int password{};
             while (getline(take_from_file, line)) {
-                // line = decrypt(line);  // this is for decryption later
+                line = decrypt(line);  // this is for decryption later
                 if (line != "[START]" && line != "[END]" && line != "") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit) && num == 0) {
                         password = std::stoi(line);

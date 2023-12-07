@@ -155,7 +155,7 @@ class log {
         std::cout << std::endl;
         check = false;
         }
-        saveDataToFileNew(table, text_file);
+        saveDataToFile(table, text_file);
     }
 
     bool is_password_valid (std::string password) {
@@ -242,10 +242,6 @@ class log {
         break;
         }
 
-        // std::ofstream delete_contents_2 (text_file, std::ios::trunc);
-
-        // removeFromFile(date);
-
         if (!was_data_removed) {
             std::cout << RED << "Data from " << date << " is not in the log." << RESET << '\n';
         }
@@ -321,40 +317,7 @@ class log {
         }
     }
 
-    // void removeFromFile (std::string date) {  // this still doesnt work
-    //     std::ifstream fileToRemoveFrom ("logger_data.txt");
-    //     const char* tempFile = "temp_swap_file.txt";
-    //     std::ofstream fileToAddTo ("logger_data_2.txt");
-    //     std::string line{};
-    //     bool check_for_date = false;
-
-    //     while (getline(fileToRemoveFrom, line)) {
-    //         line = decrypt(line);
-    //         if (line == date) {
-    //             check_for_date = true;
-    //         } else if (check_for_date && line != "[END]") {
-    //             continue;
-    //         } else if (check_for_date && line == "[END]") {
-    //             check_for_date = false;
-    //             fileToAddTo << encrypt(line) << '\n';
-    //         } else {
-    //             fileToAddTo << encrypt(line) << '\n';
-    //         }
-    //     }
-
-    //     std::ofstream fileToClear("logger_data.txt", std::ios::trunc);
-
-    //     fileToRemoveFrom.close();
-    //     fileToAddTo.close();
-
-    //     fileToClear.close();
-
-    //     std::rename(tempFile, "logger_data.txt");  // find a better way to swap the file names lol
-    //     std::rename("logger_data.txt", "logger_data_2.txt");
-    //     std::rename("logger_data_2.txt", tempFile);
-    // }
-
-    void saveDataToFileNew(std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size], std::string file_name) {
+    void saveDataToFile(std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size], std::string file_name) {
         int array_index{};
         int vector_index{};
         bool valid = true;
@@ -366,9 +329,11 @@ class log {
                         auto itr = table[array_index][vector_index].second.begin();
                         for (; itr != table[array_index][vector_index].second.end(); itr++) {
                             save_to_file << "[START]" << '\n';
+                            save_to_file << table[array_index][vector_index].first << '\n';
                             save_to_file << itr->first << '\n';
                             save_to_file << itr->second << '\n';
                             save_to_file << "[END]" << '\n';
+                            save_to_file << '\n';
                         }
                     } 
                 }
@@ -383,23 +348,6 @@ class log {
         save_to_file.close();
     }
 
-    void saveDataToFile (const std::vector<std::tuple<std::string, std::string, std::string>> input_container, const std::string& file_name) {
-        std::ofstream save_to_file (file_name, std::ios::app);
-        if (save_to_file.is_open()) {
-            for (int i = 0; i < input_container.size(); i++) {
-                save_to_file << encrypt("[START]") << '\n';
-                save_to_file << encrypt(std::get<0>(input_container[i])) << '\n';
-                save_to_file << encrypt(std::get<1>(input_container[i])) << '\n';
-                save_to_file << encrypt(std::get<2>(input_container[i])) << '\n';
-                save_to_file << encrypt("[END]") << '\n';
-                save_to_file << '\n';
-            }
-            save_to_file.close();
-        } else {
-            std::cerr << "Failed to open " << file_name << '\n';
-        }
-    }
-
     void loadDataFromFile(std::string& file_name) {
         std::fstream take_from_file (file_name);
         std::vector <std::tuple<int, std::string, std::string>> from_file_container;
@@ -409,7 +357,7 @@ class log {
             std::string date{};
             int password{};
             while (getline(take_from_file, line)) {
-                line = decrypt(line);  // this is for decryption later
+                // line = decrypt(line);  // this is for decryption later
                 if (line != "[START]" && line != "[END]" && line != "") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                         password = std::stoi(line);

@@ -42,7 +42,7 @@ class log {
 
     int static const size = 1000;
     std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size];
-    std::vector<std::pair<std::string, int>> keys;  // save the data in here...
+    std::vector<std::pair<std::string, int>> keys;  // save the data in here in text file
 
     public:
 

@@ -21,6 +21,7 @@
   // TODO: ADD A FUNCTION THAT HIDES YOUR PASSWORD AS YOU TYPE IT IN THE TERMINAL WINDOW
   // TODO: CHANGE PASSWORDS TO BE ASSIGNED BASED ON STRING ENTRIES SO PPL CAN MAKE CUSTOM PASSWORDS
   // TODO: ALSO ADD A MASTERKEY SO THAT IF SOMEONE FORGETS THEIR PASSWORD YOU CAN SEE
+  // TODO: ADD A WAY TO PILE ON TEXT ENTRIES IF THE'YRE THE SAME DATE
   // ALL THE PASSWORDS AND RETRIEVE IT.
 
 #define RESET   "\033[0m"
@@ -207,6 +208,9 @@ class log {
                             if (itr->second == entry) {
                                 std::cout << "Data already in log." << '\n';
                                 is_data_in_table = true;
+                            } else {
+                                itr->second += '\n';
+                                itr->second += entry;
                             }
                         }
                     }

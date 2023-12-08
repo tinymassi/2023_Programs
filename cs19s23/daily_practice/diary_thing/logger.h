@@ -22,6 +22,7 @@
 
   // TODO: ADD A FUNCTION THAT HIDES YOUR PASSWORD AS YOU TYPE IT IN THE TERMINAL WINDOW
   // TODO: CHANGE PASSWORDS TO BE ASSIGNED BASED ON STRING ENTRIES SO PPL CAN MAKE CUSTOM PASSWORDS
+  // TODO: PUT ALL PASSWORDS, STRING AND INT VALUE IN TEXT FILE, AND THEN RELOAD KEYS TO FIX BUG
   // TODO: ALSO ADD A MASTERKEY SO THAT IF SOMEONE FORGETS THEIR PASSWORD YOU CAN SEE
   // ALL THE PASSWORDS AND RETRIEVE IT.
 
@@ -41,7 +42,7 @@ class log {
 
     int static const size = 1000;
     std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size];
-    std::vector<std::pair<std::string, int>> keys;
+    std::vector<std::pair<std::string, int>> keys;  // save the data in here...
 
     public:
 
@@ -55,6 +56,7 @@ class log {
         std::string text_file = "logger_data.txt";
         bool user_input = true;
         bool check = false;
+        bool passwordInSystem = false;
         // std::vector<std::tuple<std::string, std::string, std::string>> input_container;
         loadDataFromFile(text_file);
         while (user_input) {
@@ -71,7 +73,15 @@ class log {
                     std::cin >> str_password;
                     if (str_password.size() != 0) {  // make function for this?
                         check = true;
-                        int_password = passwordToInt(str_password);
+                        for (int i = 0; i < keys.size(); i++) {
+                            if (str_password == keys[i].first) {
+                                int_password = keys[i].second;
+                                passwordInSystem = true;
+                            }
+                        }
+                        if (!passwordInSystem) {    
+                            int_password = passwordToInt(str_password);
+                        }
                     } else {
                         check = false;
                         std::cout << '\n';
@@ -357,11 +367,17 @@ class log {
                     if (table[array_index][vector_index].second.size() > 0) {
                         auto itr = table[array_index][vector_index].second.begin();
                         for (; itr != table[array_index][vector_index].second.end(); itr++) {
-                            save_to_file << encrypt("[START]") << '\n';
-                            save_to_file << encrypt(std::to_string(table[array_index][vector_index].first)) << '\n';
-                            save_to_file << encrypt(itr->first) << '\n';
-                            save_to_file << encrypt(itr->second) << '\n';
-                            save_to_file << encrypt("[END]") << '\n';
+                            // save_to_file << encrypt("[START]") << '\n';
+                            // save_to_file << encrypt(std::to_string(table[array_index][vector_index].first)) << '\n';
+                            // save_to_file << encrypt(itr->first) << '\n';
+                            // save_to_file << encrypt(itr->second) << '\n';
+                            // save_to_file << encrypt("[END]") << '\n';
+                            // save_to_file << '\n';
+                            save_to_file << "[START]" << '\n';
+                            save_to_file << std::to_string(table[array_index][vector_index].first) << '\n';
+                            save_to_file << itr->first << '\n';
+                            save_to_file << itr->second << '\n';
+                            save_to_file << "[END]" << '\n';
                             save_to_file << '\n';
                         }
                     } 
@@ -387,7 +403,7 @@ class log {
             std::string date{};
             int password{};
             while (getline(take_from_file, line)) {
-                line = decrypt(line);  // this is for decryption later
+                // line = decrypt(line);  // this is for decryption later
                 if (line != "[START]" && line != "[END]" && line != "") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit) && num == 0) {
                         password = std::stoi(line);

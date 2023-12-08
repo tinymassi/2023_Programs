@@ -21,7 +21,6 @@
   // TODO: ADD A FUNCTION THAT HIDES YOUR PASSWORD AS YOU TYPE IT IN THE TERMINAL WINDOW
   // TODO: CHANGE PASSWORDS TO BE ASSIGNED BASED ON STRING ENTRIES SO PPL CAN MAKE CUSTOM PASSWORDS
   // TODO: ALSO ADD A MASTERKEY SO THAT IF SOMEONE FORGETS THEIR PASSWORD YOU CAN SEE
-  // TODO: ADD A WAY TO PILE ON TEXT ENTRIES IF THE'YRE THE SAME DATE
   // ALL THE PASSWORDS AND RETRIEVE IT.
 
 #define RESET   "\033[0m"
@@ -197,6 +196,7 @@ class log {
         std::list<std::pair<std::string, std::string>> empty_list;
         int array_index = hash_function(password);
         bool is_data_in_table = false;
+        bool data_added_on = false;
         int vector_index{};
         table[array_index].push_back(std::make_pair(password, empty_list));
         if (table[array_index].size() > 0) {
@@ -209,8 +209,8 @@ class log {
                                 std::cout << "Data already in log." << '\n';
                                 is_data_in_table = true;
                             } else {
-                                itr->second += '\n';
                                 itr->second += entry;
+                                data_added_on = true;
                             }
                         }
                     }
@@ -220,7 +220,9 @@ class log {
         }
 
         if (!is_data_in_table) {
-            table[array_index][vector_index].second.emplace_back(date, entry);
+            if (!data_added_on) {
+                table[array_index][vector_index].second.emplace_back(date, entry);
+            }
             if (from_where == "Main Function") {
                 std::cout << '\n';
                 std::cout << GREEN << "Data was added to log!" << RESET << '\n';

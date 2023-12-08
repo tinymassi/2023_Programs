@@ -53,12 +53,13 @@ class log {
         std::string entry {};
         std::string terminal_entry{};
         std::string input{};
-        std::string text_file = "logger_data.txt";
+        std::string log_file = "logger_data.txt";
+        std::string key_file = "keys.txt";
         bool user_input = true;
         bool check = false;
         bool passwordInSystem = false;
         // std::vector<std::tuple<std::string, std::string, std::string>> input_container;
-        loadDataFromFile(text_file);
+        loadDataFromFile(log_file, key_file);
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
             std::cout << GREEN << "Enter anything other than a, b, & c to exit." << RESET << '\n';
@@ -171,14 +172,14 @@ class log {
                         std::cout << '\n';
                     }
                 }
-                remove(int_password, date, text_file);
+                remove(int_password, date, log_file);
             } else {
                 user_input = false;
             }
         std::cout << std::endl;
         check = false;
         }
-        saveDataToFile(table, text_file);
+        saveDataToFile(table, log_file, key_file);
     }
 
     int passwordToInt (std::string str_password) {
@@ -356,11 +357,11 @@ class log {
         }
     }
 
-    void saveDataToFile(std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size], std::string file_name) {
+    void saveDataToFile(std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size], std::string log_file, std::string key_file) {
         int array_index{};
         int vector_index{};
         bool valid = true;
-        std::ofstream save_to_file (file_name);
+        std::ofstream save_to_file (log_file);
         while (valid) {
             if (table[array_index].size() > 0) {
                 for (; vector_index < table[array_index].size(); vector_index++) {
@@ -391,16 +392,27 @@ class log {
         }
 
         save_to_file.close();
+
+        std::ofstream save_to_file2 (key_file);
+        for (int i = 0; i < keys.size(); i++) {
+            save_to_file2 << "[KEY]" << '\n';
+            save_to_file2 << keys[i].first << '\n';
+            save_to_file2 << "[VALUE]" << '\n';
+            save_to_file2 << keys[i].second << '\n';
+            save_to_file2 << '\n';
+        }
+
+        save_to_file2.close();
     }
 
-    void loadDataFromFile(std::string& file_name) {
-        std::fstream take_from_file (file_name);
+    void loadDataFromFile(std::string log_file, std::string key_file) {
+        std::fstream take_from_file (log_file);
         std::vector <std::tuple<int, std::string, std::string>> from_file_container;
         int num{};
         if (take_from_file.is_open()) {
-            std::string line{};
-            std::string entry{};
-            std::string date{};
+            std::string line{};  // FIX: Is this necessary?
+            std::string entry{};  // FIX: Is this necessary?
+            std::string date{};  // FIX: Is this necessary?
             int password{};
             while (getline(take_from_file, line)) {
                 // line = decrypt(line);  // this is for decryption later
@@ -423,11 +435,36 @@ class log {
             }
             take_from_file.close();
         } else {
-            std::cerr << "Failed to open " << file_name << '\n';
+            std::cerr << "Failed to open " << log_file << '\n';
         }
 
         for (int i = 0; i < from_file_container.size(); i++) {
             insert(std::get<0>(from_file_container[i]), std::get<1>(from_file_container[i]), (std::get<2>(from_file_container[i])), "Load Function");
+        }
+
+        std::fstream take_from_file_2 (key_file);
+        std::string line;
+        std::string str_password;
+        int int_password;
+        num = 0;
+        while (getline(take_from_file_2, line)) {
+            if (line != "[KEY]" && line != "[VALUE]" && line != "") {
+                 if (std::all_of(line.begin(), line.end(), ::isdigit)) {
+                    int_password = stoi(line);
+                    num++;
+                 } else {
+                    str_password = line;
+                    num++;
+                 }
+            }
+            if (num != 0 && num % 2 == 0) {
+                keys.push_back(std::make_pair(str_password, int_password));
+            }
+        }
+
+        for (int i = 0; i < keys.size(); i++) {
+            std::cout << "STR_PASSWORD: " << keys[i].first << '\n';
+            std::cout << "INT_PASSWORD: " << keys[i].second << '\n';
         }
     }
       // TODO: add a good practice for formatting the ciphertext array size based on entry

@@ -69,7 +69,7 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (str_password.size() != 0) {  // dont need this
+                    if (str_password.size() != 0) {  // make function for this?
                         check = true;
                         int_password = passwordToInt(str_password);
                     } else {
@@ -115,7 +115,7 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password to view your entries: ";
                     std::cin >> str_password;
-                    if (str_password.size() != 0) {
+                    if (str_password.size() != 0) {  // make function for this?
                         check = true;
                         for (auto i = 0; i < keys.size(); i++) {
                             if (str_password == keys[i].first) {
@@ -134,7 +134,7 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (str_password.size() != 0) {
+                    if (str_password.size() != 0) {  // make function for this?
                         check = true;
                         for (auto i = 0; i < keys.size(); i++) {
                             if (str_password == keys[i].first) {

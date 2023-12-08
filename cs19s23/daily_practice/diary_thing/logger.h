@@ -55,7 +55,7 @@ class log {
         std::string text_file = "logger_data.txt";
         bool user_input = true;
         bool check = false;
-        std::vector<std::tuple<std::string, std::string, std::string>> input_container;
+        // std::vector<std::tuple<std::string, std::string, std::string>> input_container;
         loadDataFromFile(text_file);
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
@@ -69,16 +69,17 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    // if (is_password_valid(str_password)) {  // dont need this
-                    //     check = true;
-                    //     int_password = std::stoi(str_password);
-                    // } else {
-                    //     check = false;
-                    //     std::cout << '\n';
-                    //     std::cout << RED << "Password invalid. Try again." << RESET << '\n';
-                    //     std::cout << '\n';
-                    // }
+                    if (str_password.size() != 0) {  // dont need this
+                        check = true;
+                        int_password = passwordToInt(str_password);
+                    } else {
+                        check = false;
+                        std::cout << '\n';
+                        std::cout << RED << "Password invalid. Try again." << RESET << '\n';
+                        std::cout << '\n';
+                    }
                 }
+                keys.push_back(std::make_pair(str_password, int_password));
                 check = false;
                 while (!check) {
                     std::cout << "Enter todays date (MM/DD/YY): ";
@@ -106,7 +107,7 @@ class log {
                         entry += terminal_entry;
                     }
                 }
-                input_container.push_back(std::make_tuple(str_password, date, entry));
+                // input_container.push_back(std::make_tuple(str_password, date, entry));
                 insert(int_password, date, entry, "Main Function");
                 entry = "";
                 terminal_entry = "";
@@ -114,9 +115,13 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password to view your entries: ";
                     std::cin >> str_password;
-                    if (is_password_valid(str_password)) {
+                    if (str_password.size() != 0) {
                         check = true;
-                        int_password = std::stoi(str_password);
+                        for (auto i = 0; i < keys.size(); i++) {
+                            if (str_password == keys[i].first) {
+                                int_password = keys[i].second;
+                            }
+                        }
                     } else {
                         check = false;
                         std::cout << '\n';
@@ -129,9 +134,13 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (is_password_valid(str_password)) {
+                    if (str_password.size() != 0) {
                         check = true;
-                        int_password = std::stoi(str_password);
+                        for (auto i = 0; i < keys.size(); i++) {
+                            if (str_password == keys[i].first) {
+                                int_password = keys[i].second;
+                            }
+                        }
                     } else {
                         check = false;
                         std::cout << '\n';
@@ -166,7 +175,7 @@ class log {
         int int_password{};
         std::srand(static_cast<unsigned int>(std::time(nullptr)));
         for (int i = 0; i < str_password.size(); i++) {
-            int_password = int_password * 10 + ((std::rand() % 10) + 1);
+            int_password = int_password * 10 + ((std::rand() % 10) + 1);  // make random password based on string size
         }
 
         return int_password;

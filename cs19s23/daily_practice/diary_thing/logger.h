@@ -14,6 +14,8 @@
 #include <tuple>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
+#include <ctime>
 
   // g++ main.cpp -lssl -lcrypto
   // ./a.out
@@ -39,6 +41,7 @@ class log {
 
     int static const size = 1000;
     std::vector<std::pair<int, std::list<std::pair<std::string, std::string>>>> table [size];
+    std::vector<std::pair<std::string, int>> keys;
 
     public:
 
@@ -66,15 +69,15 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (is_password_valid(str_password)) {
-                        check = true;
-                        int_password = std::stoi(str_password);
-                    } else {
-                        check = false;
-                        std::cout << '\n';
-                        std::cout << RED << "Password invalid. Try again." << RESET << '\n';
-                        std::cout << '\n';
-                    }
+                    // if (is_password_valid(str_password)) {  // dont need this
+                    //     check = true;
+                    //     int_password = std::stoi(str_password);
+                    // } else {
+                    //     check = false;
+                    //     std::cout << '\n';
+                    //     std::cout << RED << "Password invalid. Try again." << RESET << '\n';
+                    //     std::cout << '\n';
+                    // }
                 }
                 check = false;
                 while (!check) {
@@ -157,6 +160,16 @@ class log {
         check = false;
         }
         saveDataToFile(table, text_file);
+    }
+
+    int passwordToInt (std::string str_password) {
+        int int_password{};
+        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+        for (int i = 0; i < str_password.size(); i++) {
+            int_password = int_password * 10 + ((std::rand() % 10) + 1);
+        }
+
+        return int_password;
     }
 
     bool is_password_valid (std::string password) {

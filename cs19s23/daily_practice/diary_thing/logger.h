@@ -370,17 +370,11 @@ class log {
                     if (table[array_index][vector_index].second.size() > 0) {
                         auto itr = table[array_index][vector_index].second.begin();
                         for (; itr != table[array_index][vector_index].second.end(); itr++) {
-                            // save_to_file << encrypt("[START]") << '\n';
-                            // save_to_file << encrypt(std::to_string(table[array_index][vector_index].first)) << '\n';
-                            // save_to_file << encrypt(itr->first) << '\n';
-                            // save_to_file << encrypt(itr->second) << '\n';
-                            // save_to_file << encrypt("[END]") << '\n';
-                            // save_to_file << '\n';
-                            save_to_file << "[START]" << '\n';
-                            save_to_file << std::to_string(table[array_index][vector_index].first) << '\n';
-                            save_to_file << itr->first << '\n';
-                            save_to_file << itr->second << '\n';
-                            save_to_file << "[END]" << '\n';
+                            save_to_file << encrypt("[START]") << '\n';
+                            save_to_file << encrypt(std::to_string(table[array_index][vector_index].first)) << '\n';
+                            save_to_file << encrypt(itr->first) << '\n';
+                            save_to_file << encrypt(itr->second) << '\n';
+                            save_to_file << encrypt("[END]") << '\n';
                             save_to_file << '\n';
                         }
                     } 
@@ -397,10 +391,10 @@ class log {
 
         std::ofstream save_to_file2 (key_file);
         for (int i = 0; i < keys.size(); i++) {
-            save_to_file2 << "[KEY]" << '\n';
-            save_to_file2 << keys[i].first << '\n';
-            save_to_file2 << "[VALUE]" << '\n';
-            save_to_file2 << keys[i].second << '\n';
+            save_to_file2 << encrypt("[KEY]") << '\n';
+            save_to_file2 << encrypt(keys[i].first) << '\n';
+            save_to_file2 << encrypt("[VALUE]") << '\n';
+            save_to_file2 << encrypt(std::to_string(keys[i].second)) << '\n';
             save_to_file2 << '\n';
         }
 
@@ -417,7 +411,7 @@ class log {
             std::string date{};  // FIX: Is this necessary?
             int password{};
             while (getline(take_from_file, line)) {
-                // line = decrypt(line);  // this is for decryption later
+                line = decrypt(line);  // this is for decryption later
                 if (line != "[START]" && line != "[END]" && line != "") {
                     if (std::all_of(line.begin(), line.end(), ::isdigit) && num == 0) {
                         password = std::stoi(line);
@@ -450,6 +444,7 @@ class log {
         int int_password{};
         num = 0;
         while (getline(take_from_file_2, line)) {
+            line = decrypt(line);
             if (line != "[KEY]" && line != "[VALUE]" && line != "") {
                  if (std::all_of(line.begin(), line.end(), ::isdigit)) {
                     int_password = stoi(line);

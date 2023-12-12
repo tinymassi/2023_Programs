@@ -58,7 +58,6 @@ class log {
         bool user_input = true;
         bool check = false;
         bool passwordInSystem = false;
-        // std::vector<std::tuple<std::string, std::string, std::string>> input_container;
         loadDataFromFile(log_file, key_file);
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
@@ -90,7 +89,7 @@ class log {
                         std::cout << '\n';
                     }
                 }
-                if (!passwordInSystem) {  // hopefully this will work
+                if (!passwordInSystem) {
                     keys.push_back(std::make_pair(str_password, int_password));
                 }
                 check = false;
@@ -120,7 +119,6 @@ class log {
                         entry += terminal_entry;
                     }
                 }
-                // input_container.push_back(std::make_tuple(str_password, date, entry));
                 insert(int_password, date, entry, "Main Function");
                 entry = "";
                 terminal_entry = "";

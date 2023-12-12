@@ -72,7 +72,7 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (str_password.size() != 0) {  // make function for this?
+                    if (str_password.size() != 0) {  // FIX: make function for this?
                         check = true;
                         for (int i = 0; i < keys.size(); i++) {
                             if (str_password == keys[i].first) {
@@ -90,7 +90,9 @@ class log {
                         std::cout << '\n';
                     }
                 }
-                keys.push_back(std::make_pair(str_password, int_password));
+                if (!passwordInSystem) {  // hopefully this will work
+                    keys.push_back(std::make_pair(str_password, int_password));
+                }
                 check = false;
                 while (!check) {
                     std::cout << "Enter todays date (MM/DD/YY): ";
@@ -126,7 +128,7 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password to view your entries: ";
                     std::cin >> str_password;
-                    if (str_password.size() != 0) {  // make function for this?
+                    if (str_password.size() != 0) {  // FIX: make function for this?
                         check = true;
                         for (auto i = 0; i < keys.size(); i++) {
                             if (str_password == keys[i].first) {
@@ -145,7 +147,7 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (str_password.size() != 0) {  // make function for this?
+                    if (str_password.size() != 0) {  // FIX: make function for this?
                         check = true;
                         for (auto i = 0; i < keys.size(); i++) {
                             if (str_password == keys[i].first) {
@@ -186,7 +188,7 @@ class log {
         int int_password{};
         std::srand(static_cast<unsigned int>(std::time(nullptr)));
         for (int i = 0; i < str_password.size(); i++) {
-            int_password = int_password * 10 + ((std::rand() % 10) + 1);  // make random password based on string size
+            int_password = int_password * 10 + ((std::rand() % 10) + 1);
         }
 
         return int_password;
@@ -443,9 +445,9 @@ class log {
         }
 
         std::fstream take_from_file_2 (key_file);
-        std::string line;
-        std::string str_password;
-        int int_password;
+        std::string line{};
+        std::string str_password{};
+        int int_password{};
         num = 0;
         while (getline(take_from_file_2, line)) {
             if (line != "[KEY]" && line != "[VALUE]" && line != "") {
@@ -460,11 +462,6 @@ class log {
             if (num != 0 && num % 2 == 0) {
                 keys.push_back(std::make_pair(str_password, int_password));
             }
-        }
-
-        for (int i = 0; i < keys.size(); i++) {
-            std::cout << "STR_PASSWORD: " << keys[i].first << '\n';
-            std::cout << "INT_PASSWORD: " << keys[i].second << '\n';
         }
     }
       // TODO: add a good practice for formatting the ciphertext array size based on entry

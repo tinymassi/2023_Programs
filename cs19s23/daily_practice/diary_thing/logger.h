@@ -24,6 +24,10 @@
   // TODO: ALSO ADD A MASTERKEY SO THAT IF SOMEONE FORGETS THEIR PASSWORD YOU CAN SEE
   // ALL THE PASSWORDS AND RETRIEVE IT.
 
+  // FIX: STILL CAN SEE OTHER ENTRIES DESPITE NOT ENTERING CORRECT PASSWORD
+  // FIX: ADDED DATA TO PAST DATES DOESNT SAVE IN THE PROGRAM OVER MULTIPLE USES
+  // FIX: MASTERKEY DOESNT WORK YET
+
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
@@ -53,10 +57,13 @@ class log {
         std::string input{};
         std::string log_file = "logger_data.txt";
         std::string key_file = "keys.txt";
+        std::string master = "��l%�";
+        std::string decrypt_master{};
         bool user_input = true;
         bool check = false;
         bool passwordInSystem = false;
         loadDataFromFile(log_file, key_file);
+        std::cout << decrypt(master) << std::endl;
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
             std::cout << GREEN << "Enter anything other than a, b, & c to exit." << RESET << '\n';
@@ -69,22 +76,28 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (str_password.size() != 0) {  // FIX: make function for this?
-                        check = true;
-                        for (int i = 0; i < keys.size(); i++) {
-                            if (str_password == keys[i].first) {
-                                int_password = keys[i].second;
-                                passwordInSystem = true;
-                            }
-                        }
-                        if (!passwordInSystem) {    
-                            int_password = passwordToInt(str_password);
+                    if (str_password == decrypt_master) {  // not working
+                        for (int i  = 0; i < keys.size(); i++) {
+                            std::cout << keys[i].first << '\n';
                         }
                     } else {
+                        if (str_password.size() != 0) {  // FIX: make function for this?
+                            check = true;
+                            for (int i = 0; i < keys.size(); i++) {
+                                if (str_password == keys[i].first) {
+                                    int_password = keys[i].second;
+                                    passwordInSystem = true;
+                                }
+                            }
+                            if (!passwordInSystem) {    
+                                int_password = passwordToInt(str_password);
+                            }
+                        } else {
                         check = false;
                         std::cout << '\n';
                         std::cout << RED << "Password invalid. Try again." << RESET << '\n';
                         std::cout << '\n';
+                        }
                     }
                 }
                 if (!passwordInSystem) {

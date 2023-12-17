@@ -23,9 +23,6 @@
   // TODO: ADD A FUNCTION THAT HIDES YOUR PASSWORD AS YOU TYPE IT IN THE TERMINAL WINDOW
   // TODO: ALSO ADD A MASTERKEY SO THAT IF SOMEONE FORGETS THEIR PASSWORD YOU CAN SEE
   // ALL THE PASSWORDS AND RETRIEVE IT.
-
-  // FIX: STILL CAN SEE OTHER ENTRIES DESPITE NOT ENTERING CORRECT PASSWORD
-  // FIX: ADDED DATA TO PAST DATES DOESNT SAVE IN THE PROGRAM OVER MULTIPLE USES
   // FIX: MASTERKEY DOESNT WORK YET
 
 #define RESET   "\033[0m"
@@ -57,13 +54,11 @@ class log {
         std::string input{};
         std::string log_file = "logger_data.txt";
         std::string key_file = "keys.txt";
-        std::string master = "��l%�";  // this wont decrypt
         std::string decrypt_master{};
         bool user_input = true;
         bool check = false;
         bool passwordInSystem = false;
         loadDataFromFile(log_file, key_file);
-        std::cout << decrypt(master) << std::endl;
         while (user_input) {
             std::cout << GREEN << "What would you like to do with your journal?" << RESET << '\n';
             std::cout << GREEN << "Enter anything other than a, b, & c to exit." << RESET << '\n';

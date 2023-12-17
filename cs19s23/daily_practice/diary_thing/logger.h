@@ -54,7 +54,6 @@ class log {
         std::string input{};
         std::string log_file = "logger_data.txt";
         std::string key_file = "keys.txt";
-        std::string decrypt_master{};
         bool user_input = true;
         bool check = false;
         bool passwordInSystem = false;
@@ -71,28 +70,22 @@ class log {
                 while (!check) {
                     std::cout << "Enter your password: ";
                     std::cin >> str_password;
-                    if (str_password == decrypt_master) {  // not working
-                        for (int i  = 0; i < keys.size(); i++) {
-                            std::cout << keys[i].first << '\n';
+                    if (str_password.size() != 0) {  // FIX: make function for this?
+                        check = true;
+                        for (int i = 0; i < keys.size(); i++) {
+                            if (str_password == keys[i].first) {
+                                int_password = keys[i].second;
+                                passwordInSystem = true;
+                            }
+                        }
+                        if (!passwordInSystem) {    
+                            int_password = passwordToInt(str_password);
                         }
                     } else {
-                        if (str_password.size() != 0) {  // FIX: make function for this?
-                            check = true;
-                            for (int i = 0; i < keys.size(); i++) {
-                                if (str_password == keys[i].first) {
-                                    int_password = keys[i].second;
-                                    passwordInSystem = true;
-                                }
-                            }
-                            if (!passwordInSystem) {    
-                                int_password = passwordToInt(str_password);
-                            }
-                        } else {
                         check = false;
                         std::cout << '\n';
                         std::cout << RED << "Password invalid. Try again." << RESET << '\n';
                         std::cout << '\n';
-                        }
                     }
                 }
                 if (!passwordInSystem) {

@@ -57,7 +57,7 @@ class log {
         std::string input{};
         std::string log_file = "logger_data.txt";
         std::string key_file = "keys.txt";
-        std::string master = "��l%�";
+        std::string master = "��l%�";  // this wont decrypt
         std::string decrypt_master{};
         bool user_input = true;
         bool check = false;
@@ -135,6 +135,7 @@ class log {
                 terminal_entry = "";
             } else if (input == "b") {
                 while (!check) {
+                    int_password = 0;
                     std::cout << "Enter your password to view your entries: ";
                     std::cin >> str_password;
                     if (str_password.size() != 0) {  // FIX: make function for this?
@@ -150,8 +151,8 @@ class log {
                         std::cout << RED << "Password invalid. Try again." << RESET << '\n';
                         std::cout << '\n';
                     }
+                    print_user_log(int_password);
                 }
-                print_user_log(int_password);
             } else if (input == "c") {
                 while (!check) {
                     std::cout << "Enter your password: ";
